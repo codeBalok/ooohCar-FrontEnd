@@ -1,0 +1,111 @@
+<!-- Featured car start -->
+<div class="featured-car content-area">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>Featured Car</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6" *ngFor="let product of vehicleModelList">
+                <div class="car-box-3">
+                    <div class="car-thumbnail">
+                        <a href="car-details.html" class="car-img">
+                            <div class="for">For Sale</div>
+                            <div class="price-box">
+                                <span class="del"><del>$950.00</del></span>
+                                <br>
+                                <span>$1050.00</span>
+                            </div>
+                            <img class="d-block w-100" [src]="product.image" alt="car">
+                        </a>
+                        <div class="carbox-overlap-wrapper">
+                            <div class="overlap-box">
+                                <div class="overlap-btns-area">
+                                    <a class="overlap-btn" data-toggle="modal" data-target="#carOverviewModal">
+                                        <i class="fa fa-eye-slash"></i>
+                                    </a>
+                                    <a class="overlap-btn wishlist-btn">
+                                        <i class="fa fa-heart-o"></i>
+                                    </a>
+                                    <a class="overlap-btn compare-btn">
+                                        <i class="fa fa-balance-scale"></i>
+                                    </a>
+                                    <div class="car-magnify-gallery">
+                                        <a href="http://placehold.it/750x500" class="overlap-btn" data-sub-html="<h4>Lamborghini</h4><p>A beautiful Sunrise this morning taken En-route to Keswick not one as planned but I'm extremely happy....</p>">
+                                            <i class="fa fa-expand"></i>
+                                            <img class="hidden" src="http://placehold.it/80x58" alt="hidden-img">
+                                        </a>
+                                        <a href="http://placehold.it/750x500" class="hidden" data-sub-html="<h4>Ferrari Red Car</h4><p>A beautiful Sunrise this morning taken En-route to Keswick not one as planned but I'm extremely happy....</p>">
+                                            <img class="hidden" src="http://placehold.it/80x58" alt="hidden-img">
+                                        </a>
+                                        <a href="http://placehold.it/750x500" class="hidden" data-sub-html="<h4>Bmw e46 m3 Diski Serie</h4><p>A beautiful Sunrise this morning taken En-route to Keswick not one as planned but I'm extremely happy....</p>">
+                                            <img class="hidden" src="http://placehold.it/80x58" alt="hidden-img">
+                                        </a>
+                                        <a href="http://placehold.it/750x500" class="hidden" data-sub-html="<h4>Volkswagen Scirocco 2016</h4><p>A beautiful Sunrise this morning taken En-route to Keswick not one as planned but I'm extremely happy....</p>">
+                                            <img class="hidden" src="http://placehold.it/80x58" alt="hidden-img">
+                                        </a>
+                                        <a href="http://placehold.it/750x500" class="hidden" data-sub-html="<h4>Porsche Cayen Last</h4><p>A beautiful Sunrise this morning taken En-route to Keswick not one as planned but I'm extremely happy....</p>">
+                                            <img class="hidden" src="http://placehold.it/80x58" alt="hidden-img">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <h1 class="title">
+                            <a href="car-details.html">{{product.name}}</a>
+                        </h1>
+                        <ul class="custom-list">
+                            <li>
+                                <a href="#">{{product.type}}</a> /
+                            </li>
+                            <li>
+                                <a href="#">{{product.transmission}}</a> /
+                            </li>
+                            <li>
+                                <a href="#">{{product.body}}</a>
+                            </li>
+                        </ul>
+                        <ul class="facilities-list clearfix">
+                            <li>
+                                <i class="flaticon-way"></i> {{product.odometers}} km
+                            </li>
+                            <li>
+                                <i class="flaticon-manual-transmission"></i> {{product.transmission}}
+                            </li>
+                            <li>
+                                <i class="flaticon-calendar-1"></i> {{product.year}}
+                            </li>
+                            <li>
+                                <i class="flaticon-fuel"></i> {{product.fuelType}}
+                            </li>
+                            <li>
+                                <i class="flaticon-car"></i> {{product.body}}
+                            </li>
+                            <li>
+                                <i class="flaticon-gear"></i> {{product.cylinders}} Cylinders
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer clearfix">
+                        <div class="pull-left ratings">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o"></i>
+                            <span>(65 Reviews)</span>
+                        </div>
+                        <ul class="pull-right icon">
+                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                            <li><a href="#"><i class="fa fa-share-square-o"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Featured car end -->

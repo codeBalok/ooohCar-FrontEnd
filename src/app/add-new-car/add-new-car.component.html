@@ -1,0 +1,317 @@
+<div class="contact-2 content-area-5">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title text-center">
+            <h1>Add New Car</h1>
+          
+        </div>
+        <form [formGroup]="addvehicleFormVariable" (ngSubmit)="onSubmit()" *ngIf="addvehicleFormVariable">
+<div class="row">
+    <div class="col-lg-12">
+      
+        <div class="preview text-left">
+
+            <img *ngIf="!previewPhoto" class="preview-img"
+                src="assets/images/Cars/car-default.jpg" alt="Preview Image"
+                width="200" height="150" />
+
+            <img *ngIf="previewPhoto" class="preview-img img-size" [src]="previewPhoto"
+                alt="Preview Image" width="200" height="150" />
+          
+
+            <div class="browse-button" >
+                <i class="fa fa-pencil-alt"></i>
+                <input class="browse-input" type="file" name="UploadedFile" id="UploadedFile"
+                    (change)="onSelectedFile($event)" />
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="row top-buffer" >
+                <div class="col-lg-12" >
+                    <div class="row">
+                        <div class="col-md-4 text-left">
+                            <div class="form-group Make">
+                                <select  class="form-control drp-add-new-car" formControlName="MakeId"
+                                [ngClass]="{ 'is-invalid': submitted && f.MakeId.errors }"
+                                (change)='getModelList(selectMake.value)' #selectMake>
+                                    <option selected  disabled value="">Select Make Type*</option>
+                                    <option *ngFor="let sort of AddNewCarListModel.MakeType" 
+                                    [value]="sort.id">
+                                    {{sort.name}}
+                                </option>
+                                </select>
+                                <div *ngIf="submitted && f.MakeId.errors" class="invalid-feedback">
+                                    <div *ngIf="f.MakeId.errors.required">Make type is required</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select  class="form-control drp-add-new-car"  formControlName="ModelId"
+                                [ngClass]="{ 'is-invalid': submitted && f.ModelId.errors }"
+                                (change)='getVariantList(selectModal.value)' #selectModal>
+                                    <option selected  disabled value="">Select Model Type*</option>
+                                   
+                                    <option *ngFor="let sort of AddNewCarListModel.CarModel" 
+                                    [value]="sort.id">
+                                    {{sort.name}}
+                                </option>
+                                </select>
+                                <div *ngIf="submitted && f.ModelId.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ModelId.errors.required">Model is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select formControlName="Variant" 
+                                [ngClass]="{ 'is-invalid': submitted && f.Variant.errors }"
+                                class="form-control drp-add-new-car">
+                                    <option selected  disabled value="">Select Variant Type*</option>
+                                    <option *ngFor="let sort of AddNewCarListModel.Variant" 
+                                    [value]="sort.id">
+                                    {{sort.name}}
+                                </option>
+                                </select>
+                                <div *ngIf="submitted && f.Variant.errors" class="invalid-feedback">
+                                    <div *ngIf="f.Variant.errors.required">Varient is required</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-4" >
+                            <div class="form-group">
+                                <select formControlName="YearId"
+                                [ngClass]="{ 'is-invalid': submitted && f.YearId.errors }"
+                                 class="form-control drp-add-new-car">
+                                    <option selected  disabled value="">Select Year Type*</option>
+                                    <option *ngFor="let sort of AddNewCarListModel.Year" 
+                                    [value]="sort.id">
+                                    {{sort.name}}
+                                </option>
+                                </select>
+                                <div *ngIf="submitted && f.YearId.errors" class="invalid-feedback">
+                                    <div *ngIf="f.YearId.errors.required">Year is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                      
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select formControlName="ConditionId"
+                                [ngClass]="{ 'is-invalid': submitted && f.ConditionId.errors }" class="form-control drp-add-new-car">
+                                    <option selected  disabled value="">Select Condition*</option>
+                                    <option *ngFor="let sort of AddNewCarListModel.Condition" 
+                                    [value]="sort.id">
+                                    {{sort.name}}
+                                </option>
+                                </select>
+                                <div *ngIf="submitted && f.ConditionId.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ConditionId.errors.required">Condition is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <select formControlName="PriceId"
+                            [ngClass]="{ 'is-invalid': submitted && f.PriceId.errors }" class="form-control drp-add-new-car">
+                                <option selected  disabled value="">Select Price*</option>
+                                <option *ngFor="let sort of AddNewCarListModel.Price" 
+                                [value]="sort.id">
+                                {{sort.name}}
+                            </option>
+                            </select>
+                            <div *ngIf="submitted && f.PriceId.errors" class="invalid-feedback">
+                                <div *ngIf="f.PriceId.errors.required">Price is required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group number">
+                                <input type="text"  name="KiloMeters"
+                                formControlName="Kilometer"
+                            [ngClass]="{ 'is-invalid': submitted && f.Kilometer.errors }" class="form-control" placeholder="KiloMeters*">
+                                <div *ngIf="submitted && f.Kilometer.errors" class="invalid-feedback">
+                                    <div *ngIf="f.Kilometer.errors.required">Kilometer is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select  formControlName="TransmissionId"
+                                [ngClass]="{ 'is-invalid': submitted && f.TransmissionId.errors }" class="form-control drp-add-new-car">
+                                    <option selected  disabled value="">Select Transmission Type*</option>
+                                    <option *ngFor="let sort of AddNewCarListModel.Transmission" 
+                                    [value]="sort.id">
+                                    {{sort.name}}
+                                </option>
+                                </select>
+                                <div *ngIf="submitted && f.TransmissionId.errors" class="invalid-feedback">
+                                    <div *ngIf="f.TransmissionId.errors.required">Transmission is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select formControlName="FuelTypeId"
+                                [ngClass]="{ 'is-invalid': submitted && f.FuelTypeId.errors }" class="form-control drp-add-new-car">
+                                    <option selected  disabled value="">Select Fual Type*</option>
+                                    <option *ngFor="let sort of AddNewCarListModel.Fuel" 
+                                    [value]="sort.id">
+                                    {{sort.name}}
+                                </option>
+                                </select>
+                                <div *ngIf="submitted && f.FuelTypeId.errors" class="invalid-feedback">
+                                    <div *ngIf="f.FuelTypeId.errors.required">FuelType is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select formControlName="CylindersId"
+                                [ngClass]="{ 'is-invalid': submitted && f.CylindersId.errors }" class="form-control drp-add-new-car">
+                                    <option selected  disabled value="">Select Cylinder Type</option>
+                                    <option *ngFor="let sort of AddNewCarListModel.Cylinder" 
+                                    [value]="sort.id">
+                                    {{sort.name}}
+                                </option>
+                                </select>
+                                <div *ngIf="submitted && f.CylindersId.errors" class="invalid-feedback">
+                                    <div *ngIf="f.CylindersId.errors.required">Cylinders is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select formControlName="DriveTrain"
+                                [ngClass]="{ 'is-invalid': submitted && f.DriveTrain.errors }"   class="form-control drp-add-new-car">
+                                    <option selected  disabled value="">Drive Train</option>
+                                    <option value="Front Wheel Drive">Front Wheel Drive</option>
+                                    <option value="Rear Wheel Drive">Rear Wheel Drive</option>
+                                    <option value="All Wheel Drive">All Wheel Drive</option>
+                                    <option value="4x4">4x4</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <div *ngIf="submitted && f.DriveTrain.errors" class="invalid-feedback">
+                                    <div *ngIf="f.DriveTrain.errors.required">DriveTrain is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select formControlName="BodyTypeId"
+                                [ngClass]="{ 'is-invalid': submitted && f.BodyTypeId.errors }" class="form-control drp-add-new-car">
+                                    <option selected value="" disabled>Select Body Type*</option>
+                                    <option *ngFor="let sort of AddNewCarListModel.BodyType" 
+                                    [value]="sort.id">
+                                    {{sort.name}}
+                                </option>
+                                </select>
+                                <div *ngIf="submitted && f.BodyTypeId.errors" class="invalid-feedback">
+                                    <div *ngIf="f.BodyTypeId.errors.required">BodyType is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div
+                            class="ng-autocomplete form-group">
+                                <ng-autocomplete
+                                  [data]="colorlist"
+                                  [searchKeyword]="keyword"
+                                  placeHolder="Enter the Color Name"
+                                  (selected)='selectEvent($event)'
+                                  (inputChanged)='onChangeSearch($event)'
+                                  (inputFocused)='onFocused($event)'
+                                  historyIdentifier="colorlist"
+                                  [itemTemplate]="itemTemplate"
+                                  [notFoundTemplate]="notFoundTemplate">
+                                </ng-autocomplete>
+                               
+                                
+                                <ng-template #itemTemplate let-item>
+                                  <a [innerHTML]="item.name"></a>
+                                </ng-template>
+                              
+                                <ng-template #notFoundTemplate let-notFound>
+                                  <div [innerHTML]="notFound"></div>
+                                </ng-template>
+                                <span class="text-danger colorValidate"  *ngIf="showColorErrorMessage">Color is required</span>
+                              </div>
+                             
+                        </div>
+                        
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select  class="form-control drp-add-new-car" formControlName="AirConditioning"
+                                [ngClass]="{ 'is-invalid': submitted && f.AirConditioning.errors }">
+                                    <option selected value=""  disabled>Select Airconditioning Type*</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <!-- <option *ngFor="let web of websiteList">{{web}}</option> -->
+                                </select>
+                                <div *ngIf="submitted && f.AirConditioning.errors" class="invalid-feedback">
+                                    <div *ngIf="f.AirConditioning.errors.required">Aircondition is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select formControlName="AuctionGrade"
+                                [ngClass]="{ 'is-invalid': submitted && f.AuctionGrade.errors }" class="form-control drp-add-new-car">
+                                    <option selected value="" disabled>Select Auction Grade*</option>
+                                    <option value="Grade 4">Grade 4</option>
+                                    <option value="Grade 3.5">Grade 3.5</option>
+                                    <option value="Grade 3">Grade 3</option>
+                                    <option value="Grade 2">Grade 2</option>
+                                    <!-- <option *ngFor="let web of websiteList">{{web}}</option> -->
+                                </select>
+                                <div *ngIf="submitted && f.AuctionGrade.errors" class="invalid-feedback">
+                                    <div *ngIf="f.AuctionGrade.errors.required">Auction Grade is required</div>
+                                </div>
+                            </div>
+                        </div>
+                       
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select formControlName="LocationId"
+                                [ngClass]="{ 'is-invalid': submitted && f.LocationId.errors }" class="form-control drp-add-new-car">
+                                    <option selected  disabled value="">Select Location*</option>
+                                    <option *ngFor="let sort of AddNewCarListModel.Location" 
+                                    [value]="sort.id">
+                                    {{sort.name}}
+                                </option>
+                                </select>
+                                <div *ngIf="submitted && f.LocationId.errors" class="invalid-feedback">
+                                    <div *ngIf="f.LocationId.errors.required">Location is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                       
+                      
+                        <div class="col-md-4">
+                               <a href="/"> <button type="button" class="btn-md button-theme mr-2">CANCEL</button></a>
+                                <button class="btn-md button-theme">SAVE</button>
+                        </div>
+                       
+                    </div>
+                </div>
+               
+            </div>
+        </form>
+    </div>
+</div>
