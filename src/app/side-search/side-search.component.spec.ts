@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SideSearchComponent } from './side-search.component';
 
@@ -6,7 +6,7 @@ describe('SideSearchComponent', () => {
   let component: SideSearchComponent;
   let fixture: ComponentFixture<SideSearchComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SideSearchComponent ]
     })
