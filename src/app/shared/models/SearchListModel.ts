@@ -15,3 +15,6 @@ export class SearchModel {
     LocationId: string = "0";
     YearId: string = "0";
 }
+export class SearchSelectedMakes {
+    Make: CommonModel[] ;
+}

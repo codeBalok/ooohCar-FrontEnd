@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject,Subject } from 'rxjs';
 import { SearchListModel } from '../shared/models/SearchListModel';
 import { map } from 'rxjs/operators';
-import { SearchModel } from '../shared/models/SearchListModel';
+import { SearchModel,SearchSelectedMakes } from '../shared/models/SearchListModel';
 
 @Injectable({
   providedIn: 'root'
@@ -64,4 +64,7 @@ export class HomeService {
 
   //   return this.http.delete<IResponse>(this.baseUrl + this.ApiRoute.DeleteChildren + '/' + id);
   // }
+  GetVehicleListAccordingToSelectedMakes(searchSelectedMakes : SearchSelectedMakes) {
+    return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedMakes', searchSelectedMakes);
+  }
 }
