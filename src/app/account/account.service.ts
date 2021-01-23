@@ -37,14 +37,15 @@ export class AccountService {
   }
 
   login(values: any) {
-    return this.http.post(this.baseUrl + 'account/login', values).pipe(
-      map((user: IUser) => {
-        if (user) {
-          localStorage.setItem('token', user.token);
-          this.currentUserSource.next(user);
-        }
-      })
-    );
+    // return this.http.post(this.baseUrl + 'account/login', values).pipe(
+    //   map((user: IUser) => {
+    //     if (user) {
+    //       localStorage.setItem('token', user.token);
+    //       this.currentUserSource.next(user);
+    //     }
+    //   })
+    // );
+    return this.http.post(this.baseUrl + 'account/login', values)
   }
 
   register(values: any) {
@@ -59,9 +60,15 @@ export class AccountService {
   }
 
   logout() {
+    // localStorage.removeItem('token');
+    // this.currentUserSource.next(null);
+    debugger;
+   
     localStorage.removeItem('token');
-    this.currentUserSource.next(null);
-    this.router.navigateByUrl('/');
+    localStorage.removeItem('user');
+    localStorage.removeItem('Password');
+    localStorage.clear();
+    
   }
 
   checkEmailExists(email: string) {

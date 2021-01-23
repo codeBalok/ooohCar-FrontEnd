@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center mt-5">
+<!-- <div class="d-flex justify-content-center mt-5">
     <div class="col-3">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="text-center mb-4">
@@ -11,4 +11,71 @@
         <button [disabled]="loginForm.invalid" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
     </div>
+  </div> -->
+
+<!-- Contact section start -->
+<div class="contact-section">
+  <div class="container">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="row login-box">
+        <div class="col-lg-6 align-self-center pad-0">
+          <div class="form-section align-self-center">
+            <h3>Sign into your account</h3>
+            <div class="btn-section clearfix">
+              <a href="login" class="link-btn active btn-1 active-bg">Login</a>
+              <a href="register" class="link-btn btn-2 default-bg">Register</a>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="form-group form-box">
+          
+            <input placeholder="UserName" type="text" formControlName="username" class="input-text" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                <div *ngIf="f.username.errors.required">Username is required</div>
+            </div>
+            
+            </div>
+            <div class="form-group form-box clearfix">
+          
+              <input placeholder="Password" type="password" formControlName="password" class="input-text"  [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+              <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors.required">Password is required</div>
+              </div>
+
+            </div>
+            <div class="form-group clearfix mb-0">
+                <button class="btn-md btn-theme float-left">Login</button>
+              <a href="forgot-password.html" class="forgot-password">Forgot Password</a>
+            </div>
+
+          </div>
+        </div>
+        <!-- <div class="col-lg-6 align-self-center pad-0 bg-img"> -->
+        <div class="col-lg-6 align-self-center pad-0 bg-img">
+          <div class="info clearfix">
+            <div class="logo-2">
+              <a href="index.html">
+                <img src="/assets/images/black-logo.png" alt="logo">
+              </a>
+            </div>
+            <h3>Welcome to AutoCar</h3>
+            <div class="social-list">
+              <a href="#" class="facebook-bg">
+                <i class="fa fa-facebook"></i>
+              </a>
+              <a href="#" class="twitter-bg">
+                <i class="fa fa-twitter"></i>
+              </a>
+              <a href="#" class="google-bg">
+                <i class="fa fa-google"></i>
+              </a>
+              <a href="#" class="linkedin-bg">
+                <i class="fa fa-linkedin"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
+</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { AccountService } from '../account.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -11,28 +11,39 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   returnUrl: string;
-
-  constructor(private accountService: AccountService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  submitted = false;
+  authenticationData: any = {};
+  constructor(private accountService: AccountService, private router: Router,
+     private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder,) { }
 
   ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+  });
     this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || '/shop';
-    this.createLoginForm();
+    
   }
 
-  createLoginForm() {
-    this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators
-        .pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')]),
-      password: new FormControl('', Validators.required)
-    });
-  }
 
-  onSubmit() {
-    this.accountService.login(this.loginForm.value).subscribe(() => {
-      this.router.navigateByUrl(this.returnUrl);
-    }, error => {
-      console.log(error);
-    });
+  get f() { return this.loginForm.controls; }
+  onSubmit(){
+    this.submitted = true;
+    if (this.loginForm.invalid) {
+      return;
   }
+  this.authenticationData.UserName=this.f.username.value;
+  this.authenticationData.Password=this.f.password.value;
+  this.accountService.login(this.authenticationData).subscribe((response: any) => {
+    debugger;
+    var token = response.token; //response;
+    var user = response;
+    localStorage.setItem('token', JSON.stringify(token));
+    localStorage.setItem('user', JSON.stringify(user));
+    this.router.navigate(['']);
 
+  }, error => {
+    console.log(error);
+  });
+  }
 }

@@ -12,28 +12,37 @@ import { switchMap, map } from 'rxjs/operators';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
+  submitted = false;
   errors: string[];
+  registerData: any = {};
 
-  constructor(private fb: FormBuilder, private accountService: AccountService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private accountService: AccountService, private router: Router) { }
 
   ngOnInit() {
     this.createRegisterForm();
   }
 
   createRegisterForm() {
-    this.registerForm = this.fb.group({
-      displayName: [null, [Validators.required]],
-      email: [null,
-        [Validators.required, Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')],
-        [this.validateEmailNotTaken()]
-      ],
-      password: [null, [Validators.required]]
-    });
+    this.registerForm = this.formBuilder.group({
+      fullname: ['', Validators.required],
+      email: ['', [Validators.required,Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6),
+        Validators.pattern("^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\d]).*$")]]
+  });
   }
+  get f() { return this.registerForm.controls; }
 
   onSubmit() {
-    this.accountService.register(this.registerForm.value).subscribe(response => {
-      this.router.navigateByUrl('/shop');
+    debugger;
+    this.submitted = true;
+    if (this.registerForm.invalid) {
+        return;
+    }
+    this.registerData.DisplayName=this.f.fullname.value;
+    this.registerData.Email=this.f.email.value;
+    this.registerData.Password=this.f.password.value;
+    this.accountService.register(this.registerData).subscribe(response => {
+      this.router.navigateByUrl('/login');
     }, error => {
       console.log(error);
       this.errors = error.errors;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BasketService } from './basket/basket.service';
 import { AccountService } from './account/account.service';
-
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,8 +9,20 @@ import { AccountService } from './account/account.service';
 })
 export class AppComponent implements OnInit {
   title = 'Skinet';
-
-  constructor(private basketService: BasketService, private accountService: AccountService) { }
+  showHead: boolean = false;
+  constructor(private basketService: BasketService, private accountService: AccountService,
+    private router: Router) {
+      router.events.forEach((event) => {
+      if (event instanceof NavigationStart) {
+        if (event['url'] == '/login' || event['url'] == '/register') {
+          this.showHead = false;
+        } else {
+         
+          this.showHead = true;
+        }
+      }
+    });
+   }
 
   ngOnInit(): void {
     this.loadBasket();

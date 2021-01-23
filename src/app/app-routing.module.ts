@@ -13,11 +13,15 @@ import { CreateAdComponent } from './create-ad/create-ad.component';
 import { FaqComponent } from './faq/faq.component';
 import { ContactComponent } from './contact/contact.component';
 import { CarSearchComponent } from './car-search/car-search.component';
+import { LoginComponent } from './account/login/login.component';
+import { RegisterComponent } from './account/register/register.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'new-cars', component: NewCarsComponent },
   { path: 'add-new-vehicle/:id', component: AddNewCarComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   
   { path: 'search', component: CarSearchComponent },
   { path: 'new-cars/deals', component: NewCarsComponent },

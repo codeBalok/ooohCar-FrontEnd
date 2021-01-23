@@ -40,4 +40,10 @@ export class CommonService {
         return this.http.post(url, body, expandedHeaders);
     }
 
+    getLoggedInUser() {
+        if (localStorage.getItem('user'))
+            return JSON.parse(localStorage.getItem('user'));
+        return null;
+    }
+
 }

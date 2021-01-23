@@ -1,21 +1,76 @@
-<div class="d-flex justify-content-center mt-5">
-    <div class="col-3">
-      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <div class="text-center mb-4">
-          <h1 class="h3 mb-3 font-weight-normal">Register</h1>
-        </div>
-  
-        <app-text-input formControlName="displayName" [label]="'Display Name'"></app-text-input>
-        <app-text-input formControlName="email" [label]="'Email Address'"></app-text-input>
-        <app-text-input formControlName="password" [label]="'Password'" [type]="'password'"></app-text-input>
 
-        <ul class="text-danger list-unstyled" *ngIf="errors">
-            <li *ngFor="let error of errors">
-                {{error}}
-            </li>
-        </ul>
-       
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-      </form>
+
+<div class="contact-section">
+  <div class="container">
+    <div class="row login-box">
+      <div class="col-lg-6 align-self-center pad-0">
+        <div class="form-section clearfix">
+          <h3>Create an account</h3>
+          <div class="btn-section clearfix">
+            <a href="login" class="link-btn active btn-1 default-bg">Login</a>
+            <a href="register" class="link-btn btn-2 active-bg">Register</a>
+          </div>
+          <div class="clearfix"></div>
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="form-group form-box">
+             
+              <input type="text" formControlName="fullname" placeholder="Full Name" class="input-text"
+                [ngClass]="{ 'is-invalid': submitted && f.fullname.errors }" />
+              <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback">
+                <div *ngIf="f.fullname.errors.required">Full Name is required</div>
+              </div>
+            </div>
+           
+            <div class="form-group form-box clearfix">
+              
+              <input type="text" formControlName="email" placeholder="email" class="input-text"
+                [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+              <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Email is required</div>
+                <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+              </div>
+            </div>
+            <div class="form-group form-box clearfix">
+              
+              <input type="password" placeholder="Password" formControlName="password" class="input-text"
+                [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+              <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                <div *ngIf="f.password.errors.required">Password is required</div>
+                <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                <div *ngIf="f.password.errors.pattern">Password must have 1 Uppercase, 1 Lowercase, 1 number, 1 non alphanumeric and at least 6 characters</div>
+              </div>
+            </div>
+            <div class="form-group clearfix mb-0">
+             
+              <button class="btn-md btn-theme float-left">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-6 align-self-center pad-0 bg-img">
+        <div class="info clearfix">
+          <div class="logo-2">
+            <a href="index.html">
+              <img src="/assets/images/black-logo.png" alt="logo">
+            </a>
+          </div>
+          <h3>Welcome to Logdy</h3>
+          <div class="social-list">
+            <a href="#" class="facebook-bg">
+              <i class="fa fa-facebook"></i>
+            </a>
+            <a href="#" class="twitter-bg">
+              <i class="fa fa-twitter"></i>
+            </a>
+            <a href="#" class="google-bg">
+              <i class="fa fa-google"></i>
+            </a>
+            <a href="#" class="linkedin-bg">
+              <i class="fa fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+</div>
