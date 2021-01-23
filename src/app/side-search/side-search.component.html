@@ -13,7 +13,7 @@
                     data-name="make">
                     <div class="heading-summary">
                         <span (click)="SearchMake(mymodal)" class="heading">Make</span>
-                        <a href="void:javascript()" class="clear-link" data-text="Clear" (click)="ClearModel();"
+                        <a href="javascript:void(0);" class="clear-link" data-text="Clear" (click)="ClearModel();"
                             rel="nofollow noindex"></a>
                         <div class="expand-link" (click)="ExpandMake()">xx</div>
 
@@ -58,16 +58,17 @@
                             <!-- end -->
                             <!-- <a class="add-another-link" *ngIf="IsModelSelected">+ Add another</a> -->
                             <div class="add-another-content inactive">
-                                <div class="aspect" data-aspect-name="make">
+                                <div class="aspect"  data-aspect-name="make" >
                                     <!-- <div class="aspect-name ">Make</div>                         -->
-                                    <ul class="default-facets">
-                                        <li class="facet-visible" *ngFor="let Make of SideSearchListModel.Make">
-                                            <input type="checkbox" class="chekboxmake" id="Make_{{Make.id}}" />
-                                            <label *ngIf="Make.childCount>0"
+                                    <ul class="default-facets ">
+                                        <li class="facet-visible" *ngFor="let Make of SideSearchListModel.Make" >
+                                            <input type="checkbox" class="chekboxmake"  id="Make_{{Make.id}}"  value="{{Make.id}}" 
+                                            [(ngModel)]="Make.Selected" (change)="BindVehicleListBySideSearchMakeId($event)"/>                     
+                                                     <label *ngIf="Make.childCount>0" id="Make_{{Make.name}}"
                                                 (click)="showModelsById(Make.id, Make.name)">{{Make.name}}</label>
-                                            <label style="pointer-events:none;"
+                                            <label style="pointer-events:none;" id="Make_{{Make.name}}"
                                                 *ngIf="Make.childCount==0">{{Make.name}}</label>
-                                            <span>({{Make.childCount}})</span>
+                                            <span id="Make_{{Make.childCount}}">({{Make.childCount}})</span>
                                         </li>
                                     </ul>
                                     <a class="view-link all" *ngIf="SideSearchListModel?.Make?.lenght>5">view all
@@ -177,7 +178,7 @@
                 </div> -->
                 <div class="nav-element " data-control="aspectnavigationelement" data-name="state">
                     <div class="heading-summary">
-                        <span class="heading">
+                        <span  class="heading">
                             Location
                         </span>
                         <div class="expand-link"></div>
@@ -5335,32 +5336,49 @@
                     <div class="multiselect-header p-1">
                         <div class="multiselect-header__icons">
                             <a class="multiselect-header__back invisible"><span
-                                    class="icon icon-arrow-left"></span></a><a class="multiselect-header__close"><span
-                                    class="icon icon-close"></span></a>
+                                    class="icon icon-arrow-left"></span></a>
+                                    <a class="multiselect-header__close"><span
+                                    class="icon icon-close" (click)="modal.dismiss('Cross click');clearSelection()">X</span></a>
                         </div>
-                        <div class="multiselect-header__title">
+                        <div class="multiselect-header__title"  >
                             <span>
                                 <h5>Select Make</h5>
                             </span>
+                            <div class="clear-selection" title="Clear" (click)="clearSelection()" *ngIf="selected_count">Clear</div>
+      
                         </div>
                     </div>
                     <div class="multiselect-content h-100">
-                        <div class="multiselect-panel">
-                            <div class="multiselect-searchbox"><input type="text" placeholder="Filter"
-                                    class="border py-1 px-2 mb-1" value="" /><span class="icon-filter"></span></div>
-                            <ul class="multiselect-facets">
-
-                                <li class="multiselect-facets-item border-bottom">
-                                    <label><input type="checkbox" name="facets" />Audi<span
-                                            class="icon-tick"></span></label><span>5,315</span><a href=""
-                                        class="multiselect-facets-item__next"><span></span><i
-                                            class="icon-arrow-right"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                        <div class="multiselect-panel">                           
+                            <div class="multiselect-searchbox"><input [(ngModel)]="searchText" type="text" placeholder="Filter"
+                                    class="border py-1 px-2 mb-1" value="" />
+                                    <span class="icon icon-close" *ngIf="searchText.length>0" (click)="clearFilter()" >X</span>
+                                    <span class="icon-filter"></span></div>
+                                    <ul class="multiselect-facets">
+                                        <li *ngFor="let g of arrMake | filter : searchText"  class="multiselect-facets-item border-bottom">
+                                             <input  (change)="getSelectedMakeId()" type="checkbox" class="checkboxmake" [checked]="g.Selected" 
+                                                    name="facets" 
+                                                    value="{{g.id}}"                                                    
+                                                    [(ngModel)]="g.Selected"                                                                                                        
+                                                     /> 
+                                          <span class="icon icon-tick"></span>{{g.name}}
+                                        <span></span>{{g.childCount}}
+                                        <a href=""  (click)="SearchMake(mymodal)" class="multiselect-facets-item__next">
+                                            <span ></span>
+                                            <i class="icon-arrow-right"></i>
+                                        </a>
+                                        </li>
+                                      </ul>                                           
+                    <!--To See Selected Makes
+                    <div class="selected-games-wrap">
+        <div class="selected-game" *ngFor="let s of selected_Makes" >
+          <span>{{s.name}} <span class="delete-game"   title="Click to delete">X</span></span>
+        </div>
+    </div>-->     
+</div>
+</div>
                     <div class="multiselect-footer p-1"><a class="btn btn-primary"
-                            href="/cars/?&amp;q=Service.carsales.">Search</a></div>
+                        (click)="searchbuttonClick();">Search</a></div>
                 </div>
             </div>
             <div class="overlay-close"></div>
