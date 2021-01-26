@@ -21,21 +21,40 @@ export class SideSearchComponent implements OnInit {
   public SideSearchListModel = new SideSearchListModel();
  // public searchModel = new SearchModel();
   public IsExpandMake : string = '';
+  public makeClickedName:string='';
   public modelClickedName:string='';
   public IsModelSelected:boolean=false;
+  public IsVariantSelected:boolean=false;
   public IsVarientEnable:boolean=false;
   public searchText: string = "";
   public selected_count: number = 0;
   public arrMake = [];   
+  public arrModel= []; 
+  public arrVariant= []; 
   public selected_Makes  = [];
+  public selected_Models  = [];
+  public selected_Variant  = [];
   public sideSearchMakeSelected  = [];
+  public sideSearchModelSelected  = [];
+  public sideSearchVariantSelected  = [];
   closeResult: string;
   public searchSelectedMakes = new SearchSelectedMakes();
   public vehicleModel : VehicleModel[] = [];
   public SideSearchMakeSelected:false;
+  startPage : number;
+  paginationLimit:number; 
+  variantstartPage : number;
+  variantpaginationLimit:number; 
   @Output() selectedMakesEmit = new EventEmitter<string>();  
+  @Output() selectedModelEmit= new EventEmitter<string>(); 
+  @Output() selectedVariantEmit= new EventEmitter<string>(); 
   constructor(private homeService: HomeService,private modalService: NgbModal,private router: Router) {     
+    this.startPage = 0;
+    this.paginationLimit = 3;
+    this.variantstartPage = 0;
+    this.variantpaginationLimit = 3;
   }
+
 
   ngOnInit(): void {       
     this.homeService.GetMakeListWithModalCount().subscribe((res)=>{ 
@@ -54,7 +73,7 @@ export class SideSearchComponent implements OnInit {
   }
  
 
-  SearchMake(content) {
+ SearchMake(content) {
       this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
         console.log('result is '+result);
       this.closeResult = `Closed with: ${result}`;
@@ -86,24 +105,53 @@ export class SideSearchComponent implements OnInit {
    this.IsExpandMake='view-mode-open';
     }
   }
-  showModelsById(id,name){
+  showModelsById(id,name){   
+       
     this.homeService.GetModelListForSideSearch(id).subscribe((res)=>{ 
       this.SideSearchListModel.CarModel = res;
       console.log(this.SideSearchListModel.CarModel);
-      this.modelClickedName=name;
-      this.IsModelSelected=true;
+      this.makeClickedName=name;
+      
       this.IsVarientEnable=false;
-    });   
-  }
-  showVariantById(id){
+      //move  model data  into array// 
+       const localarrModel=[];
+      for(let key in this.SideSearchListModel.CarModel)
+      {  
+        if(this.SideSearchListModel.CarModel.hasOwnProperty(key))
+        {  
+          if(!localarrModel.includes(this.SideSearchListModel.CarModel[key].id))
+          {
+            localarrModel.push(this.SideSearchListModel.CarModel[key]);
+          }    
+        }        
+      }
+      this.arrModel=localarrModel;
+     });   
+    }
+  
+  showVariantById(id,name){
     this.homeService.GetVariantListForSideSearch(id).subscribe((res)=>{ 
       this.SideSearchListModel.Variant = res;  
-      this.IsVarientEnable=true;
-      this.IsModelSelected=false;
+      this.IsVariantSelected=true;     
+      this.modelClickedName=name;
+       
+      //move  model data  into array// 
+       const localarrVariant=[];
+      for(let key in this.SideSearchListModel.Variant)
+      {  
+        if(this.SideSearchListModel.Variant.hasOwnProperty(key))
+        {  
+          if(!localarrVariant.includes(this.SideSearchListModel.Variant[key].id))
+          {
+            localarrVariant.push(this.SideSearchListModel.Variant[key]);
+          }    
+        }        
+      }
+      this.arrVariant=localarrVariant;
     });   
   }
   ClearModel(){
-    this.modelClickedName='';
+    this.makeClickedName='';
     this.IsModelSelected=false;
 
     // clear all the selected checkbox 
@@ -141,6 +189,15 @@ export class SideSearchComponent implements OnInit {
     //alert(this.selected_count);      
   }
  
+  // Getting Selected Makes and Count
+  getSelectedModelId() {
+    //alert(JSON.stringify(this.arrMake));
+    this.selected_Models = this.arrModel.filter(selmod => {
+      return selmod.Selected;      
+    });     
+    //this.selected_count = this.selected_Makes.length;
+    //alert(this.selected_count);      
+  }
 
   searchbuttonClick()
   {          
@@ -164,13 +221,67 @@ export class SideSearchComponent implements OnInit {
 
   BindVehicleListBySideSearchMakeId(e)
   {   
-     var id:number=+e.target.value;  // get the value i.e.ID  of checked checkbox
+     var id:number=+e.target.id.toString().slice(5);  // get the value i.e.ID  of checked checkbox
      let  objIndex = this.arrMake.findIndex(x => x.id==id);  // select the checkec Make from an array 
-     e.target.checked?this.arrMake[objIndex].Selected=true:this.arrMake[objIndex].Selected=false;   //set the Selected=true or Selected=false if unchecked 
+     
+      this.arrMake = this.arrMake.filter(mk => {
+        mk.Selected = false;
+        return true;
+      });
+        this.arrMake[objIndex].Selected=true;
         this.sideSearchMakeSelected=this.arrMake.filter(x=>x.Selected==true); // filter selected= true and bind to array
         this.selected_Makes=this.sideSearchMakeSelected;                      // bind it to selected_Makes which will be used into Modal popup
         this.selectedMakesEmit.emit(JSON.stringify(this.sideSearchMakeSelected)); // emit to bind carSearch details 
+         this.showModelsById(id, this.arrMake[objIndex].name);
    }
   
-  
+   showMoreItems()
+   {
+      this.paginationLimit = Number(this.paginationLimit) + 3;        
+   }
+   showLessItems()
+   {
+     this.paginationLimit = Number(this.paginationLimit) - 3;
+   }
+   showMoreItemsVariant()
+   {
+      this.paginationLimit = Number(this.variantpaginationLimit) + 3;        
+   }
+   showLessItemsVariant()
+   {
+     this.paginationLimit = Number(this.variantpaginationLimit) - 3;
+   }
+
+   BindVehicleListBySideSearchCarModelId(e)
+   {
+       
+      var id:number=+e.target.id.toString().slice(6);;  // get the value i.e.ID  of checked checkbox
+      let  objIndex = this.arrModel.findIndex(x => x.id==id);  // select the checkec Make from an array 
+        //e.target.checked?this.arrModel[objIndex].Selected=true:this.arrModel[objIndex].Selected=false;   //set the Selected=true or Selected=false if unchecked 
+        this.arrModel = this.arrModel.filter(md => {
+          md.Selected = false;
+          return true;
+        });
+         this.arrModel[objIndex].Selected=true;
+         this.sideSearchModelSelected=this.arrModel.filter(x=>x.Selected==true); // filter selected= true and bind to array
+         this.selected_Models=this.sideSearchModelSelected;                      // bind it to selected_Makes which will be used into Modal popup
+         this.selectedModelEmit.emit(JSON.stringify(this.sideSearchModelSelected)); // emit to bind carSearch details 
+         this.showVariantById(id,this.arrModel[objIndex].name);
+   }
+   BindVehicleListBySideSearchCarVariantId(e)
+   {
+       
+      var id:number=+e.target.id.toString().slice(8); // get the value i.e.ID  of checked checkbox
+      let  objIndex = this.arrVariant.findIndex(x => x.id==id);  // select the checkec Make from an array 
+      //e.target.checked?this.arrModel[objIndex].Selected=true:this.arrModel[objIndex].Selected=false;   //set the Selected=true or Selected=false if unchecked 
+      this.sideSearchVariantSelected = this.arrVariant.filter(vr => {
+        vr.Selected = false;
+        return true;
+      });
+         this.arrVariant[objIndex].Selected=true;
+         this.sideSearchVariantSelected=this.arrVariant.filter(x=>x.Selected==true); // filter selected= true and bind to array
+         this.selected_Variant=this.sideSearchVariantSelected;                      // bind it to selected_Makes which will be used into Modal popup
+         this.selectedVariantEmit.emit(JSON.stringify(this.sideSearchVariantSelected)); // emit to bind carSearch details 
+      
+   }
 }

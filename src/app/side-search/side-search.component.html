@@ -12,7 +12,7 @@
                 <div id="expand-make" class="nav-element  {{IsExpandMake}}" data-control="aspectnavigationelement"
                     data-name="make">
                     <div class="heading-summary">
-                        <span (click)="SearchMake(mymodal)" class="heading">Make</span>
+                        <span class="heading">Make</span>
                         <a href="javascript:void(0);" class="clear-link" data-text="Clear" (click)="ClearModel();"
                             rel="nofollow noindex"></a>
                         <div class="expand-link" (click)="ExpandMake()">xx</div>
@@ -21,54 +21,98 @@
                     <div class="element-summary">
                     </div>
                     <div class="element-selection">
-                        <h5 class="element-selection-title" (click)="SearchMake(mymodal)">Make</h5>
+                        <h5 class="element-selection-title">Make</h5>
                         <div class="aspect-navigation-element" data-aspect-name="Make">
-                            <!-- model binding    -->
-                            <div class="selected-facets" *ngIf="IsModelSelected">
-                                <div class="selected-facet">
-                                    <div class="facet-name">
-                                        {{modelClickedName}}
-                                    </div>
-                                    <div class="child-aspects">
-                                        <div class="aspect" data-aspect-name="model">
-                                            <div class="aspect-name ">Model</div>
-                                            <ul class="default-facets">
-                                                <li class="facet-visible"
-                                                    *ngFor="let carModel of SideSearchListModel.CarModel">
-                                                    <input type="checkbox" class="chekboxmake"
-                                                        id="Model_{{carModel.id}}" />
-                                                    <label *ngIf="carModel.childCount>0"
-                                                        id="lbl_{{carModel.id}}">{{carModel.name}}</label>
-                                                    <label style="pointer-events:none;"
-                                                        *ngIf="carModel.childCount==0">{{carModel.name}}</label>
-                                                    <span>({{carModel.childCount}})</span>
-                                                </li>
-                                            </ul>
-                                            <a class="view-link all"
-                                                *ngIf="SideSearchListModel?.CarModel?.lenght>5">view all...</a>
-                                            <a class="view-link less">view less</a>
-                                        </div>
-                                        <div class="aspect-separator"></div>
-                                    </div>
 
-
-
-                                </div>
-                            </div>
-                            <!-- end -->
-                            <!-- <a class="add-another-link" *ngIf="IsModelSelected">+ Add another</a> -->
                             <div class="add-another-content inactive">
-                                <div class="aspect"  data-aspect-name="make" >
-                                    <!-- <div class="aspect-name ">Make</div>                         -->
+                                <div class="aspect" data-aspect-name="make">
+                                    <!--div class="aspect-name ">Make</div-->
                                     <ul class="default-facets ">
-                                        <li class="facet-visible" *ngFor="let Make of SideSearchListModel.Make" >
-                                            <input type="checkbox" class="chekboxmake"  id="Make_{{Make.id}}"  value="{{Make.id}}" 
-                                            [(ngModel)]="Make.Selected" (change)="BindVehicleListBySideSearchMakeId($event)"/>                     
-                                                     <label *ngIf="Make.childCount>0" id="Make_{{Make.name}}"
-                                                (click)="showModelsById(Make.id, Make.name)">{{Make.name}}</label>
+                                        <li class="facet-visible" *ngFor="let Make of SideSearchListModel.Make">
+
+                                            <label *ngIf="Make.childCount>0" id="Make_{{Make.id}}"
+                                                (click)="BindVehicleListBySideSearchMakeId($event)">{{Make.name}}({{Make.childCount}})</label>
                                             <label style="pointer-events:none;" id="Make_{{Make.name}}"
                                                 *ngIf="Make.childCount==0">{{Make.name}}</label>
-                                            <span id="Make_{{Make.childCount}}">({{Make.childCount}})</span>
+                                            <!--span id="Make_{{Make.childCount}}">({{Make.childCount}})</span-->
+                                            <span></span>
+
+                                            <!-- model binding-->
+                                            <div class="selected-facets" *ngIf="Make.name===makeClickedName">
+                                                <div class="selected-facet">
+                                                    <div class="facet-name">
+                                                        <!--{{modelClickedName}}-->
+                                                    </div>
+                                                    <div class="child-aspects">
+                                                        <div class="aspect" data-aspect-name="model">
+                                                            <div class="aspect-name ">Model</div>
+                                                            <ul class="default-facets">
+                                                                <li class="facet-visible"
+                                                                    *ngFor="let carModel of  arrModel.slice(startPage,paginationLimit)">
+                                                                    <!--input type="checkbox" class="chekboxmake"
+                                                        id="Model_{{carModel.id}}" value="{{carModel.id}}" 
+                                                        [(ngModel)]="carModel.Selected" (change)="BindVehicleListBySideSearchCarModelId($event)" /-->
+                                                                    <label *ngIf="carModel.childCount>0"
+                                                                        id="Model_{{carModel.id}}"
+                                                                        (click)="BindVehicleListBySideSearchCarModelId($event)">{{carModel.name}}({{carModel.childCount}})</label>
+                                                                    <label style="pointer-events:none;"
+                                                                        *ngIf="carModel.childCount==0">{{carModel.name}}</label>
+                                                                    <!--span id="carModel_{{carModel.childCount}}">({{carModel.childCount}})</span-->
+                                                                    <!-- Variant binding-->
+                                                                    <div class="selected-facets"
+                                                                        *ngIf="carModel.name===modelClickedName">
+                                                                        <div class="selected-facet">
+                                                                            <div class="facet-name">
+                                                                                <!--{{variantClickedName}}-->
+                                                                            </div>
+                                                                            <div class="child-aspects">
+                                                                                <div class="aspect"
+                                                                                    data-aspect-name="variant">
+                                                                                    <div class="aspect-name ">Variant
+                                                                                    </div>
+                                                                                    <ul class="default-facets">
+                                                                                        <li class="facet-visible"
+                                                                                            *ngFor="let carVariant of  arrVariant.slice(variantstartPage,variantpaginationLimit)">
+                                                                                            <label
+                                                                                                (click)="BindVehicleListBySideSearchCarVariantId($event)"
+                                                                                                id="variant_{{carVariant.id}}">{{carVariant.name}}({{carVariant.childCount}})</label>
+
+
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                    <a class="view-link all"
+                                                                                        *ngIf="variantpaginationLimit < SideSearchListModel?.Variant?.length"
+                                                                                        (click)="showMoreItemsVariant()">Show
+                                                                                        More
+                                                                                    </a>
+                                                                                    <a class="view-link all"
+                                                                                        *ngIf="variantpaginationLimit > 3"
+                                                                                        (click)="showLessItemsVariant()">Show
+                                                                                        Less</a>
+                                                                                </div>
+                                                                                <div class="aspect-separator"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- variant end -->
+
+                                                                </li>
+                                                            </ul>
+                                                            <a class="view-link all"
+                                                                *ngIf="paginationLimit < SideSearchListModel?.CarModel?.length"
+                                                                (click)="showMoreItems()">Show More
+                                                            </a>
+                                                            <a class="view-link all" *ngIf="paginationLimit > 3"
+                                                                (click)="showLessItems()">Show Less</a>
+                                                        </div>
+                                                        <div class="aspect-separator"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end -->
+                                            <!-- <a class="add-another-link" *ngIf="IsModelSelected">+ Add another</a> -->
+
+
                                         </li>
                                     </ul>
                                     <a class="view-link all" *ngIf="SideSearchListModel?.Make?.lenght>5">view all
@@ -178,7 +222,7 @@
                 </div> -->
                 <div class="nav-element " data-control="aspectnavigationelement" data-name="state">
                     <div class="heading-summary">
-                        <span  class="heading">
+                        <span class="heading">
                             Location
                         </span>
                         <div class="expand-link"></div>
@@ -5320,72 +5364,3 @@
         </div>
     </div>
 </section>
-
-
-<ng-template #mymodal let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Select Make</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">×</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <div class="multiselect-modal">
-            <div class="multiselect-modal-body border shadow bg-white rounded">
-                <div class="multiselect h-100">
-                    <div class="multiselect-header p-1">
-                        <div class="multiselect-header__icons">
-                            <a class="multiselect-header__back invisible"><span
-                                    class="icon icon-arrow-left"></span></a>
-                                    <a class="multiselect-header__close"><span
-                                    class="icon icon-close" (click)="modal.dismiss('Cross click');clearSelection()">X</span></a>
-                        </div>
-                        <div class="multiselect-header__title"  >
-                            <span>
-                                <h5>Select Make</h5>
-                            </span>
-                            <div class="clear-selection" title="Clear" (click)="clearSelection()" *ngIf="selected_count">Clear</div>
-      
-                        </div>
-                    </div>
-                    <div class="multiselect-content h-100">
-                        <div class="multiselect-panel">                           
-                            <div class="multiselect-searchbox"><input [(ngModel)]="searchText" type="text" placeholder="Filter"
-                                    class="border py-1 px-2 mb-1" value="" />
-                                    <span class="icon icon-close" *ngIf="searchText.length>0" (click)="clearFilter()" >X</span>
-                                    <span class="icon-filter"></span></div>
-                                    <ul class="multiselect-facets">
-                                        <li *ngFor="let g of arrMake | filter : searchText"  class="multiselect-facets-item border-bottom">
-                                             <input  (change)="getSelectedMakeId()" type="checkbox" class="checkboxmake" [checked]="g.Selected" 
-                                                    name="facets" 
-                                                    value="{{g.id}}"                                                    
-                                                    [(ngModel)]="g.Selected"                                                                                                        
-                                                     /> 
-                                          <span class="icon icon-tick"></span>{{g.name}}
-                                        <span></span>{{g.childCount}}
-                                        <a href=""  (click)="SearchMake(mymodal)" class="multiselect-facets-item__next">
-                                            <span ></span>
-                                            <i class="icon-arrow-right"></i>
-                                        </a>
-                                        </li>
-                                      </ul>                                           
-                    <!--To See Selected Makes
-                    <div class="selected-games-wrap">
-        <div class="selected-game" *ngFor="let s of selected_Makes" >
-          <span>{{s.name}} <span class="delete-game"   title="Click to delete">X</span></span>
-        </div>
-    </div>-->     
-</div>
-</div>
-                    <div class="multiselect-footer p-1"><a class="btn btn-primary"
-                        (click)="searchbuttonClick();">Search</a></div>
-                </div>
-            </div>
-            <div class="overlay-close"></div>
-        </div>
-
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
-    </div>
-</ng-template>

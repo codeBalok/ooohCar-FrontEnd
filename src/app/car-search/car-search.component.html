@@ -6,7 +6,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
-                <app-side-search (selectedMakesEmit)="getSelectedmakes($event)"></app-side-search>
+                <app-side-search (selectedMakesEmit)="getSelectedmakes($event)" (selectedModelEmit)="getSelectedmodels($event)"
+                (selectedVariantEmit)="getSelectedvariant($event)"></app-side-search>
             </div>
             <div class="col-lg-9" *ngIf="!isData">
                 <!-- Option bar start -->

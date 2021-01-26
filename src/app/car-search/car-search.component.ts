@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SearchModel,SearchSelectedMakes } from '../shared/models/SearchListModel';
+import { SearchModel,SearchSelectedMakes, SearchSelectedModels,SearchSelectedVariants } from '../shared/models/SearchListModel';
 import { HomeService } from '../home/home.service';
 import { VehicleModel } from '../shared/models/VehicleModel';
 
@@ -15,6 +15,8 @@ export class CarSearchComponent implements OnInit {
   public vehicleModel : VehicleModel[] = [];
   public isData : boolean = false;
   public SearchSelectedMakes = new SearchSelectedMakes();  
+  public SearchSelectedModels = new SearchSelectedModels(); 
+  public SearchSelectedVariants = new SearchSelectedVariants();  
   constructor(private homeService: HomeService,private route: ActivatedRoute,
     private router: Router) {      }
 
@@ -47,7 +49,7 @@ export class CarSearchComponent implements OnInit {
     }
     else {
       this.isData = true;
-    }});   
+    }});  
   }
   getSelectedmakes(selected_Makes:string)
   {                  
@@ -75,8 +77,62 @@ export class CarSearchComponent implements OnInit {
     }
     
   }
+
+
+
+  getSelectedmodels(selected_Models:string)
+  {                  
+      //console.log('from car serch-'+selected_Makes);
+      this.SearchSelectedModels.Model=JSON.parse(selected_Models);      
+      if(this.SearchSelectedModels.Model.length>0){
+      this.homeService.GetVehicleListAccordingToSelectedModels(this.SearchSelectedModels).subscribe((res)=>{       
+        if (res.length > 0){
+          this.vehicleModel = res;
+          this.isData = false;
+        }
+        else {
+          this.isData = true;
+        }
+      });
+    }
+    else // empty array then bind all data of VehicleList  
+    {
+      this.searchModel.CarTypeId = "0";
+      this.searchModel.MakeId = "0";
+      this.searchModel.CarModelId ="0";
+      this.searchModel.LocationId ="0";
+      this.searchModel.YearId ="0";
+      this.getSearchVehicleList(this.searchModel);       
+    }
+    
+  }
     
        
-  
+  getSelectedvariant(selected_Variant:string)
+  {                  
+      //console.log('from car serch-'+selected_Makes);
+      this.SearchSelectedVariants.Variant=JSON.parse(selected_Variant);      
+      if(this.SearchSelectedVariants.Variant.length>0){
+      this.homeService.GetVehicleListAccordingToSelectedVariants(this.SearchSelectedVariants).subscribe((res)=>{       
+        if (res.length > 0){
+          this.vehicleModel = res;
+          this.isData = false;
+        }
+        else {
+          this.isData = true;
+        }
+      });
+    }
+    else // empty array then bind all data of VehicleList  
+    {
+      this.searchModel.CarTypeId = "0";
+      this.searchModel.MakeId = "0";
+      this.searchModel.CarModelId ="0";
+      this.searchModel.LocationId ="0";
+      this.searchModel.YearId ="0";
+      this.getSearchVehicleList(this.searchModel);       
+    }
+    
+  }
 
 }

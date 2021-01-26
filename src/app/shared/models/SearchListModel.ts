@@ -18,3 +18,9 @@ export class SearchModel {
 export class SearchSelectedMakes {
     Make: CommonModel[] ;
 }
+export class SearchSelectedModels {
+    Model: CommonModel[] ;
+}
+export class SearchSelectedVariants{
+    Variant: CommonModel[] ;
+}

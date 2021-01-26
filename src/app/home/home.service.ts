@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject,Subject } from 'rxjs';
-import { SearchListModel } from '../shared/models/SearchListModel';
+import { SearchListModel, SearchSelectedModels, SearchSelectedVariants } from '../shared/models/SearchListModel';
 import { map } from 'rxjs/operators';
 import { SearchModel,SearchSelectedMakes } from '../shared/models/SearchListModel';
 
@@ -66,5 +66,11 @@ export class HomeService {
   // }
   GetVehicleListAccordingToSelectedMakes(searchSelectedMakes : SearchSelectedMakes) {
     return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedMakes', searchSelectedMakes);
+  }
+  GetVehicleListAccordingToSelectedModels(searchSelectedModels : SearchSelectedModels) {
+    return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedModels', searchSelectedModels);
+  }
+  GetVehicleListAccordingToSelectedVariants(searchSelectedVariants : SearchSelectedVariants) {
+    return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedVariants', searchSelectedVariants);
   }
 }
