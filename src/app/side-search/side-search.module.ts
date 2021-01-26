@@ -10,9 +10,8 @@ import { FilterPipe } from  './side-search.filter.pipe';
   declarations: [SideSearchComponent,FilterPipe],
   imports: [
     CommonModule,
-    SharedModule,
-    Ng5SliderModule,
-    TreeviewModule.forRoot()
+    SharedModule
+   
   ],
   exports: [SideSearchComponent]
 })
