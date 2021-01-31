@@ -10,6 +10,7 @@ import { VehicleModel } from '../shared/models/VehicleModel';
 import { CommonModel } from '../shared/models/commonModel';
  
  
+ 
 
   
 @Component({
@@ -21,6 +22,7 @@ export class SideSearchComponent implements OnInit {
   public SideSearchListModel = new SideSearchListModel();
  // public searchModel = new SearchModel();
   public IsExpandMake : string = '';
+  public IsExpandLocation : string = '';
   public makeClickedName:string='';
   public modelClickedName:string='';
   public IsModelSelected:boolean=false;
@@ -45,14 +47,20 @@ export class SideSearchComponent implements OnInit {
   paginationLimit:number; 
   variantstartPage : number;
   variantpaginationLimit:number; 
+  locationstartPage:number;
+  locationpaginationLimit:number; 
   @Output() selectedMakesEmit = new EventEmitter<string>();  
   @Output() selectedModelEmit= new EventEmitter<string>(); 
   @Output() selectedVariantEmit= new EventEmitter<string>(); 
+  states: any = [];
+  loogedInUsersStates: any = [];
   constructor(private homeService: HomeService,private modalService: NgbModal,private router: Router) {     
     this.startPage = 0;
     this.paginationLimit = 3;
     this.variantstartPage = 0;
     this.variantpaginationLimit = 3;
+    this.locationstartPage = 0;
+    this.locationpaginationLimit = 3;
   }
 
 
@@ -70,10 +78,11 @@ export class SideSearchComponent implements OnInit {
         }        
       } 
     });    
+     this.GetloggedinUsersCountry();
   }
  
 
- SearchMake(content) {
+ /*SearchMake(content) {
       this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
         console.log('result is '+result);
       this.closeResult = `Closed with: ${result}`;
@@ -82,9 +91,9 @@ export class SideSearchComponent implements OnInit {
       console.log('result'+this.getDismissReason(reason));
       
     });
-  }
+  }*/
   
-  private getDismissReason(reason: any): string {
+ /* private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
@@ -92,7 +101,7 @@ export class SideSearchComponent implements OnInit {
     } else {
       return  `with: ${reason}`;
     }
-  }
+  }*/
 
   ExpandMake(){ 
     const element = document.querySelector("#expand-make");
@@ -103,6 +112,17 @@ export class SideSearchComponent implements OnInit {
     }
     else{
    this.IsExpandMake='view-mode-open';
+    }
+  }
+  ExpandLocation(){ 
+    const element = document.querySelector("#expand-location");
+    const isOpen=element.classList.contains("view-mode-open");
+    if(isOpen)
+    {
+      this.IsExpandLocation='';
+    }
+    else{
+   this.IsExpandLocation='view-mode-open';
     }
   }
   showModelsById(id,name){   
@@ -245,11 +265,19 @@ export class SideSearchComponent implements OnInit {
    }
    showMoreItemsVariant()
    {
-      this.paginationLimit = Number(this.variantpaginationLimit) + 3;        
+      this.variantpaginationLimit = Number(this.variantpaginationLimit) + 3;        
    }
    showLessItemsVariant()
    {
-     this.paginationLimit = Number(this.variantpaginationLimit) - 3;
+     this.variantpaginationLimit = Number(this.variantpaginationLimit) - 3;
+   }
+   showMoreLocation()
+   {
+      this.locationpaginationLimit = Number(this.locationpaginationLimit) + 3;        
+   }
+   showLessLocation()
+   {
+     this.locationpaginationLimit = Number(this.locationpaginationLimit) - 3;
    }
 
    BindVehicleListBySideSearchCarModelId(e)
@@ -284,4 +312,27 @@ export class SideSearchComponent implements OnInit {
          this.selectedVariantEmit.emit(JSON.stringify(this.sideSearchVariantSelected)); // emit to bind carSearch details 
       
    }
+
+   GetloggedinUsersCountry()
+   {     
+    this.homeService.GetloggedinUsersCountry().subscribe((res)=>{ 
+      this.GetStatesbyCountry(res.country);
+
+    }); 
+   }
+
+   GetStatesbyCountry(country:string)
+   {     
+    this.states= this.homeService.GetStatesbyCountry(country).subscribe((st)=>{ 
+      let cntrystate =st.countries.filter(s=>s.country==country);   
+       
+      const userStates = cntrystate.map(({ states }) => states);
+      if(userStates.length>0)
+      {
+      this.loogedInUsersStates = userStates.toString().split(',') ;
+      }
+     // console.log(JSON.stringify(this.loogedInUsersStates));
+    
+      });
+   } 
 }

@@ -73,4 +73,22 @@ export class HomeService {
   GetVehicleListAccordingToSelectedVariants(searchSelectedVariants : SearchSelectedVariants) {
     return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedVariants', searchSelectedVariants);
   }
+  GetloggedinUsersCountry()
+  {
+    return this.http.get<any>('https://extreme-ip-lookup.com/json/'); 
+  }
+  GetStatesbyCountry(country:string)
+  {
+    return this.http.get<any>('assets/states.json') ;    
+  }
 }
+/*function  GetloggedinUsersCountry()
+   {
+     return fetch('https://extreme-ip-lookup.com/json/')
+          .then( res => res.json())
+          .then(response => {
+               response.country
+          }).catch((status) => {
+              'Request failed'              
+          })
+   }*/
