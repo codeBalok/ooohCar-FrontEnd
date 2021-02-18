@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SearchModel,SearchSelectedMakes, SearchSelectedModels,SearchSelectedVariants } from '../shared/models/SearchListModel';
+import { SearchModel,SearchSelectedMakes, SearchSelectedModels,SearchSelectedVariants,SearchSelectedPrice,SearchSelectedOdometer,SearchSelectedTransmission } from '../shared/models/SearchListModel';
 import { HomeService } from '../home/home.service';
 import { VehicleModel } from '../shared/models/VehicleModel';
 
@@ -17,6 +17,9 @@ export class CarSearchComponent implements OnInit {
   public SearchSelectedMakes = new SearchSelectedMakes();  
   public SearchSelectedModels = new SearchSelectedModels(); 
   public SearchSelectedVariants = new SearchSelectedVariants();  
+  public SearchSelectedPrice = new SearchSelectedPrice();  
+  public SearchSelectedOdometer= new SearchSelectedOdometer();
+  public SearchSelectedTransmission=new SearchSelectedTransmission();  
   constructor(private homeService: HomeService,private route: ActivatedRoute,
     private router: Router) {      }
 
@@ -131,8 +134,83 @@ export class CarSearchComponent implements OnInit {
       this.searchModel.LocationId ="0";
       this.searchModel.YearId ="0";
       this.getSearchVehicleList(this.searchModel);       
-    }
-    
+    }    
   }
+
+  getSelectedPrice(selected_Prices:string){
+    this.SearchSelectedPrice.Price=JSON.parse(selected_Prices);      
+      if(this.SearchSelectedPrice.Price.length>0){
+      this.homeService.GetVehicleListAccordingToSelectedPriceRange(this.SearchSelectedPrice).subscribe((res)=>{       
+        if (res.length > 0){
+          this.vehicleModel = res;
+          this.isData = false;
+        }
+        else {
+          this.isData = true;
+        }
+      });
+    }
+    else // empty array then bind all data of VehicleList  
+    {
+      this.searchModel.CarTypeId = "0";
+      this.searchModel.MakeId = "0";
+      this.searchModel.CarModelId ="0";
+      this.searchModel.LocationId ="0";
+      this.searchModel.YearId ="0";
+      this.getSearchVehicleList(this.searchModel);       
+    }
+
+  }
+
+  getSelectedOdometer(selected_Odometer:string){
+    this.SearchSelectedOdometer.Odometer=JSON.parse(selected_Odometer);      
+      if(this.SearchSelectedOdometer.Odometer.length>0){
+      this.homeService.GetVehicleListAccordingToSelectedOdometerRange(this.SearchSelectedOdometer).subscribe((res)=>{       
+        if (res.length > 0){
+          this.vehicleModel = res;
+          this.isData = false;
+        }
+        else {
+          this.isData = true;
+        }
+      });
+    }
+    else // empty array then bind all data of VehicleList  
+    {
+      this.searchModel.CarTypeId = "0";
+      this.searchModel.MakeId = "0";
+      this.searchModel.CarModelId ="0";
+      this.searchModel.LocationId ="0";
+      this.searchModel.YearId ="0";
+      this.getSearchVehicleList(this.searchModel);       
+    }
+
+  }
+
+  getSelectedTransmission(selected_Transmission:string){
+    this.SearchSelectedTransmission.Transmission=JSON.parse(selected_Transmission);      
+      if(this.SearchSelectedTransmission.Transmission.length>0){
+      this.homeService.GetVehicleListAccordingToSelectedTransmissionRange(this.SearchSelectedTransmission).subscribe((res)=>{       
+        if (res.length > 0){
+          this.vehicleModel = res;
+          this.isData = false;
+        }
+        else {
+          this.isData = true;
+        }
+      });
+    }
+    else // empty array then bind all data of VehicleList  
+    {
+      this.searchModel.CarTypeId = "0";
+      this.searchModel.MakeId = "0";
+      this.searchModel.CarModelId ="0";
+      this.searchModel.LocationId ="0";
+      this.searchModel.YearId ="0";
+      this.getSearchVehicleList(this.searchModel);       
+    }
+
+  }
+
 
 }

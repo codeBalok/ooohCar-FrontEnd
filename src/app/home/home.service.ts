@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject,Subject } from 'rxjs';
-import { SearchListModel, SearchSelectedModels, SearchSelectedVariants } from '../shared/models/SearchListModel';
+import { SearchListModel, SearchSelectedModels, SearchSelectedVariants,SearchSelectedPrice,SearchSelectedOdometer,SearchSelectedTransmission } from '../shared/models/SearchListModel';
 import { map } from 'rxjs/operators';
 import { SearchModel,SearchSelectedMakes } from '../shared/models/SearchListModel';
 
@@ -81,14 +81,18 @@ export class HomeService {
   {
     return this.http.get<any>('assets/states.json') ;    
   }
+  GetVehicleListAccordingToSelectedPriceRange(searchSelectedPrice : SearchSelectedPrice) {
+    return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedPriceRange', searchSelectedPrice);
+  }
+  GetVehicleListAccordingToSelectedOdometerRange(searchSelectedOdometer : SearchSelectedOdometer) {
+    return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedOdometerRange', searchSelectedOdometer);
+  }
+  GetTransmissionList()
+  {
+    return this.http.get<any>(this.baseUrl +'Home/GetTransmissionList') ; 
+  }
+  GetVehicleListAccordingToSelectedTransmissionRange(searchSelectedTransmission : SearchSelectedTransmission) {
+    return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedTransmission', searchSelectedTransmission);
+  }
 }
-/*function  GetloggedinUsersCountry()
-   {
-     return fetch('https://extreme-ip-lookup.com/json/')
-          .then( res => res.json())
-          .then(response => {
-               response.country
-          }).catch((status) => {
-              'Request failed'              
-          })
-   }*/
+ 

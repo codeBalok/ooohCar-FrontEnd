@@ -24,3 +24,13 @@ export class SearchSelectedModels {
 export class SearchSelectedVariants{
     Variant: CommonModel[] ;
 }
+export class SearchSelectedPrice{
+    Price:[];
+}
+export class SearchSelectedOdometer{
+    Odometer:[];
+}
+export class SearchSelectedTransmission
+{
+    Transmission:[];
+}

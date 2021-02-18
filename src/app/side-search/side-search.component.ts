@@ -8,7 +8,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { SearchSelectedMakes } from '../shared/models/SearchListModel';
 import { VehicleModel } from '../shared/models/VehicleModel';
 import { CommonModel } from '../shared/models/commonModel';
- 
+import { Options, LabelType } from 'ng5-slider';
  
  
 
@@ -20,25 +20,35 @@ import { CommonModel } from '../shared/models/commonModel';
 })
 export class SideSearchComponent implements OnInit {
   public SideSearchListModel = new SideSearchListModel();
- // public searchModel = new SearchModel();
+  public SideSearchTransmission = new SideSearchListModel();
+  public SideSearchYear= new SideSearchListModel();
+ 
   public IsExpandMake : string = '';
   public IsExpandLocation : string = '';
+  public IsExpandPrice: string = '';
+  public IsExpandOdometer: string = '';
+  public IsExpandTransmission:string='';
+  public IsExpandYear:string='';
   public makeClickedName:string='';
   public modelClickedName:string='';
   public IsModelSelected:boolean=false;
   public IsVariantSelected:boolean=false;
   public IsVarientEnable:boolean=false;
   public searchText: string = "";
+   Keyword='name';
   public selected_count: number = 0;
   public arrMake = [];   
   public arrModel= []; 
   public arrVariant= []; 
+  public arrTransmission=[];
   public selected_Makes  = [];
   public selected_Models  = [];
   public selected_Variant  = [];
   public sideSearchMakeSelected  = [];
   public sideSearchModelSelected  = [];
   public sideSearchVariantSelected  = [];
+  public sideSearchTransmissionSelected  = [];
+  public SideSearchTransmissionSelected:false;
   closeResult: string;
   public searchSelectedMakes = new SearchSelectedMakes();
   public vehicleModel : VehicleModel[] = [];
@@ -52,8 +62,34 @@ export class SideSearchComponent implements OnInit {
   @Output() selectedMakesEmit = new EventEmitter<string>();  
   @Output() selectedModelEmit= new EventEmitter<string>(); 
   @Output() selectedVariantEmit= new EventEmitter<string>(); 
+  @Output() selectedPriceEmit= new EventEmitter<string>();
+  @Output() selectedOdometerEmit= new EventEmitter<string>();
+  @Output() selectedTransmissionEmit= new EventEmitter<string>();
   states: any = [];
+  sliderPrices:number [] =[];
+  sliderOdometer:number [] =[];
   loogedInUsersStates: any = [];
+  fromPrice: number ;
+  toPrice: number ;
+  fromOdometer:number;
+  toOdometer:number;
+  minValue: number = 100;
+  maxValue: number = 8000;
+  options: Options = {
+    floor: 0,
+    ceil: 8000,
+    translate: (value: number, label: LabelType): string => {
+      switch (label) {
+        case LabelType.Low:
+         // return '<b>Min price:</b>AU $' + value;
+         return '<span class="expand-link">AU $</span>' + value;
+        case LabelType.High:
+          return '<span class="expand-link">AU $</span>' + value;
+        default:
+          return '<span class="expand-link">AU $</span>' + value;
+      }
+    }
+  };
   constructor(private homeService: HomeService,private modalService: NgbModal,private router: Router) {     
     this.startPage = 0;
     this.paginationLimit = 3;
@@ -77,7 +113,27 @@ export class SideSearchComponent implements OnInit {
         this.arrMake.push(this.SideSearchListModel.Make[key]);    
         }        
       } 
-    });    
+    });  
+    
+    this.homeService.GetTransmissionList().subscribe((res)=>{ 
+      this.SideSearchTransmission.Transmission = res;     
+      console.log(this.SideSearchTransmission.Transmission);
+      
+      //move Transmission model data  into array// 
+      for(let key in this.SideSearchTransmission.Transmission)
+      {  
+        if(this.SideSearchTransmission.Transmission.hasOwnProperty(key))
+        {  
+        this.arrTransmission.push(this.SideSearchTransmission.Transmission[key]);    
+        }        
+      } 
+    });
+
+     this.homeService.GetYearList().subscribe((res)=>{ 
+      this.SideSearchYear.Year = res;     
+      console.log(this.SideSearchYear.Year);
+    });
+
      this.GetloggedinUsersCountry();
   }
  
@@ -123,6 +179,57 @@ export class SideSearchComponent implements OnInit {
     }
     else{
    this.IsExpandLocation='view-mode-open';
+    }
+  }
+  ExpandPrice(){ 
+    const element = document.querySelector("#expand-price");
+    const isOpen=element.classList.contains("view-mode-open");
+    if(isOpen)
+    {
+      this.IsExpandPrice='';
+    }
+    else{
+   this.IsExpandPrice='view-mode-open';
+    }
+  }
+
+  ExpandOdometer()
+  {
+    { 
+      const element = document.querySelector("#expand-Odometer");
+      const isOpen=element.classList.contains("view-mode-open");
+      if(isOpen)
+      {
+        this.IsExpandOdometer='';
+      }
+      else{
+     this.IsExpandOdometer='view-mode-open';
+      }
+    }
+  }
+  ExpandTransmission()
+  {
+    { 
+      const element = document.querySelector("#expand-Transmission");
+      const isOpen=element.classList.contains("view-mode-open");
+      if(isOpen)
+      {
+        this.IsExpandTransmission='';
+      }
+      else{
+     this.IsExpandTransmission='view-mode-open';
+      }
+    }
+  }
+  ExpandYear(){ 
+    const element = document.querySelector("#expand-year");
+    const isOpen=element.classList.contains("view-mode-open");
+    if(isOpen)
+    {
+      this.IsExpandYear='';
+    }
+    else{
+   this.IsExpandYear='view-mode-open';
     }
   }
   showModelsById(id,name){   
@@ -334,5 +441,53 @@ export class SideSearchComponent implements OnInit {
      // console.log(JSON.stringify(this.loogedInUsersStates));
     
       });
-   } 
+   }
+
+   numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
+  }
+  
+  onSliderPriceChange(event: any) {   
+    this.sliderPrices=[];
+   this.sliderPrices.push(event.value);
+   this.sliderPrices.push(event.highValue);
+   this.selectedPriceEmit.emit(JSON.stringify(this.sliderPrices));
+  }
+  getCarModelListFromToPrice()
+  {
+    this.sliderPrices=[];
+    this.sliderPrices.push(Number(this.fromPrice));
+    this.sliderPrices.push(Number(this.toPrice));
+    this.selectedPriceEmit.emit(JSON.stringify(this.sliderPrices));
+  }
+  getCarModelLisOdometerRange()
+  {
+    this.sliderOdometer=[];
+    this.sliderOdometer.push(Number(this.fromOdometer));
+    this.sliderOdometer.push(Number(this.toOdometer));
+    this.selectedOdometerEmit.emit(JSON.stringify(this.sliderOdometer));
+  }
+  BindVehicleListBySideSearchTransmissionId(e)
+  {   
+     var id:number=+e.target.value;  // get the value i.e.ID  of checked checkbox
+     let  objIndex = this.arrTransmission.findIndex(x => x.id==id);  // select the checked Transmission from an array 
+     e.target.checked?this.arrTransmission[objIndex].Selected=true:this.arrTransmission[objIndex].Selected=false;   //set the Selected=true or Selected=false if unchecked 
+        this.sideSearchTransmissionSelected=this.arrTransmission.filter(x=>x.Selected==true); // filter selected= true and bind to array
+       // this.selected_Transmission=this.sideSearchMakeSelected;                      // bind it to selected_Makes which will be used into Modal popup
+        this.selectedTransmissionEmit.emit(JSON.stringify(this.sideSearchTransmissionSelected)); // emit to bind carSearch details 
+   }
+   
+
+   selectedEvent(item) {
+    // do something with selected item
+    console.log(item);
+  }
+ 
+ 
+
 }
