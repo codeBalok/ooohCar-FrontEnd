@@ -22,13 +22,17 @@ export class SideSearchComponent implements OnInit {
   public SideSearchListModel = new SideSearchListModel();
   public SideSearchTransmission = new SideSearchListModel();
   public SideSearchYear= new SideSearchListModel();
- 
+  public SideSearchCertifiedInspected= new SideSearchListModel();
+  public SideSearchVehicleType= new SideSearchListModel();
   public IsExpandMake : string = '';
   public IsExpandLocation : string = '';
   public IsExpandPrice: string = '';
   public IsExpandOdometer: string = '';
   public IsExpandTransmission:string='';
   public IsExpandYear:string='';
+  public IsExpandcertifiedinspected:string='';
+  public IsExpandVehicleType:string='';
+  public IsExpandKeywords:string='';
   public makeClickedName:string='';
   public modelClickedName:string='';
   public IsModelSelected:boolean=false;
@@ -41,6 +45,9 @@ export class SideSearchComponent implements OnInit {
   public arrModel= []; 
   public arrVariant= []; 
   public arrTransmission=[];
+  public arrYear=[];
+  public arrCertified=[];
+  public arrVehicleType=[];
   public selected_Makes  = [];
   public selected_Models  = [];
   public selected_Variant  = [];
@@ -48,6 +55,7 @@ export class SideSearchComponent implements OnInit {
   public sideSearchModelSelected  = [];
   public sideSearchVariantSelected  = [];
   public sideSearchTransmissionSelected  = [];
+  public sideSearchYearSelected  = [];  
   public SideSearchTransmissionSelected:false;
   closeResult: string;
   public searchSelectedMakes = new SearchSelectedMakes();
@@ -65,6 +73,7 @@ export class SideSearchComponent implements OnInit {
   @Output() selectedPriceEmit= new EventEmitter<string>();
   @Output() selectedOdometerEmit= new EventEmitter<string>();
   @Output() selectedTransmissionEmit= new EventEmitter<string>();
+  @Output() selectedYearEmit= new EventEmitter<string>();
   states: any = [];
   sliderPrices:number [] =[];
   sliderOdometer:number [] =[];
@@ -72,6 +81,8 @@ export class SideSearchComponent implements OnInit {
   fromPrice: number ;
   toPrice: number ;
   fromOdometer:number;
+  fromYearId: number ;
+  toYearId:number;
   toOdometer:number;
   minValue: number = 100;
   maxValue: number = 8000;
@@ -129,9 +140,35 @@ export class SideSearchComponent implements OnInit {
       } 
     });
 
-     this.homeService.GetYearList().subscribe((res)=>{ 
+     this.homeService.GetCertifiedInspectedList().subscribe((res)=>{ 
+      this.SideSearchCertifiedInspected.CertifiedInspected = res;     
+      console.log(this.SideSearchCertifiedInspected.CertifiedInspected);
+      //move CertifiedInspected model data  into array// 
+      for(let key in this.SideSearchCertifiedInspected.CertifiedInspected)
+      {  
+        if(this.SideSearchCertifiedInspected.CertifiedInspected.hasOwnProperty(key))
+        {  
+        this.arrCertified.push(this.SideSearchCertifiedInspected.CertifiedInspected[key]);    
+        }        
+      } 
+    });
+
+    this.homeService.GetYearList().subscribe((res)=>{ 
       this.SideSearchYear.Year = res;     
       console.log(this.SideSearchYear.Year);
+    });
+
+    this.homeService.GetVehicleTypeList().subscribe((res)=>{ 
+      this.SideSearchVehicleType.CarType = res;     
+      console.log(this.SideSearchVehicleType.CarType);
+      //move CertifiedInspected model data  into array// 
+      for(let key in this.SideSearchVehicleType.CarType)
+      {  
+        if(this.SideSearchVehicleType.CarType.hasOwnProperty(key))
+        {  
+        this.arrVehicleType.push(this.SideSearchVehicleType.CarType[key]);    
+        }        
+      } 
     });
 
      this.GetloggedinUsersCountry();
@@ -221,6 +258,20 @@ export class SideSearchComponent implements OnInit {
       }
     }
   }
+  ExpandCertifiedinspected()
+  {
+    { 
+      const element = document.querySelector("#expand-certifiedinspected");
+      const isOpen=element.classList.contains("view-mode-open");
+      if(isOpen)
+      {
+        this.IsExpandcertifiedinspected='';
+      }
+      else{
+     this.IsExpandcertifiedinspected='view-mode-open';
+      }
+    }
+  }
   ExpandYear(){ 
     const element = document.querySelector("#expand-year");
     const isOpen=element.classList.contains("view-mode-open");
@@ -232,6 +283,33 @@ export class SideSearchComponent implements OnInit {
    this.IsExpandYear='view-mode-open';
     }
   }
+  
+  ExpandVehicleType()
+  { 
+    const element = document.querySelector("#expand-VehicleType");
+    const isOpen=element.classList.contains("view-mode-open");
+    if(isOpen)
+    {
+      this.IsExpandVehicleType='';
+    }
+    else{
+   this.IsExpandVehicleType='view-mode-open';
+    }
+  }
+  
+  ExpandKeywords()
+  { 
+    const element = document.querySelector("#expand-Keywords");
+    const isOpen=element.classList.contains("view-mode-open");
+    if(isOpen)
+    {
+      this.IsExpandKeywords='';
+    }
+    else{
+   this.IsExpandKeywords='view-mode-open';
+    }
+  }
+
   showModelsById(id,name){   
        
     this.homeService.GetModelListForSideSearch(id).subscribe((res)=>{ 
@@ -483,11 +561,19 @@ export class SideSearchComponent implements OnInit {
    }
    
 
-   selectedEvent(item) {
-    // do something with selected item
-    console.log(item);
+   getCarModelLisYearRange() {
+    this.sideSearchYearSelected=[];     
+    this.sideSearchYearSelected.push(this.fromYearId);
+    this.sideSearchYearSelected.push(this.toYearId);    
+    this.selectedYearEmit.emit(JSON.stringify(this.sideSearchYearSelected));   
   }
- 
- 
+  BindVehicleListBySideSearchcarCertifiedInspectedId(e)
+  {
+
+  } 
+  BindVehicleListBySideSearchcarVehicleTypeId(e)
+  {
+
+  }
 
 }

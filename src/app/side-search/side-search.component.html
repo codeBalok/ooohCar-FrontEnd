@@ -204,11 +204,11 @@
                             <div class="range-selection">
                                 <div >
                                     <label>From:</label>
-                                    <div class="ng-autocomplete autocomplete-container" >
+                                    <div class="ng-autocomplete" >
                                         <ng-autocomplete    [data]="SideSearchYear.Year"
                                         [searchKeyword]="Keyword"
-                                        placeholder="Year"
-                                        (selected)='selectedEvent($event)'                                      
+                                        [(ngModel)]="fromYearId"
+                                        placeholder="Year"                                        
                                         historyIdentifier=""
                                         [itemTemplate]="itemTemplate"
                                         [notFoundTemplate]="notFoundTemplate">
@@ -225,12 +225,12 @@
                                 </div>
                                 <div >
                                     <label>To:</label>
-                                    <div class="ng-autocomplete autocomplete-container">
+                                    <div class="ng-autocomplete">
                                         <ng-autocomplete 
+                                        [(ngModel)]="toYearId"
                                         [data]="SideSearchYear.Year"
                                         [searchKeyword]="Keyword"
-                                        placeholder="Year"
-                                        (selected)='selectedEvent($event)'                            
+                                        placeholder="Year"                                       
                                          historyIdentifier="YearList"
                                         [itemTemplate]="itemTemplate"
                                         [notFoundTemplate]="notFoundTemplate">
@@ -250,7 +250,9 @@
                                 <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
                                     data-upper-placeholder="<!upper>"
                                     data-expression-url="/cars/?q=Year.range(%3C!lower%3E..%3C!upper%3E)."
-                                    data-clear-link="">Go</button>
+                                    data-clear-link=""
+                                    (click)="getCarModelLisYearRange()"
+                                    >Go</button>
                             </div>
                         </div>
                     </div>
@@ -336,7 +338,7 @@
 
                                     <div class="autocomplete-dropdown">
                                         <div>
-                                            <input type="text" placeholder="Min" [(ngModel)]="fromOdometer" data-value=""><i></i>
+                                            <input type="text" placeholder="Min" [(ngModel)]="fromOdometer" data-value="">Km<i></i>
                                         </div>
                                         <ul style="display: none;">
                                             <li data-value="" data-text="Min">Min</li>
@@ -356,7 +358,7 @@
 
                                     <div class="autocomplete-dropdown">
                                         <div>
-                                            <input type="text" placeholder="Max"  [(ngModel)]="toOdometer" data-value=""><i></i>
+                                            <input type="text" placeholder="Max"  [(ngModel)]="toOdometer" data-value="">Km<i></i>
                                         </div>
                                         <ul style="display: none;">
                                             <li data-value="" data-text="Max">Max</li>
@@ -419,13 +421,13 @@
                 </div>
             </div>
                 <div class="nav-element " data-control="aspectnavigationelement" data-name="certifiedinspected">
+                    <div id="expand-certifiedinspected" class="nav-element  {{IsExpandcertifiedinspected}}" data-control="aspectnavigationelement"
+                    data-name="certifiedinspected"> 
                     <div class="heading-summary">
                         <span class="heading">
                             Certified / Inspected
                         </span>
-
-
-                        <div class="expand-link"></div>
+                        <div class="expand-link"(click)="ExpandCertifiedinspected()">xx</div>
                     </div>
                     <div class="element-summary">
                     </div>
@@ -436,97 +438,59 @@
 
                             <div class="aspect" data-aspect-name="certifiedinspected">
 
-
-
-
                                 <ul class="default-facets">
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=CertifiedInspected.Certified."
-                                            data-opm-event="click-listings-refinement">Certified</a>
-
-                                        <span>(1,270)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=CertifiedInspected.Inspected."
-                                            data-opm-event="click-listings-refinement">Inspected</a>
-
-                                        <span>(304)</span>
-                                    </li>
+                                    <li class="facet-visible" *ngFor="let carCertified of  arrCertified" >
+                                         
+                                        <input type="checkbox" class="chekboxmake"  id="carCertified_{{carCertified.id}}"  value="{{carCertified.id}}" 
+                                        [(ngModel)]="carCertified.Selected" (change)="BindVehicleListBySideSearchcarCertifiedInspectedId($event)"/>                     
+                                                 {{carCertified.name}}
+                                    </li>                                     
                                 </ul>
-
                             </div>
-
-
-
-
-
                         </div>
                     </div>
                 </div>
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="condition">
+            </div>
+                <div class="nav-element " data-control="aspectnavigationelement" data-name="VehicleType">
+                    <div id="expand-VehicleType" class="nav-element  {{IsExpandVehicleType}}" data-control="aspectnavigationelement"
+                    data-name="VehicleType"> 
                     <div class="heading-summary">
                         <span class="heading">
                             New / Used
                         </span>
-
-
-                        <div class="expand-link"></div>
+                        <div class="expand-link"  (click)="ExpandVehicleType()">xx</div> 
                     </div>
                     <div class="element-summary">
                     </div>
                     <div class="element-selection">
                         <h5 class="element-selection-title">New / Used</h5>
-
                         <div class="aspect-navigation-element" data-aspect-name="Condition">
-
                             <div class="aspect" data-aspect-name="condition">
-
-
-
-
                                 <ul class="default-facets">
-                                    <li class="facet-visible">
-                                        <a href="/cars/demo-and-near-new/"
-                                            data-opm-event="click-listings-refinement">Demo and Near New</a>
-
-                                        <span>(17,432)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/new/" data-opm-event="click-listings-refinement">New</a>
-
-                                        <span>(30,526)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/used/" data-opm-event="click-listings-refinement">Used</a>
-
-                                        <span>(95,622)</span>
-                                    </li>
+                                    <li class="facet-visible" *ngFor="let vehicleType of  arrVehicleType" >                                         
+                                        <input type="checkbox" class="chekboxmake"  id="vehicleType_{{vehicleType.id}}"  value="{{vehicleType.id}}" 
+                                        [(ngModel)]="vehicleType.Selected" (change)="BindVehicleListBySideSearchcarVehicleTypeId($event)"/>                     
+                                                 {{vehicleType.name}}
+                                    </li>                                     
                                 </ul>
-
                             </div>
-
-
-
-
-
+                          </div>
                         </div>
                     </div>
                 </div>
                 <div class="nav-element " data-control="keywordnavigationelement" data-name="carall">
+                    <div id="expand-Keywords" class="nav-element  {{IsExpandKeywords}}" data-control="aspectnavigationelement"
+                    data-name="carall"> 
                     <div class="heading-summary">
                         <span class="heading">
                             Keywords
                         </span>
-
-
-                        <div class="expand-link"></div>
+                        <div class="expand-link" (click)="ExpandKeywords()">xx</div> 
                     </div>
                     <div class="element-summary">
-
                     </div>
                     <div class="element-selection">
                         <h5 class="element-selection-title">Keywords</h5>
-
                         <div class="keyword-element">
                             <div class="keyword-selection">
                                 <input type="text" placeholder="Search..." maxlength="100"
@@ -538,6 +502,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <div class="nav-element-category category-engine" data-category-name="engine">
             <div class="heading-summary">

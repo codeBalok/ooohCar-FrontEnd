@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject,Subject } from 'rxjs';
-import { SearchListModel, SearchSelectedModels, SearchSelectedVariants,SearchSelectedPrice,SearchSelectedOdometer,SearchSelectedTransmission } from '../shared/models/SearchListModel';
+import { SearchListModel, SearchSelectedModels, SearchSelectedVariants,SearchSelectedPrice,SearchSelectedOdometer,SearchSelectedTransmission, SearchSelectedYear } from '../shared/models/SearchListModel';
 import { map } from 'rxjs/operators';
 import { SearchModel,SearchSelectedMakes } from '../shared/models/SearchListModel';
 
@@ -15,8 +15,8 @@ export class HomeService {
 
   constructor(private http: HttpClient) { }
   
-  GetVehicleList() {
-    return this.http.get<any>(this.baseUrl + 'Home/GetVehicleList');
+  GetVehicleTypeList() {
+    return this.http.get<any>(this.baseUrl + 'Home/GetVehicleTypeList');
   }
 
   GetLocationList() {
@@ -48,6 +48,8 @@ export class HomeService {
   GetSearchVehicleList(searchModel : SearchModel) {
     return this.http.post<any>(this.baseUrl + 'Home/GetSearchVehicleList', searchModel);
   }
+
+
   // AddUpdateSccessorChildren(Children: SuccessorGuardianChildren) {
 
   //   return this.http.post<any>(this.baseUrl + this.ApiRoute.AddUpdateChildren, Children);
@@ -94,5 +96,12 @@ export class HomeService {
   GetVehicleListAccordingToSelectedTransmissionRange(searchSelectedTransmission : SearchSelectedTransmission) {
     return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedTransmission', searchSelectedTransmission);
   }
+  GetVehicleListAccordingToSelectedYearRange(searchSelectedYear : SearchSelectedYear) {
+    return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedYear', searchSelectedYear);
+  }
+  GetCertifiedInspectedList() {
+    return this.http.get<any>(this.baseUrl + 'Home/GetCertifiedInspectedList');
+  }
+   
 }
  

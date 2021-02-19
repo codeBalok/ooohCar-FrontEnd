@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
     private router: Router) { }
   //$('.selectpicker').selectpicker();
   ngOnInit() {
-    this.homeService.GetVehicleList().subscribe((res)=>{
+    this.homeService.GetVehicleTypeList().subscribe((res)=>{
       console.log("vehicle" + res);
       this.searchListModel.CarType = res;
     });  

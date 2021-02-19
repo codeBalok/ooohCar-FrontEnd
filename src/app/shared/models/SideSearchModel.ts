@@ -8,6 +8,7 @@ export class SideSearchListModel {
     Year: CommonModel;
     Variant:CommonModel;
     Transmission:CommonModel;
+    CertifiedInspected:CommonModel;
 }
 
 export class SideSearchModel {

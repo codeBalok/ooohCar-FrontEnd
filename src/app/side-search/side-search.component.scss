@@ -113,7 +113,7 @@ section.carsales.grouped-refinement {
                 }
                 .aspect-navigation-element {
                     ul.default-facets {
-                        width: 100%;
+                        width: 50%;
                         list-style: none;
                         padding-left: 0px;
                         margin-bottom: 15px;
@@ -563,8 +563,8 @@ section.carsales.grouped-refinement {
     }
   }
 
-  .ng-autocomplete {
-    height: 25px;
+  ::ng-deep .ng-autocomplete {
+    height: 5px;
     width:50%;
     max-width: 100px;
     display: table;
@@ -585,10 +585,10 @@ section.carsales.grouped-refinement {
   span {
     margin-left: 5px;
   }
-  .autocomplete-container .input-container input {
+  ::ng-deep .autocomplete-container .input-container input {
     font-size: 14px;
     padding: 0 6px;
-    height: 25px;
+    height: 5px;
   }
   .autocomplete-container .suggestions-container {
     z-index: 9999;
