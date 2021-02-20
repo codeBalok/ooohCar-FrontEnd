@@ -47,12 +47,18 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { SideSearchComponent } from './side-search/side-search.component';
+import { CarDetailComponent } from './car-detail/car-detail.component';
+import { SellUsedCarComponent } from './sell-used-car/sell-used-car.component';
+import { SetLocationComponent } from './set-location/set-location.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContactComponent,
     AddNewCarComponent,
+    CarDetailComponent,
+    SellUsedCarComponent,
+    SetLocationComponent,
    
     // SideSearchComponent
     

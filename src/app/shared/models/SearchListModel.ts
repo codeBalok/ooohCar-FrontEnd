@@ -14,6 +14,7 @@ export class SearchModel {
     CarModelId: string = "0";
     LocationId: string = "0";
     YearId: string = "0";
+    UserId:string="";
 }
 export class SearchSelectedMakes {
     Make: CommonModel[] ;
