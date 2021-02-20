@@ -38,7 +38,7 @@
       },
       {
         "country": "Australia",
-        "states": []
+        "states":  ["New South Wales","Queensland","South Australia","Tasmania","Victoria","Western Australia","Australian Capital Territory", "Northern Territory"]
       },
       {
         "country": "Austria",
@@ -138,7 +138,7 @@
       },
       {
         "country": "Cape Verde",
-        "states": []
+        "states": ["Santo Antão","São Vicente","Santa Luzia,","São Nicolau","Sal","Boa Vista","Maio","Santiago","Fogo","Brava"]
       },
       {
         "country": "Central African Republic",
@@ -178,7 +178,7 @@
       },
       {
         "country": "Cote d'Ivoire",
-        "states": []
+        "states": ["Abidjan","Bas-Sassandra","Comoé","Denguélé","Gôh-Djiboua","Lacs","Lagunes","Montagnes","Sassandra-Marahoué","Savanes","Vallée du Bandama","Woroba","Yamoussoukro","Zanzan"]
       },
       {
         "country": "Croatia",
@@ -266,7 +266,7 @@
       },
       {
         "country": "Georgia",
-        "states": []
+        "states": ["Abkhazia","Adjara","Guria","Imereti","Kakheti","Kvemo Kartli","Mtskheta-Mtianeti","Racha-Lechkhumi and Kvemo Svaneti","Samegrelo-Zemo Svaneti","Samtskhe-Javakheti","Shida Kartli","Tbilisi"]
       },
       {
         "country": "Germany",
@@ -314,7 +314,7 @@
       },
       {
         "country": "Hong Kong",
-        "states": []
+        "states":["Yuen Long District","Tsuen Wan District","Tai Po District","Sai Kung District","Islands District","Central and Western District","Wan Chai","Eastern","Southern","North","Yau Tsim Mong","Sham Shui Po","Kowloon City","Wong Tai Sin","Kwun Tong","Kwai Tsing","Tuen Mun","Sha Tin"]
       },
       {
         "country": "Hungary",
@@ -374,7 +374,7 @@
       },
       {
         "country": "Kiribati",
-        "states": []
+        "states": ["Banaba","Tarawa","Northern Gilbert Islands","Central Gilbert Island","Southern Gilbert Islands","Line Islands"]
       },
       {
         "country": "Korea North",
@@ -454,11 +454,11 @@
       },
       {
         "country": "Malta",
-        "states": []
+        "states": ["Southern Harbour","Northern Harbour","Western District","Northern District","Gozo and Comino"]
       },
       {
         "country": "Marshall Islands",
-        "states": []
+        "states": ["Ailuk","Ailinglaplap","Arno","Aur","Ebon","Enewetak","Jabat","Jaluit","Kili","Kwajalein","Lae","Lib","Likiep","Majuro","Maloelap","Mejit","Mili","Namorik","Namu","Rongelap","Ujae","Utirik","Wotho","Wotje","Ailinginae","Bikar","Bikini","Bokak","Erikub","Jemo","Rongrik","Toke","Ujelang"]
       },
       {
         "country": "Mauritania",
@@ -490,7 +490,7 @@
       },
       {
         "country": "Monaco",
-        "states": []
+        "states": ["Monaco-Ville","La Condamine","Monte Carlo","Fontvieille"]
       },
       {
         "country": "Mozambique",
@@ -502,7 +502,7 @@
       },
       {
         "country": "Nauru",
-        "states": []
+        "states": ["Aiwo","Anabar","Anetan","Anibare"]
       },
       {
         "country": "Nepal",
@@ -594,7 +594,7 @@
       },
       {
         "country": "Sao Tome",
-        "states": []
+        "states": ["Água Grande","Cantagalo","Caué","Lembá","Lobata","Mé-Zóchi","Autonomous Region of Príncipe"]
       },
       {
         "country": "Saudi Arabia",
@@ -614,12 +614,12 @@
       },
       {
         "country": "Sierra Leone",
-        "states": []
+        "states": ["Eastern Province","Northern Province","Southern Province","North West Province","Western Area"]
       },
       {
         "country": "Singapore",
-        "states": []
-      },
+        "states": ["Aljunied Group Representation Constituency","Ang Mo Kio Group Representation Constituency","Bishan–Toa Payoh Group Representation Constituency","Chua Chu Kang Group Representation Constituency","East Coast Group Representation Constituency","Holland–Bukit Timah Group Representation Constituency","Jalan Besar Group Representation Constituency","Jurong Group Representation Constituency","Marine Parade Group Representation Constituency","Marsiling–Yew Tee Group Representation Constituency","Nee Soon Group Representation Constituency","Pasir Ris–Punggol Group Representation Constituency","Sengkang Group Representation Constituency","Tampines Group Representation Constituency","Tanjong Pagar Group Representation Constituency","West Coast Group Representation Constituency"]
+       },
       {
         "country": "Slovakia",
         "states": ["Banskobystricky", "Bratislavsky", "Kosicky", "Nitriansky", "Presovsky", "Trenciansky", "Trnavsky", "Zilinsky"]
@@ -678,7 +678,7 @@
       },
       {
         "country": "Tajikistan",
-        "states": []
+        "states": ["Sughd Region","Districts of Republican Subordination","Khatlon Region","Gorno-Badakhshan Autonomous Region","Dushanbe"]
       },
       {
         "country": "Tanzania",
@@ -694,7 +694,7 @@
       },
       {
         "country": "Tonga",
-        "states": []
+        "states": ["Tongatapu","Vavaʻu","Haʻapai","ʻEua","Ongo Niua","Tonga"]
       },
       {
         "country": "Trinidad and Tobago",
@@ -726,7 +726,7 @@
       },
       {
         "country": "United Kingdom",
-        "states": []
+        "states": [ "Aberconwy and Colwyn", "Aberdeen City", "Aberdeenshire", "Anglesey", "Angus", "Antrim", "Argyll and Bute", "Armagh", "Avon", "Ayrshire", "Bath and NE Somerset", "Bedfordshire", "Belfast", "Berkshire", "Berwickshire", "BFPO", "Blaenau Gwent", "Buckinghamshire", "Caernarfonshire", "Caerphilly", "Caithness", "Cambridgeshire", "Cardiff", "Cardiganshire", "Carmarthenshire", "Ceredigion", "Channel Islands", "Cheshire", "City of Bristol", "Clackmannanshire", "Clwyd", "Conwy", "Cornwall/Scilly", "Cumbria", "Denbighshire", "Derbyshire", "Derry/Londonderry", "Devon", "Dorset", "Down", "Dumfries and Galloway", "Dunbartonshire", "Dundee", "Durham", "Dyfed", "East Ayrshire", "East Dunbartonshire", "East Lothian", "East Renfrewshire", "East Riding Yorkshire", "East Sussex", "Edinburgh", "England", "Essex", "Falkirk", "Fermanagh", "Fife", "Flintshire", "Glasgow", "Gloucestershire", "Greater London", "Greater Manchester", "Gwent", "Gwynedd", "Hampshire", "Hartlepool", "Hereford and Worcester", "Hertfordshire", "Highlands", "Inverclyde", "Inverness-Shire", "Isle of Man", "Isle of Wight", "Kent", "Kincardinshire", "Kingston Upon Hull", "Kinross-Shire", "Kirklees", "Lanarkshire", "Lancashire", "Leicestershire", "Lincolnshire", "Londonderry", "Merseyside", "Merthyr Tydfil", "Mid Glamorgan", "Mid Lothian", "Middlesex", "Monmouthshire", "Moray", "Neath & Port Talbot", "Newport", "Norfolk", "North Ayrshire", "North East Lincolnshire", "North Lanarkshire", "North Lincolnshire", "North Somerset", "North Yorkshire", "Northamptonshire", "Northern Ireland", "Northumberland", "Nottinghamshire", "Orkney and Shetland Isles", "Oxfordshire", "Pembrokeshire", "Perth and Kinross", "Powys", "Redcar and Cleveland", "Renfrewshire", "Rhonda Cynon Taff", "Rutland", "Scottish Borders", "Shetland", "Shropshire", "Somerset", "South Ayrshire", "South Glamorgan", "South Gloucesteshire", "South Lanarkshire", "South Yorkshire", "Staffordshire", "Stirling", "Stockton On Tees", "Suffolk", "Surrey", "Swansea", "Torfaen", "Tyne and Wear", "Tyrone", "Vale Of Glamorgan", "Wales", "Warwickshire", "West Berkshire", "West Dunbartonshire", "West Glamorgan", "West Lothian", "West Midlands", "West Sussex", "West Yorkshire", "Western Isles", "Wiltshire", "Wirral", "Worcestershire", "Wrexham", "York" ]
       },
       {
         "country": "United States",
