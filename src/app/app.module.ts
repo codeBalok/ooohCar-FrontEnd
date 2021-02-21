@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
-import { ShopModule } from './shop/shop.module';
 import { HomeModule } from './home/home.module';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -17,7 +16,6 @@ import { LatestOfferModule } from './latest-offer/latest-offer.module';
 import { TeamModule } from './team/team.module';
 import { FooterModule } from './footer/footer.module';
 import { TestimonialModule } from './testimonial/testimonial.module';
-import { BlogModule } from './blog/blog.module';
 import { NewCarsModule } from './new-cars/new-cars.module';
 import { FaqModule } from './faq/faq.module';
 import { InstantOfferModule } from './instant-offer/instant-offer.module';
@@ -39,23 +37,18 @@ import { InstantOfferService } from './instant-offer/instant-offer.service';
 import { HeaderService } from './header/header.service';
 import { CertifiedProgramsService } from './certified-programs/certified-programs.service';
 import { CreateAdService } from './create-ad/create-ad.service';
-import { ContactService } from './contact/contact.service';
 import { HomeService } from './home/home.service';
-import { CarSearchComponent } from './car-search/car-search.component';
 import { AddNewCarComponent } from './add-new-car/add-new-car.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgxImageCompressService } from 'ngx-image-compress';
-import { SideSearchComponent } from './side-search/side-search.component';
+import { AngularMaterialModule } from './angular-material/angular-material.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContactComponent,
     AddNewCarComponent,
-   
-    // SideSearchComponent
-    
   ],
   imports: [
     BrowserModule,
@@ -82,9 +75,9 @@ import { SideSearchComponent } from './side-search/side-search.component';
     NgxSpinnerModule,
     AutocompleteLibModule,
     ReactiveFormsModule,
-    SideSearchModule
+    SideSearchModule,
+    AngularMaterialModule
 
-    
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
@@ -108,4 +101,3 @@ import { SideSearchComponent } from './side-search/side-search.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
- 
