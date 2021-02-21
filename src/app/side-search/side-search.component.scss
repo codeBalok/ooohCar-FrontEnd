@@ -521,6 +521,75 @@ section.carsales.grouped-refinement {
     border: none;
 }
 
+::ng-deep {
+    .custom-slider .ng5-slider .ng5-slider-bar {
+      background:#0084FF;
+      height: 5px;
+    }
+  
+    .custom-slider .ng5-slider .ng5-slider-pointer {
+        width: 48px;
+        height: 28px;
+      top: auto; /* to remove the default positioning */
+      bottom: 0;
+      background-image: url(../../assets/images/slider-img.PNG);
+      background-size: cover;  
+      background-color:#ffffff;
+      top: -10px;
+      font-size: 4px;
+     // box-shadow:         3px 3px 5px 6px #ccc;
+    }
+  
+    .custom-slider .ng5-slider .ng5-slider-pointer:after {
+      display: none;
+    }
+  
+    .custom-slider .ng5-slider .ng5-slider-bubble {
+      bottom: 14px;
+    }
+  
+    .custom-slider .ng5-slider .ng5-slider-limit {
+      font-weight: bold;
+      color: blue;
+    }
+  
+    .custom-slider .ng5-slider .ng5-slider-tick {
+      width: 5px;
+      height: 10px;
+      margin-left: 4px;
+      border-radius: 0;
+      background: #001324;
+      top: -1px;
+    }
+  }
 
-
-
+  .ng-autocomplete {
+    height: 25px;
+    width:50%;
+    max-width: 100px;
+    display: table;
+    margin: 0 auto;
+  }
+  .item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+    line-height: 45px;
+    height: 45px;
+    padding: 0 16px;
+    text-align: left;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  span {
+    margin-left: 5px;
+  }
+  .autocomplete-container .input-container input {
+    font-size: 14px;
+    padding: 0 6px;
+    height: 25px;
+  }
+  .autocomplete-container .suggestions-container {
+    z-index: 9999;
+  }

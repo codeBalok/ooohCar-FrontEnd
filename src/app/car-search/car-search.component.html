@@ -6,11 +6,15 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
-                <app-side-search (selectedMakesEmit)="getSelectedmakes($event)"></app-side-search>
+                <app-side-search (selectedMakesEmit)="getSelectedmakes($event)" (selectedModelEmit)="getSelectedmodels($event)"
+                (selectedVariantEmit)="getSelectedvariant($event)" (selectedPriceEmit)="getSelectedPrice($event)"
+                (selectedOdometerEmit)="getSelectedOdometer($event)"
+                (selectedTransmissionEmit)="getSelectedTransmission($event)"
+                ></app-side-search>
             </div>
             <div class="col-lg-9" *ngIf="!isData">
                 <!-- Option bar start -->
-                <div class="option-bar clearfix">
+                <div class="option-bar clearfix">00
                     <div class="row">
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="sorting-options2">
@@ -62,7 +66,7 @@
                                     <div class="price-box">
                                         <span class="del"><del>$950.00</del></span>
                                         <br>
-                                        <span>$1050.00</span>
+                                        <span>${{vehicle.price}}</span>
                                     </div>
                                     <img class="d-block w-100" [src]="vehicle.image" alt="car">
                                 </a>

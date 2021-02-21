@@ -19,3 +19,19 @@ export class SearchModel {
 export class SearchSelectedMakes {
     Make: CommonModel[] ;
 }
+export class SearchSelectedModels {
+    Model: CommonModel[] ;
+}
+export class SearchSelectedVariants{
+    Variant: CommonModel[] ;
+}
+export class SearchSelectedPrice{
+    Price:[];
+}
+export class SearchSelectedOdometer{
+    Odometer:[];
+}
+export class SearchSelectedTransmission
+{
+    Transmission:[];
+}

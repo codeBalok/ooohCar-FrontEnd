@@ -7,6 +7,7 @@ export class SideSearchListModel {
     Location: CommonModel;
     Year: CommonModel;
     Variant:CommonModel;
+    Transmission:CommonModel;
 }
 
 export class SideSearchModel {
