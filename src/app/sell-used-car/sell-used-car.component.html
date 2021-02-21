@@ -1,0 +1,275 @@
+<div class="contact-2 content-area-5">
+   
+    <div class="container">
+
+        <div class="car-brand {{carmake == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}" >
+            <span class="select-car-brand-span">Select Car Make
+            </span>
+         
+            <div>
+            <ul class="row row-car-brand">
+            <li class="li-car-brand" *ngFor="let sort of AddNewCarListModel.MakeType">
+           
+            <div class="text-center div-car-brand" (click)="clickMake(sort.id)">
+                <img [id]="sort.id"   data-title="sort.name" [src]="sort.logoImages" [alt]="sort.name" class="img-fluid _1jMfy">
+            </div>
+        </li>
+            
+            </ul>
+            </div>
+            </div>
+            <div class="row py-4 m-0 car-model {{carmodel == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}" >
+                <div class="col-md-5 p-0"><span class="select-car-model">Select Your Car Model</span></div>
+                <div class="col-md-7 p-0">
+                    <select  class="form-control drp-add-new-car" 
+                    #selectModal>
+                        <option selected  disabled value="">Select Model Type*</option>
+                       
+                        <option *ngFor="let sort of AddNewCarListModel.CarModel" 
+                        [value]="sort.id">
+                        {{sort.name}}
+                    </option>
+                    </select>
+            </div>
+            <div class="d-block"><span class="popular-model-div">Popular Models</span></div>
+            <div class="col-md-12 p-0 innerRow">
+                <div class="innerRow">
+                    <div class="row ml-0">
+                        <div class="col-6 cars-popular-models" *ngFor="let sort of AddNewCarListModel.CarModel" >
+                            <div *ngIf="(sort.popular == true)"  class="card car-card">{{sort.name}}</div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+           
+    </div>
+
+
+    <div class="row py-4 m-0 car-varient {{carvarient == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}">
+        <div class="col-12 p-0">
+            <div><span class="span-select-car-reg-state">Select Your Car Variant</span></div>
+            <div class="w-100">
+                <div>
+                    <div class="row m-0">
+                        <ul class="_3u-cI">
+                            <li class="IuWzB"><span>Petrol</span></li>
+                        </ul>
+                    </div>
+                    <div class="innerRow">
+                        <div class="innerRow">
+                            <div class="row ml-0">
+                                <div class="col-6 cars-popular-models">
+                                    <div class="card car-card">MAGNA 1.2 VTVT</div>
+                                </div>
+                                <div class="col-6 cars-popular-models">
+                                    <div class="card car-card">SPORTZ 1.2 KAPPA VTVT</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+    <div class="row m-0 py-4 car-year {{caryear == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}">
+
+        
+        <div class="col-12 p-0">
+            <div class="d-inline"><span class="span-select-car-reg-state">Car Registration Year</span></div>
+            <div class="ml-2 d-inline"><span class="span-registration-code"> (As per RC)</span></div>
+        </div>
+        <div class="col-md-8 pt-3 px-0">
+            <div class="css-1pcexqc-container search-select-container">
+                <div class="css-bg1rzq-control search-select__control">
+                    <div class="css-1hwfws3 search-select__value-container search-select__value-container--has-value">
+                        <div class="css-1g6gooi">
+                            <div class="search-select__input" style="display: inline-block;"><input autocapitalize="none" autocomplete="off" autocorrect="off" id="react-select-9-input" spellcheck="false" tabindex="-1" type="text" aria-autocomplete="list" value="2020" style="box-sizing: content-box; width: 33px; background: 0px center; border: 0px; font-size: inherit; opacity: 1; outline: 0px; padding: 0px; color: inherit;">
+                                <div
+                                    style="position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: 14px; font-family: Roboto, sans-serif; font-weight: 400; font-style: normal; letter-spacing: normal; text-transform: none;">2020</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="css-1wy0on6 search-select__indicators"><span class="css-bgvzuu-indicatorSeparator search-select__indicator-separator"></span>
+                    <div aria-hidden="true" class="css-16pqwjk-indicatorContainer search-select__indicator search-select__dropdown-indicator"><svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-19bqh2r"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg></div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+
+<div class="row py-4 m-0 car-reg-state {{carregstate == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}">
+    <div class="col-12 p-0">
+        <div><span class="span-select-car-reg-state">Select Your Car Registration State</span></div>
+        <div><span class="span-registration-code">We don’t buy cars with registration numbers different from below mentioned states</span></div>
+        <div>
+            <div class="innerRow">
+                <div class="row ml-0">
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card car-card-new">DL</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">HR</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">UP</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">KA</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">MP</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">MH</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">AP</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">KL</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">TS</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">RJ</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">CH</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">PB</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">WB</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">AS</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">BR</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">CG</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">GA</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">GJ</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">HP</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">JK</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">JH</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">OD</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">SK</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">TN</div>
+                    </div>
+                    <div class="col-3 cars-popular-models">
+                        <div class="card car-card">UK</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+
+<div class="car-codes {{carcode == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}">
+    <div class="_2APrS">
+        <div class="_1ly2A">DL (Delhi)</div>
+        <div class="L7SEc"><img src="https://www.cars24.com/js/41b2dd81007d30084e7f3a2869a68779.svg" alt="check">
+            <p>Change</p>
+        </div>
+    </div>
+    <div class="_1ovk7">
+        <div><span class="span-registration-code">An RTO City code will help us give you a more exact price for your vehicle</span></div>
+    </div>
+    <div class="_1SHaz">
+        <div class="css-1pcexqc-container search-select-container">
+            <div class="css-bg1rzq-control search-select__control">
+                <div class="css-1hwfws3 search-select__value-container">
+                    <div class="css-1g6gooi">
+                        <div class="search-select__input" style="display: inline-block;"><input autocapitalize="none" autocomplete="off" autocorrect="off" id="react-select-9-input" spellcheck="false" tabindex="-1" type="text" aria-autocomplete="list" value="DL-08" style="box-sizing: content-box; width: 38px; background: 0px center; border: 0px; font-size: inherit; opacity: 1; outline: 0px; padding: 0px; color: inherit;">
+                            <div
+                                style="position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: 14px; font-family: Roboto, sans-serif; font-weight: 400; font-style: normal; letter-spacing: normal; text-transform: none;">DL-08</div>
+                    </div>
+                </div>
+            </div>
+            <div class="css-1wy0on6 search-select__indicators"><span class="css-bgvzuu-indicatorSeparator search-select__indicator-separator"></span>
+                <div aria-hidden="true" class="css-16pqwjk-indicatorContainer search-select__indicator search-select__dropdown-indicator"><svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-19bqh2r"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="B4MFd">
+    <div class="mb-0 d-block"><span class="BnzPv">Popular RTO Codes</span></div>
+</div>
+<div class="row wBjvQ">
+    <div class="col-4 _23XSz">
+        <div class="card _1DywR">
+            <div><span>DL</span><strong>03</strong></div>
+        </div>
+    </div>
+    <div class="col-4 _23XSz">
+        <div class="card _1DywR _3ATEE">
+            <div><span>DL</span><strong>08</strong></div>
+        </div>
+    </div>
+    <div class="col-4 _23XSz">
+        <div class="card _1DywR">
+            <div><span>DL</span><strong>04</strong></div>
+        </div>
+    </div>
+    <div class="col-4 _23XSz">
+        <div class="card _1DywR">
+            <div><span>DL</span><strong>02</strong></div>
+        </div>
+    </div>
+    <div class="col-4 _23XSz">
+        <div class="card _1DywR">
+            <div><span>DL</span><strong>01</strong></div>
+        </div>
+    </div>
+    <div class="col-4 _23XSz">
+        <div class="card _1DywR">
+            <div><span>DL</span><strong>07</strong></div>
+        </div>
+    </div>
+    <div class="col-4 _23XSz">
+        <div class="card _1DywR">
+            <div><span>DL</span><strong>10</strong></div>
+        </div>
+    </div>
+    <div class="col-4 _23XSz">
+        <div class="card _1DywR">
+            <div><span>DL</span><strong>12</strong></div>
+        </div>
+    </div>
+    <div class="col-4 _23XSz">
+        <div class="card _1DywR">
+            <div><span>DL</span><strong>06</strong></div>
+        </div>
+    </div>
+</div>
+
+</div>
+

@@ -30,6 +30,7 @@
     "ng5-slider": "^1.2.6",
     "ngx-bootstrap": "^5.3.2",
     "ngx-image-compress": "^8.0.4",
+    "ngx-lightbox": "^2.2.2",
     "ngx-spinner": "^8.1.0",
     "ngx-toastr": "^11.3.3",
     "rxjs": "~6.6.3",

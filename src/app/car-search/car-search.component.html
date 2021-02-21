@@ -10,12 +10,11 @@
                 (selectedVariantEmit)="getSelectedvariant($event)" (selectedPriceEmit)="getSelectedPrice($event)"
                 (selectedOdometerEmit)="getSelectedOdometer($event)"
                 (selectedTransmissionEmit)="getSelectedTransmission($event)"
-                (selectedYearEmit)="getSelectedYear($event)"
                 ></app-side-search>
             </div>
             <div class="col-lg-9" *ngIf="!isData">
                 <!-- Option bar start -->
-                <div class="option-bar clearfix">
+                <div class="option-bar clearfix">00
                     <div class="row">
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="sorting-options2">
@@ -41,6 +40,24 @@
                 </div>
                 <!-- Car box 2 start -->
                 <div class="car-box-2" *ngFor="let vehicle of vehicleModel">
+                  
+                    <div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}" >
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">{{vehicleName}}</h5>
+                            </div>      
+                            <div class="modal-body">
+                                <img class="d-block w-100" [src]="vehicleImagevar" alt="vehicleName">
+                            </div>
+                      
+                            <!-- modal-footer -->
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" (click)="closeModalDialog()" >Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     <div class="row">
                         <div class="col-lg-4 col-md-5 col-pad">
                             <div class="car-thumbnail">
@@ -53,23 +70,28 @@
                                     </div>
                                     <img class="d-block w-100" [src]="vehicle.image" alt="car">
                                 </a>
+                               
                                 <div class="carbox-overlap-wrapper">
                                     <div class="overlap-box">
                                         <div class="overlap-btns-area">
                                             <a class="overlap-btn" data-toggle="modal" data-target="#carOverviewModal">
                                                 <i class="fa fa-eye-slash"></i>
                                             </a>
-                                            <a class="overlap-btn wishlist-btn">
+                                            <button [attr.id]="'fav' + vehicle.id" *ngIf="vehicle.isFavourite"  (click)="addeleteFavourite(vehicle.id,'fav' + vehicle.id)" class="overlap-btn wishlist-btn active" >
                                                 <i class="fa fa-heart-o"></i>
-                                            </a>
+                                            </button>
+                                            <button [attr.id]="'fav' + vehicle.id"  *ngIf="!vehicle.isFavourite" (click)="addeleteFavourite(vehicle.id,'fav' + vehicle.id)" class="overlap-btn wishlist-btn" >
+                                                <i class="fa fa-heart-o"></i>
+                                            </button>
+
                                             <a class="overlap-btn compare-btn">
                                                 <i class="fa fa-balance-scale"></i>
                                             </a>
                                             <div class="car-magnify-gallery">
-                                                <a href="http://placehold.it/750x500" class="overlap-btn" data-sub-html="<h4>Lamborghini</h4><p>A beautiful Sunrise this morning taken En-route to Keswick not one as planned but I'm extremely happy....</p>">
+                                                <button  (click)="openModalDialog(vehicle.image,vehicle.name)" class="overlap-btn" data-sub-html="<h4>Lamborghini</h4><p>A beautiful Sunrise this morning taken En-route to Keswick not one as planned but I'm extremely happy....</p>">
                                                     <i class="fa fa-expand"></i>
                                                     <img class="hidden" src="http://placehold.it/80x58" alt="hidden-img">
-                                                </a>
+                                                </button>
                                                 <a href="http://placehold.it/750x500" class="hidden" data-sub-html="<h4>Ferrari Red Car</h4><p>A beautiful Sunrise this morning taken En-route to Keswick not one as planned but I'm extremely happy....</p>">
                                                     <img class="hidden" src="http://placehold.it/80x58" alt="hidden-img">
                                                 </a>

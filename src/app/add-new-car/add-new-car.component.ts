@@ -126,8 +126,7 @@ export class AddNewCarComponent implements OnInit {
    debugger;
     this.addnewcarService.AddUpdateNewVehicle(this.addvehicleForm).subscribe((res)=>{
        console.log(res);  
-    });  
-   
+    }); 
 }
 
 
