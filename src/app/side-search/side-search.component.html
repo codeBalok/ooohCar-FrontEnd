@@ -203,47 +203,30 @@
                         <div class="range-element">
                             <div class="range-selection">
                                 <div >
-                                    <label>From:</label>
-                                    <div class="ng-autocomplete" >
-                                        <ng-autocomplete    [data]="SideSearchYear.Year"
-                                        [searchKeyword]="Keyword"
-                                        [(ngModel)]="fromYearId"
-                                        placeholder="Year"                                        
-                                        historyIdentifier=""
-                                        [itemTemplate]="itemTemplate"
-                                        [notFoundTemplate]="notFoundTemplate">
-                                    </ng-autocomplete>
-
-                                        <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.name"></a>
-                                        </ng-template>
-
-                                        <ng-template #notFoundTemplate let-notFound>
-                                            <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
+                                    <label>From:</label>  
+                                    <div class="autocomplete-dropdown">
+                                       <input matInput placeholder="Select Year" aria-label="Year" [matAutocomplete]="fromYearauto"
+                                        [formControl]="FromYrControl">
+                                        <mat-autocomplete #fromYearauto="matAutocomplete">                                        
+                                           <mat-option *ngFor="let option of fromYearfilteredOptions | async" 
+                                              [value]="option.name">
+                                              {{option.name}}
+                                              </mat-option>                                              
+                                        </mat-autocomplete>
+                                        </div>                               
                                 </div>
                                 <div >
                                     <label>To:</label>
-                                    <div class="ng-autocomplete">
-                                        <ng-autocomplete 
-                                        [(ngModel)]="toYearId"
-                                        [data]="SideSearchYear.Year"
-                                        [searchKeyword]="Keyword"
-                                        placeholder="Year"                                       
-                                         historyIdentifier="YearList"
-                                        [itemTemplate]="itemTemplate"
-                                        [notFoundTemplate]="notFoundTemplate">
-                                    </ng-autocomplete>
-
-                                    <ng-template #itemTemplate let-item>
-                                        <a [innerHTML]="item.name"></a>
-                                    </ng-template>
-
-                                    <ng-template #notFoundTemplate let-notFound>
-                                        <div [innerHTML]="notFound"></div>
-                                    </ng-template>
-                                 </div>
+                                    <div class="autocomplete-dropdown">
+                                    <input matInput placeholder="Select Year" aria-label="Year" [matAutocomplete]="toYearauto"
+                                    [formControl]="ToYrControl">
+                                    <mat-autocomplete #toYearauto="matAutocomplete"   >
+                                        <mat-option *ngFor="let option of toYearfilteredOptions | async" [value]="option.name"
+                                         >
+                                           {{option.name}}
+                                          </mat-option>                                              
+                                    </mat-autocomplete>   
+                                </div>
                              </div>
                         </div>
                             <div class="range-actions">
@@ -284,7 +267,7 @@
                                 </div> 
                                     
                                    <div class="aspect custom-slider" data-aspect-name="price">
-                                    <ng5-slider    [(value)]="minValue" [(highValue)]="maxValue" [options]="options" (userChangeEnd)="onSliderPriceChange($event)"></ng5-slider>
+                                    <ng5-slider    [(value)]="minValue" [(highValue)]="maxValue" [options]="priceoptions" (userChangeEnd)="onSliderPriceChange($event)"></ng5-slider>
                                    </div>
                               </div>
                          </div>

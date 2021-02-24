@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SearchModel,SearchSelectedMakes, SearchSelectedModels,SearchSelectedVariants,SearchSelectedPrice,SearchSelectedOdometer,SearchSelectedTransmission } from '../shared/models/SearchListModel';
+import { SearchModel,SearchSelectedMakes, SearchSelectedModels,SearchSelectedVariants,SearchSelectedPrice,SearchSelectedOdometer,SearchSelectedTransmission, SearchSelectedYear } from '../shared/models/SearchListModel';
 import { HomeService } from '../home/home.service';
 import { VehicleModel } from '../shared/models/VehicleModel';
 import { WhistListModel } from '../shared/models/WishtlistModel';
@@ -22,6 +22,7 @@ export class CarSearchComponent implements OnInit {
   public SearchSelectedVariants = new SearchSelectedVariants();  
   public SearchSelectedPrice = new SearchSelectedPrice();  
   public SearchSelectedOdometer= new SearchSelectedOdometer();
+  public SearchSelectedYear= new SearchSelectedYear();
   public SearchSelectedTransmission=new SearchSelectedTransmission();  
   public WhistListModels = new WhistListModel();
   constructor(private homeService: HomeService, private route: ActivatedRoute,
@@ -277,4 +278,30 @@ export class CarSearchComponent implements OnInit {
       console.log(error);
     });
   }
+
+  getSelectedYear(selected_Year:string){
+    this.SearchSelectedYear.Year=JSON.parse(selected_Year);      
+      if(this.SearchSelectedYear.Year.length>0){
+      this.homeService.GetVehicleListAccordingToSelectedYearRange(this.SearchSelectedYear).subscribe((res)=>{       
+        if (res.length > 0){
+          this.vehicleModel = res;
+          this.isData = false;
+        }
+        else {
+          this.isData = true;
+        }
+      });
+    }
+    else // empty array then bind all data of VehicleList  
+    {
+      this.searchModel.CarTypeId = "0";
+      this.searchModel.MakeId = "0";
+      this.searchModel.CarModelId ="0";
+      this.searchModel.LocationId ="0";
+      this.searchModel.YearId ="0";
+      this.getSearchVehicleList(this.searchModel);       
+    }
+
+  }
+  
 }

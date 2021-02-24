@@ -6,6 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { FilterPipe } from  './side-search.filter.pipe';
 import { Ng5SliderModule } from 'ng5-slider';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {ReactiveFormsModule} from '@angular/forms' 
 
 @NgModule({
   declarations: [SideSearchComponent,FilterPipe],
@@ -13,8 +15,10 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     CommonModule,
     SharedModule,
     Ng5SliderModule,
-    AutocompleteLibModule
-   
+    AutocompleteLibModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule
+    
   ],
   exports: [SideSearchComponent]
 })

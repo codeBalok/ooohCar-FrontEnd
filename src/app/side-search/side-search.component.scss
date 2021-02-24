@@ -562,34 +562,15 @@ section.carsales.grouped-refinement {
       top: -1px;
     }
   }
+  .autocomplete-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .autocomplete-full-width {
+    width: 100%;
+  }
 
-  ::ng-deep .ng-autocomplete {
-    height: 5px;
-    width:50%;
-    max-width: 100px;
-    display: table;
-    margin: 0 auto;
-  }
-  .item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    white-space: nowrap;
-    line-height: 45px;
-    height: 45px;
-    padding: 0 16px;
-    text-align: left;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-  span {
-    margin-left: 5px;
-  }
-  ::ng-deep .autocomplete-container .input-container input {
-    font-size: 14px;
-    padding: 0 6px;
-    height: 5px;
-  }
-  .autocomplete-container .suggestions-container {
-    z-index: 9999;
-  }
+
+   

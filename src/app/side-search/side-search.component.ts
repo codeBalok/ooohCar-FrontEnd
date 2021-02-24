@@ -7,11 +7,16 @@ import { FilterPipe } from  './side-search.filter.pipe';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { SearchSelectedMakes } from '../shared/models/SearchListModel';
 import { VehicleModel } from '../shared/models/VehicleModel';
-import { CommonModel } from '../shared/models/commonModel';
 import { Options, LabelType } from 'ng5-slider';
- 
- 
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs/Rx';
+import { debounceTime, distinctUntilChanged, filter, map, startWith, switchMap } from 'rxjs/operators';
 
+export interface IYear{
+  Id:number;
+  Name:string;
+}
+ 
   
 @Component({
   selector: 'app-side-search',
@@ -81,14 +86,14 @@ export class SideSearchComponent implements OnInit {
   fromPrice: number ;
   toPrice: number ;
   fromOdometer:number;
-  fromYearId: number ;
-  toYearId:number;
+  selectedfromYear=this.SideSearchYear.Year ;
+  selectedtoYear=this.SideSearchYear.Year ;
   toOdometer:number;
   minValue: number = 100;
-  maxValue: number = 8000;
-  options: Options = {
+  maxValue: number = 100000;
+  priceoptions: Options = {
     floor: 0,
-    ceil: 8000,
+    ceil: 100000,
     translate: (value: number, label: LabelType): string => {
       switch (label) {
         case LabelType.Low:
@@ -101,13 +106,23 @@ export class SideSearchComponent implements OnInit {
       }
     }
   };
-  constructor(private homeService: HomeService,private modalService: NgbModal,private router: Router) {     
+
+  FromYrControl = new FormControl();    
+  ToYrControl = new FormControl();    
+  fromYearfilteredOptions: Observable<any[]>;
+  toYearfilteredOptions: Observable<any[]>;
+  
+
+ 
+
+
+  constructor(private homeService: HomeService,private modalService: NgbModal,private router: Router) {
     this.startPage = 0;
     this.paginationLimit = 3;
     this.variantstartPage = 0;
     this.variantpaginationLimit = 3;
     this.locationstartPage = 0;
-    this.locationpaginationLimit = 3;
+    this.locationpaginationLimit = 3;      
   }
 
 
@@ -153,10 +168,10 @@ export class SideSearchComponent implements OnInit {
       } 
     });
 
-    this.homeService.GetYearList().subscribe((res)=>{ 
-      this.SideSearchYear.Year = res;     
-      console.log(this.SideSearchYear.Year);
-    });
+
+    
+    
+    
 
     this.homeService.GetVehicleTypeList().subscribe((res)=>{ 
       this.SideSearchVehicleType.CarType = res;     
@@ -171,31 +186,48 @@ export class SideSearchComponent implements OnInit {
       } 
     });
 
+
+    this.homeService.GetYearList().subscribe((res)=>{ 
+      this.SideSearchVehicleType.Year = res;            
+      for(let key in this.SideSearchVehicleType.Year)
+      {  
+        if(this.SideSearchVehicleType.Year.hasOwnProperty(key))
+        {  
+        this.arrYear.push(this.SideSearchVehicleType.Year[key]);    
+        }        
+      } 
+    });
+
+
      this.GetloggedinUsersCountry();
+
+      
+    
+     this.fromYearfilteredOptions = this.FromYrControl.valueChanges
+     .pipe(
+       startWith(''),
+       switchMap(value => this.filterYear(value))
+     );   
+
+     this.toYearfilteredOptions = this.ToYrControl.valueChanges
+     .pipe(
+       startWith(''),
+       switchMap(value => this.filterYear(value))
+     ); 
+    
+  }
+  
+  private filterYear(value: string) {
+    
+    const filterValue = value.toLowerCase();
+   return this.homeService.GetYearList().pipe(
+      filter(data => !!data),
+      map((data) => {        
+        return data.filter(option => option.name.toLowerCase().includes(value))
+      })
+    )     
   }
  
-
- /*SearchMake(content) {
-      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-        console.log('result is '+result);
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log('result'+this.getDismissReason(reason));
-      
-    });
-  }*/
-  
- /* private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }*/
-
   ExpandMake(){ 
     const element = document.querySelector("#expand-make");
     const isOpen=element.classList.contains("view-mode-open");
@@ -516,8 +548,7 @@ export class SideSearchComponent implements OnInit {
       {
       this.loogedInUsersStates = userStates.toString().split(',') ;
       }
-     // console.log(JSON.stringify(this.loogedInUsersStates));
-    
+     // console.log(JSON.stringify(this.loogedInUsersStates));    
       });
    }
 
@@ -562,9 +593,12 @@ export class SideSearchComponent implements OnInit {
    
 
    getCarModelLisYearRange() {
-    this.sideSearchYearSelected=[];     
-    this.sideSearchYearSelected.push(this.fromYearId);
-    this.sideSearchYearSelected.push(this.toYearId);    
+    this.sideSearchYearSelected=[];  
+     let frmYear = this.arrYear.find(o => o.name===this.FromYrControl.value);
+     let toYear=this.arrYear.find(yr => yr.name===this.ToYrControl.value);    
+
+    this.sideSearchYearSelected.push(frmYear);
+    this.sideSearchYearSelected.push(toYear);    
     this.selectedYearEmit.emit(JSON.stringify(this.sideSearchYearSelected));   
   }
   BindVehicleListBySideSearchcarCertifiedInspectedId(e)
@@ -575,5 +609,7 @@ export class SideSearchComponent implements OnInit {
   {
 
   }
+  
+
 
 }
