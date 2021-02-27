@@ -13,8 +13,7 @@ public vehicleModelList: VehicleModel[] = [];
 
   ngOnInit(): void {
     this.featureProductService.GetListData().subscribe((res)=>{
-      console.log(res);
       this.vehicleModelList = res;
-    });    
+    });
   }
 }

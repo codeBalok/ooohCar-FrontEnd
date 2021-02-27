@@ -17,13 +17,13 @@ export class CarSearchComponent implements OnInit {
   public searchModel = new SearchModel();
   public vehicleModel : VehicleModel[] = [];
   public isData : boolean = false;
-  public SearchSelectedMakes = new SearchSelectedMakes();  
-  public SearchSelectedModels = new SearchSelectedModels(); 
-  public SearchSelectedVariants = new SearchSelectedVariants();  
-  public SearchSelectedPrice = new SearchSelectedPrice();  
+  public SearchSelectedMakes = new SearchSelectedMakes();
+  public SearchSelectedModels = new SearchSelectedModels();
+  public SearchSelectedVariants = new SearchSelectedVariants();
+  public SearchSelectedPrice = new SearchSelectedPrice();
   public SearchSelectedOdometer= new SearchSelectedOdometer();
   public SearchSelectedYear= new SearchSelectedYear();
-  public SearchSelectedTransmission=new SearchSelectedTransmission();  
+  public SearchSelectedTransmission=new SearchSelectedTransmission();
   public WhistListModels = new WhistListModel();
   constructor(private homeService: HomeService, private route: ActivatedRoute,
     private router: Router, private carService: CarSearchService,
@@ -35,13 +35,13 @@ export class CarSearchComponent implements OnInit {
     this.route
       .queryParams
       .subscribe(params => {
-        // Defaults to 0 if no query param provided.       
+        // Defaults to 0 if no query param provided.
         this.searchModel.CarTypeId = params['typeId'] || 0;
         this.searchModel.MakeId = params['brandId'] || 0;
         this.searchModel.CarModelId = params['modelId'] || 0,
           this.searchModel.LocationId = params['location'] || 0,
           this.searchModel.YearId = params['year'] || 0,
-          // alert(this.searchModel.CarTypeId + "---" + 
+          // alert(this.searchModel.CarTypeId + "---" +
           // this.searchModel.MakeId + "---" + this.searchModel.CarModelId + "---" +
           // this.searchModel.LocationId + "---" + this.searchModel.YearId);
 
@@ -68,24 +68,23 @@ export class CarSearchComponent implements OnInit {
   //   });
   // }
 
-  
+
   getSearchVehicleList(searchModel:SearchModel){
   this.homeService.GetSearchVehicleList(this.searchModel).subscribe((res)=>{
-    console.log("vehicle" + res);
     if (res.length > 0){
       this.vehicleModel = res;
       this.isData = false;
     }
     else {
       this.isData = true;
-    }});  
+    }});
   }
   getSelectedmakes(selected_Makes:string)
-  {                  
+  {
       //console.log('from car serch-'+selected_Makes);
-      this.SearchSelectedMakes.Make=JSON.parse(selected_Makes);      
+      this.SearchSelectedMakes.Make=JSON.parse(selected_Makes);
       if(this.SearchSelectedMakes.Make.length>0){
-      this.homeService.GetVehicleListAccordingToSelectedMakes(this.SearchSelectedMakes).subscribe((res)=>{       
+      this.homeService.GetVehicleListAccordingToSelectedMakes(this.SearchSelectedMakes).subscribe((res)=>{
         if (res.length > 0){
           this.vehicleModel = res;
           this.isData = false;
@@ -95,7 +94,7 @@ export class CarSearchComponent implements OnInit {
         }
       });
     }
-    else // empty array then bind all data of VehicleList  
+    else // empty array then bind all data of VehicleList
     {
       this.searchModel.CarTypeId = "0";
       this.searchModel.MakeId = "0";
@@ -110,11 +109,11 @@ export class CarSearchComponent implements OnInit {
 
 
   getSelectedmodels(selected_Models:string)
-  {                  
+  {
       //console.log('from car serch-'+selected_Makes);
-      this.SearchSelectedModels.Model=JSON.parse(selected_Models);      
+      this.SearchSelectedModels.Model=JSON.parse(selected_Models);
       if(this.SearchSelectedModels.Model.length>0){
-      this.homeService.GetVehicleListAccordingToSelectedModels(this.SearchSelectedModels).subscribe((res)=>{       
+      this.homeService.GetVehicleListAccordingToSelectedModels(this.SearchSelectedModels).subscribe((res)=>{
         if (res.length > 0){
           this.vehicleModel = res;
           this.isData = false;
@@ -124,25 +123,25 @@ export class CarSearchComponent implements OnInit {
         }
       });
     }
-    else // empty array then bind all data of VehicleList  
+    else // empty array then bind all data of VehicleList
     {
       this.searchModel.CarTypeId = "0";
       this.searchModel.MakeId = "0";
       this.searchModel.CarModelId ="0";
       this.searchModel.LocationId ="0";
       this.searchModel.YearId ="0";
-      this.getSearchVehicleList(this.searchModel);       
+      this.getSearchVehicleList(this.searchModel);
     }
-    
+
   }
-    
-       
+
+
   getSelectedvariant(selected_Variant:string)
-  {                  
+  {
       //console.log('from car serch-'+selected_Makes);
-      this.SearchSelectedVariants.Variant=JSON.parse(selected_Variant);      
+      this.SearchSelectedVariants.Variant=JSON.parse(selected_Variant);
       if(this.SearchSelectedVariants.Variant.length>0){
-      this.homeService.GetVehicleListAccordingToSelectedVariants(this.SearchSelectedVariants).subscribe((res)=>{       
+      this.homeService.GetVehicleListAccordingToSelectedVariants(this.SearchSelectedVariants).subscribe((res)=>{
         if (res.length > 0){
           this.vehicleModel = res;
           this.isData = false;
@@ -152,21 +151,21 @@ export class CarSearchComponent implements OnInit {
         }
       });
     }
-    else // empty array then bind all data of VehicleList  
+    else // empty array then bind all data of VehicleList
     {
       this.searchModel.CarTypeId = "0";
       this.searchModel.MakeId = "0";
       this.searchModel.CarModelId ="0";
       this.searchModel.LocationId ="0";
       this.searchModel.YearId ="0";
-      this.getSearchVehicleList(this.searchModel);       
-    }    
+      this.getSearchVehicleList(this.searchModel);
+    }
   }
 
   getSelectedPrice(selected_Prices:string){
-    this.SearchSelectedPrice.Price=JSON.parse(selected_Prices);      
+    this.SearchSelectedPrice.Price=JSON.parse(selected_Prices);
       if(this.SearchSelectedPrice.Price.length>0){
-      this.homeService.GetVehicleListAccordingToSelectedPriceRange(this.SearchSelectedPrice).subscribe((res)=>{       
+      this.homeService.GetVehicleListAccordingToSelectedPriceRange(this.SearchSelectedPrice).subscribe((res)=>{
         if (res.length > 0){
           this.vehicleModel = res;
           this.isData = false;
@@ -176,22 +175,22 @@ export class CarSearchComponent implements OnInit {
         }
       });
     }
-    else // empty array then bind all data of VehicleList  
+    else // empty array then bind all data of VehicleList
     {
       this.searchModel.CarTypeId = "0";
       this.searchModel.MakeId = "0";
       this.searchModel.CarModelId ="0";
       this.searchModel.LocationId ="0";
       this.searchModel.YearId ="0";
-      this.getSearchVehicleList(this.searchModel);       
+      this.getSearchVehicleList(this.searchModel);
     }
 
   }
 
   getSelectedOdometer(selected_Odometer:string){
-    this.SearchSelectedOdometer.Odometer=JSON.parse(selected_Odometer);      
+    this.SearchSelectedOdometer.Odometer=JSON.parse(selected_Odometer);
       if(this.SearchSelectedOdometer.Odometer.length>0){
-      this.homeService.GetVehicleListAccordingToSelectedOdometerRange(this.SearchSelectedOdometer).subscribe((res)=>{       
+      this.homeService.GetVehicleListAccordingToSelectedOdometerRange(this.SearchSelectedOdometer).subscribe((res)=>{
         if (res.length > 0){
           this.vehicleModel = res;
           this.isData = false;
@@ -201,22 +200,22 @@ export class CarSearchComponent implements OnInit {
         }
       });
     }
-    else // empty array then bind all data of VehicleList  
+    else // empty array then bind all data of VehicleList
     {
       this.searchModel.CarTypeId = "0";
       this.searchModel.MakeId = "0";
       this.searchModel.CarModelId ="0";
       this.searchModel.LocationId ="0";
       this.searchModel.YearId ="0";
-      this.getSearchVehicleList(this.searchModel);       
+      this.getSearchVehicleList(this.searchModel);
     }
 
   }
 
   getSelectedTransmission(selected_Transmission:string){
-    this.SearchSelectedTransmission.Transmission=JSON.parse(selected_Transmission);      
+    this.SearchSelectedTransmission.Transmission=JSON.parse(selected_Transmission);
       if(this.SearchSelectedTransmission.Transmission.length>0){
-      this.homeService.GetVehicleListAccordingToSelectedTransmissionRange(this.SearchSelectedTransmission).subscribe((res)=>{       
+      this.homeService.GetVehicleListAccordingToSelectedTransmissionRange(this.SearchSelectedTransmission).subscribe((res)=>{
         if (res.length > 0){
           this.vehicleModel = res;
           this.isData = false;
@@ -226,14 +225,14 @@ export class CarSearchComponent implements OnInit {
         }
       });
     }
-    else // empty array then bind all data of VehicleList  
+    else // empty array then bind all data of VehicleList
     {
       this.searchModel.CarTypeId = "0";
       this.searchModel.MakeId = "0";
       this.searchModel.CarModelId ="0";
       this.searchModel.LocationId ="0";
       this.searchModel.YearId ="0";
-      this.getSearchVehicleList(this.searchModel);       
+      this.getSearchVehicleList(this.searchModel);
     }
 
   }
@@ -280,9 +279,9 @@ export class CarSearchComponent implements OnInit {
   }
 
   getSelectedYear(selected_Year:string){
-    this.SearchSelectedYear.Year=JSON.parse(selected_Year);      
+    this.SearchSelectedYear.Year=JSON.parse(selected_Year);
       if(this.SearchSelectedYear.Year.length>0){
-      this.homeService.GetVehicleListAccordingToSelectedYearRange(this.SearchSelectedYear).subscribe((res)=>{       
+      this.homeService.GetVehicleListAccordingToSelectedYearRange(this.SearchSelectedYear).subscribe((res)=>{
         if (res.length > 0){
           this.vehicleModel = res;
           this.isData = false;
@@ -292,16 +291,16 @@ export class CarSearchComponent implements OnInit {
         }
       });
     }
-    else // empty array then bind all data of VehicleList  
+    else // empty array then bind all data of VehicleList
     {
       this.searchModel.CarTypeId = "0";
       this.searchModel.MakeId = "0";
       this.searchModel.CarModelId ="0";
       this.searchModel.LocationId ="0";
       this.searchModel.YearId ="0";
-      this.getSearchVehicleList(this.searchModel);       
+      this.getSearchVehicleList(this.searchModel);
     }
 
   }
-  
+
 }
