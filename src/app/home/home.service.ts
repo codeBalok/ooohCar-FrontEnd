@@ -102,6 +102,27 @@ export class HomeService {
   GetCertifiedInspectedList() {
     return this.http.get<any>(this.baseUrl + 'Home/GetCertifiedInspectedList');
   }
+  GetFuelTypeList() {
+    return this.http.get<any>(this.baseUrl + 'Home/GetFuelTypesList');
+  }
+  GetCylindersList() {
+    return this.http.get<any>(this.baseUrl + 'Home/GetCylindersList');
+  }
+  GetEngineSizeList() {
+    return this.http.get<any>(this.baseUrl + 'Home/GetEngineSizeList');
+  }
+  GetEngineDescriptionList() {
+    return this.http.get<any>(this.baseUrl + 'Home/GetEngineDescriptionList');
+  }
+  GetFuelEconomyList() {
+    return this.http.get<any>(this.baseUrl + 'Home/GetFuelEconomyList');
+  }  
+  GetBodyTypeList() {
+    return this.http.get<any>(this.baseUrl + 'Home/GetBodyTypeList');
+  } 
+  GetColourList() {
+    return this.http.get<any>(this.baseUrl + 'Home/GetColourList');
+  } 
    
 }
  

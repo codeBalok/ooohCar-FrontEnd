@@ -106,6 +106,13 @@ export class SideSearchComponent implements OnInit {
       }
     }
   };
+  public IsExpandEngine:string='';
+  public IsExpandDriveType:string='';
+  public IsExpandFuelType:string='';
+  public IsExpandFuelEconomy:string='';
+  public IsExpandEngineDescription:string='';
+  public IsExpandEngineSize:string='';
+  public IsExpandCylinders:string='';
 
   FromYrControl = new FormControl();    
   ToYrControl = new FormControl();    
@@ -609,7 +616,36 @@ export class SideSearchComponent implements OnInit {
   {
 
   }
+  ExpandSearch(SideSearchName:string)
+  {
+    const element = document.querySelector("#expand-"+SideSearchName);
+    const isOpen=element.classList.contains("view-mode-open");
   
+    switch(SideSearchName) {
+      case 'Engine':
+      isOpen?this.IsExpandEngine='':this.IsExpandEngine='view-mode-open';
+       break;
+       case 'DriveType':    
+       isOpen?this.IsExpandDriveType='':this.IsExpandDriveType='view-mode-open';
+       break;
+      case 'FuelType':    
+       isOpen?this.IsExpandFuelType='':this.IsExpandFuelType='view-mode-open';
+       break;
+      case "Cylinders":
+        isOpen?this.IsExpandCylinders='':this.IsExpandCylinders='view-mode-open';
+       break;
+      case "EngineSize":
+        isOpen?this.IsExpandEngineSize='':this.IsExpandEngineSize='view-mode-open';
+        break;
+      case "EngineDescription":
+        isOpen?this.IsExpandEngineDescription='':this.IsExpandEngineDescription='view-mode-open';
+        break;
+      case "FuelEconomy":
+        isOpen?this.IsExpandFuelEconomy='':this.IsExpandFuelEconomy='view-mode-open';
+        break;       
+      default:           
+          break;
+  }
 
-
+  }
 }
