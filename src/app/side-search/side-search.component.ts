@@ -27,6 +27,8 @@ export class SideSearchComponent implements OnInit {
   public SideSearchListModel = new SideSearchListModel();
   public SideSearchTransmission = new SideSearchListModel();
   public SideSearchYear= new SideSearchListModel();
+  public SideSearchEngineSize= new SideSearchListModel();
+  public SideSearchEngineDescription= new SideSearchListModel();
   public SideSearchCertifiedInspected= new SideSearchListModel();
   public SideSearchVehicleType= new SideSearchListModel();
   public IsExpandMake : string = '';
@@ -61,6 +63,9 @@ export class SideSearchComponent implements OnInit {
   public sideSearchVariantSelected  = [];
   public sideSearchTransmissionSelected  = [];
   public sideSearchYearSelected  = [];  
+  public sideSearchEngineSizeSelected  = [];  
+  public sideSearchEngineDescriptionSelected=[];
+  public sideSearchEngineDescritiptionSelected=[];
   public SideSearchTransmissionSelected:false;
   closeResult: string;
   public searchSelectedMakes = new SearchSelectedMakes();
@@ -79,6 +84,11 @@ export class SideSearchComponent implements OnInit {
   @Output() selectedOdometerEmit= new EventEmitter<string>();
   @Output() selectedTransmissionEmit= new EventEmitter<string>();
   @Output() selectedYearEmit= new EventEmitter<string>();
+  @Output() selectedFuelTypeEmit= new EventEmitter<string>();
+  @Output() selectedCylinderEmit= new EventEmitter<string>();
+  @Output() selectedEngineSizeEmit= new EventEmitter<string>();
+  @Output() selectedEngineDescriptionEmit= new EventEmitter<string>();
+  @Output() selectedFuelEconomyEmit = new EventEmitter<string>();
   states: any = [];
   sliderPrices:number [] =[];
   sliderOdometer:number [] =[];
@@ -88,6 +98,10 @@ export class SideSearchComponent implements OnInit {
   fromOdometer:number;
   selectedfromYear=this.SideSearchYear.Year ;
   selectedtoYear=this.SideSearchYear.Year ;
+  selectedfromEngineSize=this.SideSearchEngineSize.EngineSize ;
+  selectedtoEngineSize=this.SideSearchEngineSize.EngineSize ;
+  selectedEngineDescription=this.SideSearchEngineDescription.EngineSize ;
+   
   toOdometer:number;
   minValue: number = 100;
   maxValue: number = 100000;
@@ -113,11 +127,31 @@ export class SideSearchComponent implements OnInit {
   public IsExpandEngineDescription:string='';
   public IsExpandEngineSize:string='';
   public IsExpandCylinders:string='';
+  public SideSearchFuelType= new SideSearchListModel();
+  public SideSearchCylinder= new SideSearchListModel();    
+  public SideSearchFuelEconomy= new SideSearchListModel();
+  public SideSearchInduction= new SideSearchListModel();
+  public SideSearchPower= new SideSearchListModel();
+  public arrFuelType=[];
+  public arrFuelEconomy=[];
+  public arrEngineDescription=[];
+  public arrEngineSize=[];
+  public arrCylinders=[];
+  public sideSearchFuelTypeSelected  = [];
+  public sideSearchCylinderSelected  = [];  
 
   FromYrControl = new FormControl();    
   ToYrControl = new FormControl();    
   fromYearfilteredOptions: Observable<any[]>;
   toYearfilteredOptions: Observable<any[]>;
+  fromEngineSizeControl = new FormControl();    
+  toEngineSizeControl = new FormControl();    
+  fromEngineSizefilteredOptions: Observable<any[]>;
+  toEngineSizefilteredOptions: Observable<any[]>;
+  EngineDescriptionControl = new FormControl();  
+  EngineDescriptionfilteredOptions: Observable<any[]>;  
+  FuelEconomyControl= new FormControl();
+  FuelEconomyfilteredOptions: Observable<any[]>; 
   
 
  
@@ -220,8 +254,86 @@ export class SideSearchComponent implements OnInit {
      .pipe(
        startWith(''),
        switchMap(value => this.filterYear(value))
-     ); 
+     );
+     
+     this.homeService.GetFuelTypeList().subscribe((res)=>{ 
+      this.SideSearchFuelType.FuelType = res;            
+      for(let key in this.SideSearchFuelType.FuelType)
+      {  
+        if(this.SideSearchFuelType.FuelType.hasOwnProperty(key))
+        {  
+        this.arrFuelType.push(this.SideSearchFuelType.FuelType[key]);    
+        }        
+      } 
+    });
+
+    this.homeService.GetCylindersList().subscribe((res)=>{ 
+      this.SideSearchCylinder.Cylinders = res;            
+      for(let key in this.SideSearchCylinder.Cylinders)
+      {  
+        if(this.SideSearchCylinder.Cylinders.hasOwnProperty(key))
+        {  
+        this.arrCylinders.push(this.SideSearchCylinder.Cylinders[key]);    
+        }        
+      } 
+    });
+
+    this.homeService.GetEngineSizeList().subscribe((res)=>{ 
+      this.SideSearchEngineSize.EngineSize = res;            
+      for(let key in this.SideSearchEngineSize.EngineSize)
+      {  
+        if(this.SideSearchEngineSize.EngineSize.hasOwnProperty(key))
+        {  
+        this.arrEngineSize.push(this.SideSearchEngineSize.EngineSize[key]);    
+        }        
+      } 
+    });
+
+    this.homeService.GetEngineDescriptionList().subscribe((res)=>{ 
+      this.SideSearchEngineDescription.EngineDescription = res;            
+      for(let key in this.SideSearchEngineDescription.EngineDescription)
+      {  
+        if(this.SideSearchEngineDescription.EngineDescription.hasOwnProperty(key))
+        {  
+        this.arrEngineDescription.push(this.SideSearchEngineDescription.EngineDescription[key]);    
+        }        
+      } 
+    });
     
+    this.homeService.GetFuelEconomyList().subscribe((res)=>{ 
+      this.SideSearchFuelEconomy.FuelEconomy = res;            
+      for(let key in this.SideSearchFuelEconomy.FuelEconomy)
+      {  
+        if(this.SideSearchFuelEconomy.FuelEconomy.hasOwnProperty(key))
+        {  
+        this.arrFuelEconomy.push(this.SideSearchFuelEconomy.FuelEconomy[key]);    
+        }        
+      } 
+    });
+
+    this.fromEngineSizefilteredOptions = this.fromEngineSizeControl.valueChanges
+    .pipe(
+      startWith(''),
+      switchMap(value => this.filterEngineSize(value))
+    );   
+
+    this.toEngineSizefilteredOptions = this.toEngineSizeControl.valueChanges
+    .pipe(
+      startWith(''),
+      switchMap(value => this.filterEngineSize(value))
+    );
+
+    this.EngineDescriptionfilteredOptions = this.EngineDescriptionControl.valueChanges
+    .pipe(
+      startWith(''),
+      switchMap(value => this.filterEngineDescription(value))
+    ); 
+    
+    this.FuelEconomyfilteredOptions = this.FuelEconomyControl.valueChanges
+    .pipe(
+      startWith(''),
+      switchMap(value => this.filterFuelEconomy(value))
+    ); 
   }
   
   private filterYear(value: string) {
@@ -234,7 +346,38 @@ export class SideSearchComponent implements OnInit {
       })
     )     
   }
+
+  private filterEngineSize(value: string) {
+    
+    const filterValue = value.toLowerCase();
+   return this.homeService.GetEngineSizeList().pipe(
+      filter(data => !!data),
+      map((data) => {        
+        return data.filter(option => option.name.toLowerCase().includes(value))
+      })
+    )     
+  }
  
+  public filterEngineDescription(value: string) {    
+    const filterValue = value.toLowerCase();
+   return this.homeService.GetEngineDescriptionList().pipe(
+      filter(data => !!data),
+      map((data) => {        
+        return data.filter(option => option.name.toLowerCase().includes(value))
+      })
+    )     
+  }
+
+  public filterFuelEconomy(value: string) {    
+    const filterValue = value.toLowerCase();
+   return this.homeService.GetFuelEconomyList().pipe(
+      filter(data => !!data),
+      map((data) => {        
+        return data.filter(option => option.name.toLowerCase().includes(value))
+      })
+    )     
+  }
+  
   ExpandMake(){ 
     const element = document.querySelector("#expand-make");
     const isOpen=element.classList.contains("view-mode-open");
@@ -615,8 +758,8 @@ export class SideSearchComponent implements OnInit {
   BindVehicleListBySideSearchcarVehicleTypeId(e)
   {
 
-  }
-  ExpandSearch(SideSearchName:string)
+  } 
+  ExpandSearch(SideSearchName:string)  
   {
     const element = document.querySelector("#expand-"+SideSearchName);
     const isOpen=element.classList.contains("view-mode-open");
@@ -646,6 +789,46 @@ export class SideSearchComponent implements OnInit {
       default:           
           break;
   }
+  
+}
+BindVehicleListBySideSearchFuelType(e)
+{
+  var id:number=+e.target.value;  
+  let  objIndex = this.arrFuelType.findIndex(x => x.id==id);  
+  e.target.checked?this.arrFuelType[objIndex].Selected=true:this.arrFuelType[objIndex].Selected=false;   
+     this.sideSearchFuelTypeSelected=this.arrFuelType.filter(x=>x.Selected==true);       
+     this.selectedFuelTypeEmit.emit(JSON.stringify(this.sideSearchFuelTypeSelected)); 
+}
 
+BindVehicleListBySideSearchCylinder(e)
+{ 
+  var id:number=+e.target.value;   
+  let  objIndex = this.arrCylinders.findIndex(x => x.id==id);   
+  e.target.checked?this.arrCylinders[objIndex].Selected=true:this.arrCylinders[objIndex].Selected=false;   
+     this.sideSearchCylinderSelected=this.arrCylinders.filter(x=>x.Selected==true);                           
+     this.selectedCylinderEmit.emit(JSON.stringify(this.sideSearchCylinderSelected));  
+}
+getCarModelListEngineSizeRange() {
+  this.sideSearchEngineSizeSelected=[];  
+   let frmEngineSize = this.arrEngineSize.find(frmEz => frmEz.name===this.fromEngineSizeControl.value);
+   let toEngineSize=this.arrEngineSize.find(toEz => toEz.name===this.toEngineSizeControl.value);    
+
+  this.sideSearchEngineSizeSelected.push(frmEngineSize);
+  this.sideSearchEngineSizeSelected.push(toEngineSize);    
+  this.selectedEngineSizeEmit.emit(JSON.stringify(this.sideSearchEngineSizeSelected));   
+}
+getCarModelListEngineDescription()
+  {   
+    let engineDescription = this.arrEngineDescription.find(engdsc => engdsc.name===this.EngineDescriptionControl.value);
+     this.selectedEngineDescriptionEmit.emit(JSON.stringify(engineDescription)); 
   }
+  getCarModelListFuelEconomy()
+  {   
+    let fuelEconomy = this.arrFuelEconomy.find(fuelEcnmy => fuelEcnmy.name===this.FuelEconomyControl.value);   
+    this.selectedFuelEconomyEmit.emit(JSON.stringify(fuelEconomy)); 
+  }
+   
+
+
+
 }

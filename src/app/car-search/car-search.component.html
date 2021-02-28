@@ -11,7 +11,11 @@
                 (selectedOdometerEmit)="getSelectedOdometer($event)"
                 (selectedTransmissionEmit)="getSelectedTransmission($event)"
                 (selectedYearEmit)="getSelectedYear($event)"
-
+                (selectedFuelTypeEmit)="getSelectedFuelType($event)"
+                (selectedCylinderEmit)="getSelectedCylinder($event)"
+                (selectedEngineSizeEmit)="getSelectedEngineSize($event)"
+                (selectedEngineDescriptionEmit)="getSelectedEngineDescription($event)"
+                (selectedFuelEconomyEmit)="getSelectedFuelEconomy($event)"
                 ></app-side-search>
             </div>
             <div class="col-lg-9" *ngIf="!isData">

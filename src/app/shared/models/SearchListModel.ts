@@ -39,3 +39,25 @@ export class SearchSelectedYear
 {
     Year:CommonModel[] ;
 }
+
+export class  SearchSelectedFuelType
+{
+    FuelType:[];
+}
+export class  SearchSelectedCylinder
+{
+    Cylinder:[];
+}
+export class  SearchSelectedEngineSize
+{
+    EngineSize:[];
+}
+export class  SearchSelectedEngineDescription
+{
+    EngineDescription:CommonModel;
+}
+
+export class  SearchSelectedFuelEconomy
+{
+    FuelEconomy:CommonModel;
+}
