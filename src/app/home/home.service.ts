@@ -143,4 +143,16 @@ export class HomeService {
   {
     return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedFuelEconomy', SearchSelectedFuelEconomy);
   }
+  GetTowList() {
+    return this.http.get<any>(this.baseUrl + 'Home/GetTowList');
+  } 
+  GetPowerList() {
+    return this.http.get<any>(this.baseUrl + 'Home/GetPowerList');
+  } 
+  GetPowerToWeightLis() {
+    return this.http.get<any>(this.baseUrl + 'Home/GetPowerToWeightList');
+  } 
+  GetInductionTurboList() {
+    return this.http.get<any>(this.baseUrl + 'Home/GetInductionTurboList');
+  } 
 }
