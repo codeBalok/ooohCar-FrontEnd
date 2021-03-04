@@ -61,3 +61,19 @@ export class  SearchSelectedFuelEconomy
 {
     FuelEconomy:CommonModel;
 }
+export class  SearchSelectedInductionTurbo
+{
+    InductionTurbo:CommonModel;
+}
+export class  SearchSelectedPower
+{
+    Power:CommonModel;
+}
+export class  SearchSelectedPowerToWeight
+{
+    PowerToWeight:CommonModel;
+}
+export class  SearchSelectedTow
+{
+    Tow:CommonModel;
+}

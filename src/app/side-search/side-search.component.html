@@ -748,13 +748,15 @@
                     </div>
                 </div>
                 <div class="nav-element " data-control="aspectnavigationelement" data-name="induction">
+                    <div id="expand-InductionTurbo" class="nav-element  {{IsExpandInductionTurbo}}" data-control="aspectnavigationelement"
+                    data-name="carInductionTurbo"> 
                     <div class="heading-summary">
                         <span class="heading">
                             Induction / Turbo
                         </span>
 
 
-                        <div class="expand-link"></div>
+                        <div class="expand-link" (click)="ExpandSearch('InductionTurbo')">xx</div>
                     </div>
                     <div class="element-summary">
                     </div>
@@ -765,41 +767,24 @@
 
                             <div class="aspect" data-aspect-name="induction">
 
-
-
-
-                                <ul class="default-facets">
-                                    <li class="facet-visible">
-                                        <a href="/cars/aspirated-induction/"
-                                            data-opm-event="click-listings-refinement">Aspirated</a>
-
-                                        <span>(68,921)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/not-applicable-induction/"
-                                            data-opm-event="click-listings-refinement">Not Applicable</a>
-
-                                        <span>(645)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/supercharged-induction/"
-                                            data-opm-event="click-listings-refinement">Supercharged</a>
-
-                                        <span>(1,238)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/turbo-induction/"
-                                            data-opm-event="click-listings-refinement">Turbo</a>
-
-                                        <span>(72,117)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/turbo-supercharged-induction/"
-                                            data-opm-event="click-listings-refinement">Turbo Supercharged</a>
-
-                                        <span>(659)</span>
-                                    </li>
-                                </ul>
+                                <div class="autocomplete-dropdown">
+                                    <input matInput placeholder="Induction Turbo" aria-label="InductionTurbo" [matAutocomplete]="InductionTurboauto"
+                                     [formControl]="InductionTurboControl">
+                                     <mat-autocomplete #InductionTurboauto="matAutocomplete">                                        
+                                        <mat-option *ngFor="let option of InductionTurbofilteredOptions | async" 
+                                           [value]="option.name">
+                                           {{option.name}} ({{option.childCount}})
+                                           </mat-option>                                              
+                                     </mat-autocomplete>
+                                </div>  
+                                     <div class="range-actions">
+                                        <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
+                                            data-upper-placeholder="<!upper>"
+                                            data-expression-url="/cars/?q=Year.range(%3C!lower%3E..%3C!upper%3E)."
+                                            data-clear-link=""
+                                            (click)="getCarModelListInductionTurbo()"
+                                            >Go</button>
+                                    </div>                             
 
                             </div>
 
@@ -810,14 +795,17 @@
                         </div>
                     </div>
                 </div>
+            </div>
                 <div class="nav-element " data-control="rangenavigationelement" data-name="power">
+                    <div id="expand-Power" class="nav-element  {{IsExpandPower}}" data-control="aspectnavigationelement"
+                    data-name="carPower"> 
                     <div class="heading-summary">
                         <span class="heading">
                             Power
                         </span>
 
 
-                        <div class="expand-link"></div>
+                        <div class="expand-link" (click)="ExpandSearch('Power')">xx</div>
                     </div>
                     <div class="element-summary">
 
@@ -829,47 +817,29 @@
                             <div class="range-selection">
                                 <div class="range range-min">
                                     <label>From:</label>
-
                                     <div class="autocomplete-dropdown">
-                                        <div>
-                                            <input type="text" placeholder="Min" data-value=""><i></i>
-                                        </div>
-                                        <ul style="display: none;">
-                                            <li data-value="" data-text="Min">Min</li>
-                                            <li data-value="80" data-text="80 kW">80 kW</li>
-                                            <li data-value="100" data-text="100 kW">100 kW</li>
-                                            <li data-value="125" data-text="125 kW">125 kW</li>
-                                            <li data-value="150" data-text="150 kW">150 kW</li>
-                                            <li data-value="175" data-text="175 kW">175 kW</li>
-                                            <li data-value="200" data-text="200 kW">200 kW</li>
-                                            <li data-value="225" data-text="225 kW">225 kW</li>
-                                            <li data-value="250" data-text="250 kW">250 kW</li>
-                                            <li data-value="300" data-text="300 kW">300 kW</li>
-                                            <li data-value="350" data-text="350 kW">350 kW</li>
-                                        </ul>
-                                    </div>
+                                        <input matInput placeholder="Select Power" aria-label="PowerToWeight" [matAutocomplete]="fromPowerauto"
+                                         [formControl]="fromPowerControl">
+                                         <mat-autocomplete #fromPowerauto="matAutocomplete">                                        
+                                            <mat-option *ngFor="let option of fromPowerfilteredOptions | async" 
+                                               [value]="option.name">
+                                               {{option.name}}
+                                               </mat-option>                                              
+                                         </mat-autocomplete>
+                                         </div>                                     
                                 </div>
                                 <div class="range range-max">
                                     <label>To:</label>
-
                                     <div class="autocomplete-dropdown">
-                                        <div>
-                                            <input type="text" placeholder="Max" data-value=""><i></i>
-                                        </div>
-                                        <ul style="display: none;">
-                                            <li data-value="" data-text="Max">Max</li>
-                                            <li data-value="80" data-text="80 kW">80 kW</li>
-                                            <li data-value="100" data-text="100 kW">100 kW</li>
-                                            <li data-value="125" data-text="125 kW">125 kW</li>
-                                            <li data-value="150" data-text="150 kW">150 kW</li>
-                                            <li data-value="175" data-text="175 kW">175 kW</li>
-                                            <li data-value="200" data-text="200 kW">200 kW</li>
-                                            <li data-value="225" data-text="225 kW">225 kW</li>
-                                            <li data-value="250" data-text="250 kW">250 kW</li>
-                                            <li data-value="300" data-text="300 kW">300 kW</li>
-                                            <li data-value="350" data-text="350 kW">350 kW</li>
-                                        </ul>
-                                    </div>
+                                        <input matInput placeholder="Select Power" aria-label="PowerToWeight" [matAutocomplete]="ToPowerauto"
+                                         [formControl]="toPowerControl">
+                                         <mat-autocomplete #ToPowerauto="matAutocomplete">                                        
+                                            <mat-option *ngFor="let option of toPowerfilteredOptions | async" 
+                                               [value]="option.name">
+                                               {{option.name}}
+                                               </mat-option>                                              
+                                         </mat-autocomplete>
+                                         </div>                                     
                                 </div>
                             </div>
 
@@ -877,19 +847,20 @@
                                 <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
                                     data-upper-placeholder="<!upper>"
                                     data-expression-url="/cars/?q=Power.range(%3C!lower%3E..%3C!upper%3E)."
-                                    data-clear-link="">Go</button>
+                                    data-clear-link=""  (click)="getCarModelListByPowerRange()">Go</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                </div>
                 <div class="nav-element " data-control="rangenavigationelement" data-name="calcpowerweightratio">
+                    <div id="expand-PowerToWeight" class="nav-element  {{IsExpandPowerToWeight}}" data-control="aspectnavigationelement"
+                    data-name="carPowerToWeight"> 
                     <div class="heading-summary">
                         <span class="heading">
                             Power to Weight
                         </span>
-
-
-                        <div class="expand-link"></div>
+                        <div class="expand-link" (click)="ExpandSearch('PowerToWeight')">xx</div>
                     </div>
                     <div class="element-summary">
 
@@ -901,39 +872,30 @@
                             <div class="range-selection">
                                 <div class="range range-min">
                                     <label>From:</label>
-
                                     <div class="autocomplete-dropdown">
-                                        <div>
-                                            <input type="text" placeholder="Min" data-value=""><i></i>
-                                        </div>
-                                        <ul style="display: none;">
-                                            <li data-value="" data-text="Min">Min</li>
-                                            <li data-value="100" data-text="100 kW/t">100 kW/t</li>
-                                            <li data-value="130" data-text="130 kW/t">130 kW/t</li>
-                                            <li data-value="165" data-text="165 kW/t">165 kW/t</li>
-                                            <li data-value="200" data-text="200 kW/t">200 kW/t</li>
-                                            <li data-value="250" data-text="250 kW/t">250 kW/t</li>
-                                            <li data-value="300" data-text="300 kW/t">300 kW/t</li>
-                                        </ul>
-                                    </div>
+                                        <input matInput placeholder="Select PowerToWeight" aria-label="PowerToWeight" [matAutocomplete]="fromPowerToWeightauto"
+                                         [formControl]="fromPowerToWeightControl">
+                                         <mat-autocomplete #fromPowerToWeightauto="matAutocomplete">                                        
+                                            <mat-option *ngFor="let option of fromPowerToWeightfilteredOptions | async" 
+                                               [value]="option.name">
+                                               {{option.name}}
+                                               </mat-option>                                              
+                                         </mat-autocomplete>
+                                         </div>  
+                                   
                                 </div>
                                 <div class="range range-max">
                                     <label>To:</label>
-
                                     <div class="autocomplete-dropdown">
-                                        <div>
-                                            <input type="text" placeholder="Max" data-value=""><i></i>
-                                        </div>
-                                        <ul style="display: none;">
-                                            <li data-value="" data-text="Max">Max</li>
-                                            <li data-value="100" data-text="100 kW/t">100 kW/t</li>
-                                            <li data-value="130" data-text="130 kW/t">130 kW/t</li>
-                                            <li data-value="165" data-text="165 kW/t">165 kW/t</li>
-                                            <li data-value="200" data-text="200 kW/t">200 kW/t</li>
-                                            <li data-value="250" data-text="250 kW/t">250 kW/t</li>
-                                            <li data-value="300" data-text="300 kW/t">300 kW/t</li>
-                                        </ul>
-                                    </div>
+                                        <input matInput placeholder="Select PowerToWeight" aria-label="PowerToWeight" [matAutocomplete]="toPowerToWeightauto"
+                                         [formControl]="toPowerToWeightControl">
+                                         <mat-autocomplete #toPowerToWeightauto="matAutocomplete">                                        
+                                            <mat-option *ngFor="let option of toPowerToWeightfilteredOptions | async" 
+                                               [value]="option.name">
+                                               {{option.name}}
+                                               </mat-option>                                              
+                                         </mat-autocomplete>
+                                         </div>  
                                 </div>
                             </div>
 
@@ -941,19 +903,22 @@
                                 <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
                                     data-upper-placeholder="<!upper>"
                                     data-expression-url="/cars/?q=CalcPowerWeightRatio.range(%3C!lower%3E..%3C!upper%3E)."
-                                    data-clear-link="">Go</button>
+                                    data-clear-link=""  (click)="getCarModelListByPowerToWeightRange()">Go</button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
                 <div class="nav-element " data-control="rangenavigationelement" data-name="towingbrakes">
+                    <div id="expand-Tow" class="nav-element  {{IsExpandTow}}" data-control="aspectnavigationelement"
+                    data-name="carTow"> 
                     <div class="heading-summary">
                         <span class="heading">
                             Tow (Braked)
                         </span>
 
 
-                        <div class="expand-link"></div>
+                        <div class="expand-link" (click)="ExpandSearch('Tow')">xx</div>
                     </div>
                     <div class="element-summary">
 
@@ -965,45 +930,29 @@
                             <div class="range-selection">
                                 <div class="range range-min">
                                     <label>From:</label>
-
                                     <div class="autocomplete-dropdown">
-                                        <div>
-                                            <input type="text" placeholder="Min" data-value=""><i></i>
-                                        </div>
-                                        <ul style="display: none;">
-                                            <li data-value="" data-text="Min">Min</li>
-                                            <li data-value="1000" data-text="1,000 kg">1,000 kg</li>
-                                            <li data-value="1500" data-text="1,500 kg">1,500 kg</li>
-                                            <li data-value="2000" data-text="2,000 kg">2,000 kg</li>
-                                            <li data-value="2500" data-text="2,500 kg">2,500 kg</li>
-                                            <li data-value="2750" data-text="2,750 kg">2,750 kg</li>
-                                            <li data-value="3000" data-text="3,000 kg">3,000 kg</li>
-                                            <li data-value="3250" data-text="3,250 kg">3,250 kg</li>
-                                            <li data-value="3500" data-text="3,500 kg">3,500 kg</li>
-                                            <li data-value="3750" data-text="3,750 kg">3,750 kg</li>
-                                        </ul>
-                                    </div>
+                                        <input matInput placeholder="Select Tow" aria-label="Tow" [matAutocomplete]="fromTowauto"
+                                         [formControl]="fromTowControl">
+                                         <mat-autocomplete #fromTowauto="matAutocomplete">                                        
+                                            <mat-option *ngFor="let option of fromTowfilteredOptions | async" 
+                                               [value]="option.name">
+                                               {{option.name}}
+                                               </mat-option>                                              
+                                         </mat-autocomplete>
+                                         </div>                                     
                                 </div>
                                 <div class="range range-max">
                                     <label>To:</label>
-
                                     <div class="autocomplete-dropdown">
-                                        <div>
-                                            <input type="text" placeholder="Max" data-value=""><i></i>
-                                        </div>
-                                        <ul style="display: none;">
-                                            <li data-value="" data-text="Max">Max</li>
-                                            <li data-value="1000" data-text="1,000 kg">1,000 kg</li>
-                                            <li data-value="1500" data-text="1,500 kg">1,500 kg</li>
-                                            <li data-value="2000" data-text="2,000 kg">2,000 kg</li>
-                                            <li data-value="2500" data-text="2,500 kg">2,500 kg</li>
-                                            <li data-value="2750" data-text="2,750 kg">2,750 kg</li>
-                                            <li data-value="3000" data-text="3,000 kg">3,000 kg</li>
-                                            <li data-value="3250" data-text="3,250 kg">3,250 kg</li>
-                                            <li data-value="3500" data-text="3,500 kg">3,500 kg</li>
-                                            <li data-value="3750" data-text="3,750 kg">3,750 kg</li>
-                                        </ul>
-                                    </div>
+                                        <input matInput placeholder="Select Tow" aria-label="Tow" [matAutocomplete]="toTowauto"
+                                         [formControl]="toTowControl">
+                                         <mat-autocomplete #toTowauto="matAutocomplete">                                        
+                                            <mat-option *ngFor="let option of toTowfilteredOptions | async" 
+                                               [value]="option.name">
+                                               {{option.name}}
+                                               </mat-option>                                              
+                                         </mat-autocomplete>
+                                         </div>  
                                 </div>
                             </div>
 
@@ -1011,14 +960,15 @@
                                 <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
                                     data-upper-placeholder="<!upper>"
                                     data-expression-url="/cars/?q=TowingBrakes.range(%3C!lower%3E..%3C!upper%3E)."
-                                    data-clear-link="">Go</button>
+                                    data-clear-link="" (click)="getCarModelListByTowRange()">Go</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
+         </div>
        </div>
+    </div>
         <div class="nav-element-category category-style" data-category-name="style">
             <div class="heading-summary">
                 <span class="heading">Style</span>
@@ -1785,33 +1735,6 @@
 
 
 
-
-                                <ul class="default-facets">
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=Sales.Added+extras."
-                                            data-opm-event="click-listings-refinement">Added extras</a>
-
-                                        <span>(5,478)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=Sales.Drive+away+price+offer."
-                                            data-opm-event="click-listings-refinement">Drive away price offer</a>
-
-                                        <span>(6,591)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=Sales.Finance+offer."
-                                            data-opm-event="click-listings-refinement">Finance offer</a>
-
-                                        <span>(4,525)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=Sales.Hail+damaged+stock."
-                                            data-opm-event="click-listings-refinement">Hail damaged stock</a>
-
-                                        <span>(66)</span>
-                                    </li>
-                                </ul>
 
                             </div>
 

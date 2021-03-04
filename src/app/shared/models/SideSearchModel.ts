@@ -16,6 +16,10 @@ export class SideSearchListModel {
     FuelEconomy:CommonModel;
     BodyType:CommonModel;
     Colour:CommonModel;
+    InductionTurbo:CommonModel;
+    Power:CommonModel;
+    PowerToWeight:CommonModel;
+    Tow:CommonModel;
 }
 
 export class SideSearchModel {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject,Subject } from 'rxjs';
-import { SearchListModel, SearchSelectedModels, SearchSelectedVariants,SearchSelectedPrice,SearchSelectedOdometer,SearchSelectedTransmission, SearchSelectedYear, SearchSelectedFuelType, SearchSelectedCylinder, SearchSelectedEngineSize, SearchSelectedEngineDescription,SearchSelectedFuelEconomy } from '../shared/models/SearchListModel';
+import { SearchListModel, SearchSelectedModels, SearchSelectedVariants,SearchSelectedPrice,SearchSelectedOdometer,SearchSelectedTransmission, SearchSelectedYear, SearchSelectedFuelType, SearchSelectedCylinder, SearchSelectedEngineSize, SearchSelectedEngineDescription,SearchSelectedFuelEconomy, SearchSelectedInductionTurbo, SearchSelectedPower, SearchSelectedTow, SearchSelectedPowerToWeight } from '../shared/models/SearchListModel';
 import { map } from 'rxjs/operators';
 import { SearchModel,SearchSelectedMakes } from '../shared/models/SearchListModel';
 
@@ -149,10 +149,29 @@ export class HomeService {
   GetPowerList() {
     return this.http.get<any>(this.baseUrl + 'Home/GetPowerList');
   } 
-  GetPowerToWeightLis() {
+  GetPowerToWeightList() {
     return this.http.get<any>(this.baseUrl + 'Home/GetPowerToWeightList');
   } 
   GetInductionTurboList() {
     return this.http.get<any>(this.baseUrl + 'Home/GetInductionTurboList');
   } 
+  GetDriveTypeList() {
+    return this.http.get<any>(this.baseUrl + 'Home/GetInductionTurboList');
+  } 
+  GetVehicleListAccordingToSelectedInductionTurbo(searchSelectedInductionTurbo : SearchSelectedInductionTurbo)
+  {
+    return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedInductionTurbo', searchSelectedInductionTurbo);
+  }
+  GetVehicleListAccordingToSelectedPower(searchSelectedPower : SearchSelectedPower)
+  {
+    return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedPower', searchSelectedPower);
+  }
+  GetVehicleListAccordingToSelectedPowerToWeight(searchSelectedPowerToWeight : SearchSelectedPowerToWeight)
+  {
+    return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedPowerToWeight', searchSelectedPowerToWeight);
+  }
+  GetVehicleListAccordingToSelectedTow(searchSelectedTow : SearchSelectedTow)
+  {
+    return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedTow', searchSelectedTow);
+  }
 }

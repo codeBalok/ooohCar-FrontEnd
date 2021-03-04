@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SearchModel,SearchSelectedMakes, SearchSelectedModels,SearchSelectedVariants,SearchSelectedPrice,SearchSelectedOdometer,SearchSelectedTransmission, SearchSelectedYear,SearchSelectedFuelType, SearchSelectedCylinder, SearchSelectedEngineSize, SearchSelectedEngineDescription, SearchSelectedFuelEconomy} from '../shared/models/SearchListModel';
+import { SearchModel,SearchSelectedMakes, SearchSelectedModels,SearchSelectedVariants,SearchSelectedPrice,SearchSelectedOdometer,SearchSelectedTransmission, SearchSelectedYear,SearchSelectedFuelType, SearchSelectedCylinder, SearchSelectedEngineSize, SearchSelectedEngineDescription, SearchSelectedFuelEconomy, SearchSelectedInductionTurbo, SearchSelectedPower, SearchSelectedPowerToWeight, SearchSelectedTow} from '../shared/models/SearchListModel';
 import { HomeService } from '../home/home.service';
 import { VehicleModel } from '../shared/models/VehicleModel';
 import { WhistListModel } from '../shared/models/WishtlistModel';
@@ -29,6 +29,10 @@ export class CarSearchComponent implements OnInit {
   public SearchSelectedTransmission=new SearchSelectedTransmission();
   public SearchSelectedFuelType= new SearchSelectedFuelType();
   public SearchSelectedCylinder = new SearchSelectedCylinder();
+  public SearchSelectedInductionTurbo= new SearchSelectedInductionTurbo();
+  public SearchSelectedPower= new SearchSelectedPower();
+  public SearchSelectedPowerToWeight= new SearchSelectedPowerToWeight();
+  public SearchSelectedTow= new SearchSelectedTow();
   public WhistListModels = new WhistListModel();
   constructor(private homeService: HomeService, private route: ActivatedRoute,
     private router: Router, private carService: CarSearchService,
@@ -433,5 +437,107 @@ export class CarSearchComponent implements OnInit {
       this.getSearchVehicleList(this.searchModel);
     }
 
+  }
+
+  getSelectedInductionTurbo(selected_InductionTurbo:string){
+    this.SearchSelectedInductionTurbo.InductionTurbo=JSON.parse(selected_InductionTurbo);
+      if(this.SearchSelectedInductionTurbo.InductionTurbo!=null || this.SearchSelectedInductionTurbo.InductionTurbo!=undefined)
+      {
+      this.homeService.GetVehicleListAccordingToSelectedInductionTurbo(this.SearchSelectedInductionTurbo).subscribe((res)=>{
+        if (res.length > 0){
+          this.vehicleModel = res;
+          this.isData = false;
+        }
+        else {
+          this.isData = true;
+        }
+      });
+    }
+    else // empty array then bind all data of VehicleList
+    {
+      this.searchModel.CarTypeId = "0";
+      this.searchModel.MakeId = "0";
+      this.searchModel.CarModelId ="0";
+      this.searchModel.LocationId ="0";
+      this.searchModel.YearId ="0";
+      this.getSearchVehicleList(this.searchModel);
+    }
+
+  }
+
+  getSelectedPower(selected_Power:string){
+    this.SearchSelectedPower.Power=JSON.parse(selected_Power);
+      if(this.SearchSelectedPower.Power!=null || this.SearchSelectedPower.Power!=undefined)
+      {
+      this.homeService.GetVehicleListAccordingToSelectedPower(this.SearchSelectedPower).subscribe((res)=>{
+        if (res.length > 0){
+          this.vehicleModel = res;
+          this.isData = false;
+        }
+        else {
+          this.isData = true;
+        }
+      });
+    }
+    else // empty array then bind all data of VehicleList
+    {
+      this.searchModel.CarTypeId = "0";
+      this.searchModel.MakeId = "0";
+      this.searchModel.CarModelId ="0";
+      this.searchModel.LocationId ="0";
+      this.searchModel.YearId ="0";
+      this.getSearchVehicleList(this.searchModel);
+    }
+  }
+
+  
+  getSelectedPowerToWeight(selected_PowerToWeight:string){
+    this.SearchSelectedPowerToWeight.PowerToWeight=JSON.parse(selected_PowerToWeight);
+      if(this.SearchSelectedPowerToWeight.PowerToWeight!=null || this.SearchSelectedPowerToWeight.PowerToWeight!=undefined)
+      {
+      this.homeService.GetVehicleListAccordingToSelectedPowerToWeight(this.SearchSelectedPowerToWeight).subscribe((res)=>{
+        if (res.length > 0){
+          this.vehicleModel = res;
+          this.isData = false;
+        }
+        else {
+          this.isData = true;
+        }
+      });
+    }
+    else // empty array then bind all data of VehicleList
+    {
+      this.searchModel.CarTypeId = "0";
+      this.searchModel.MakeId = "0";
+      this.searchModel.CarModelId ="0";
+      this.searchModel.LocationId ="0";
+      this.searchModel.YearId ="0";
+      this.getSearchVehicleList(this.searchModel);
+    }
+  }
+
+  getSelectedTow(selected_Tow:string){
+    this.SearchSelectedTow.Tow=JSON.parse(selected_Tow);
+      if(this.SearchSelectedTow.Tow!=null || this.SearchSelectedTow.Tow!=undefined)
+      {
+      this.homeService.GetVehicleListAccordingToSelectedTow(this.SearchSelectedTow).subscribe((res)=>{
+        if (res.length > 0){
+          this.vehicleModel = res;
+          this.isData = false;
+        }
+        else {
+          this.isData = true;
+        }
+      });
+    }
+    else // empty array then bind all data of VehicleList
+    {
+      this.searchModel.CarTypeId = "0";
+      this.searchModel.MakeId = "0";
+      this.searchModel.CarModelId ="0";
+      this.searchModel.LocationId ="0";
+      this.searchModel.YearId ="0";
+      this.getSearchVehicleList(this.searchModel);
+    }
   }
 }
