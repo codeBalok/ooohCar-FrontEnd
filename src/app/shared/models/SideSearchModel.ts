@@ -20,6 +20,7 @@ export class SideSearchListModel {
     Power:CommonModel;
     PowerToWeight:CommonModel;
     Tow:CommonModel;
+    DriveType:CommonModel;
 }
 
 export class SideSearchModel {

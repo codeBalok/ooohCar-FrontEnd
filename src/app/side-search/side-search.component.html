@@ -540,45 +540,30 @@
                         <h5 class="element-selection-title">Drive Type</h5>
                         <div class="aspect-navigation-element" data-aspect-name="Drive">
                             <div class="aspect" data-aspect-name="drive">
-                                <ul class="default-facets">
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=Drive.4x2." data-opm-event="click-listings-refinement">4x2</a>
+                                
+        
+        
+         <div class="autocomplete-dropdown">
+            <input matInput placeholder="DriveType" aria-label="DriveType" [matAutocomplete]="DriveTypeauto"
+             [formControl]="DriveTypeControl">
+             <mat-autocomplete #DriveTypeauto="matAutocomplete">                                        
+                <mat-option *ngFor="let option of DriveTypefilteredOptions | async" 
+                   [value]="option.name">
+                   {{option.name}} ({{option.childCount}})
+                   </mat-option>                                              
+             </mat-autocomplete>
+        </div>  
+             <div class="range-actions">
+                <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
+                    data-upper-placeholder="<!upper>"
+                    data-expression-url="/cars/?q=Year.range(%3C!lower%3E..%3C!upper%3E)."
+                    data-clear-link=""
+                    (click)="getCarModelListDriveType()"
+                    >Go</button>
+            </div>
 
-                                        <span>(131)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=Drive.4x4." data-opm-event="click-listings-refinement">4x4</a>
 
-                                        <span>(50,921)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=Drive.6x2." data-opm-event="click-listings-refinement">6x2</a>
 
-                                        <span>(1)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=Drive.6x4." data-opm-event="click-listings-refinement">6x4</a>
-
-                                        <span>(1)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=Drive.6x6." data-opm-event="click-listings-refinement">6x6</a>
-
-                                        <span>(7)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=Drive.Front+Wheel+Drive."
-                                            data-opm-event="click-listings-refinement">Front Wheel Drive</a>
-
-                                        <span>(64,014)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=Drive.Rear+Wheel+Drive."
-                                            data-opm-event="click-listings-refinement">Rear Wheel Drive</a>
-
-                                        <span>(28,345)</span>
-                                    </li>
-                                </ul>
                             </div>
                           </div>
                         </div>

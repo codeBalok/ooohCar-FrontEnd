@@ -77,3 +77,7 @@ export class  SearchSelectedTow
 {
     Tow:CommonModel;
 }
+export class  SearchSelectedDriveType
+{
+    DriveType:CommonModel;
+}

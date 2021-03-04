@@ -102,6 +102,7 @@ export class SideSearchComponent implements OnInit {
   @Output() selectedPowerEmit= new EventEmitter<string>();
   @Output() selectedPowerToWeightEmit= new EventEmitter<string>();
   @Output() selectedTowEmit= new EventEmitter<string>();
+  @Output() selectedDriveTypeEmit= new EventEmitter<string>();
   states: any = [];
   sliderPrices:number [] =[];
   sliderOdometer:number [] =[];
@@ -147,10 +148,12 @@ export class SideSearchComponent implements OnInit {
   public IsExpandEngineSize:string='';
   public IsExpandCylinders:string='';
   public SideSearchFuelType= new SideSearchListModel();
+  public SideSearchDriveType= new SideSearchListModel();
   public SideSearchCylinder= new SideSearchListModel();    
   public SideSearchFuelEconomy= new SideSearchListModel();
   public SideSearchInductionTurbo= new SideSearchListModel();  
   public arrFuelType=[];
+  public arrDriveType=[];
   public arrFuelEconomy=[];
   public arrEngineDescription=[];
   public arrEngineSize=[];
@@ -174,8 +177,10 @@ export class SideSearchComponent implements OnInit {
   toEngineSizefilteredOptions: Observable<any[]>;
   EngineDescriptionControl = new FormControl();  
   EngineDescriptionfilteredOptions: Observable<any[]>;  
-  FuelEconomyControl= new FormControl();
+  FuelEconomyControl= new FormControl();  
   FuelEconomyfilteredOptions: Observable<any[]>; 
+  DriveTypeControl=new FormControl();
+  DriveTypefilteredOptions: Observable<any[]>; 
   InductionTurboControl=new FormControl();
   InductionTurbofilteredOptions: Observable<any[]>;
   fromPowerfilteredOptions: Observable<any[]>;
@@ -313,6 +318,16 @@ export class SideSearchComponent implements OnInit {
       } 
     });
 
+    this.homeService.GetDriveTypeList().subscribe((res)=>{ 
+      this.SideSearchDriveType.DriveType = res;            
+      for(let key in this.SideSearchDriveType.DriveType)
+      {  
+        if(this.SideSearchDriveType.DriveType.hasOwnProperty(key))
+        {  
+        this.arrDriveType.push(this.SideSearchDriveType.DriveType[key]);    
+        }        
+      } 
+    });
     this.homeService.GetCylindersList().subscribe((res)=>{ 
       this.SideSearchCylinder.Cylinders = res;            
       for(let key in this.SideSearchCylinder.Cylinders)
@@ -436,6 +451,12 @@ export class SideSearchComponent implements OnInit {
       startWith(''),
       switchMap(value => this.filterFuelEconomy(value))
     ); 
+      
+    this.DriveTypefilteredOptions = this.DriveTypeControl.valueChanges
+    .pipe(
+      startWith(''),
+      switchMap(value => this.filterDriveType(value))
+    );
 
     this.InductionTurbofilteredOptions = this.InductionTurboControl.valueChanges
     .pipe(
@@ -520,7 +541,16 @@ export class SideSearchComponent implements OnInit {
       })
     )     
   }
-
+  public filterDriveType(value: string) {    
+    const filterValue = value.toLowerCase();
+   return this.homeService.GetDriveTypeList().pipe(
+      filter(data => !!data),
+      map((data) => {        
+        return data.filter(option => option.name.toLowerCase().includes(value))
+      })
+    )     
+  }
+  
   public filterInductionTurbo(value: string) {    
     const filterValue = value.toLowerCase();
    return this.homeService.GetDriveTypeList().pipe(
@@ -1054,4 +1084,9 @@ getCarModelListEngineDescription()
    this.sideSearchTowSelected.push(toTow);    
    this.selectedTowEmit.emit(JSON.stringify(this.sideSearchTowSelected));   
   }
+  getCarModelListDriveType()
+  {   
+    let driveType = this.arrDriveType.find(drvtype => drvtype.name===this.DriveTypeControl.value);   
+    this.selectedDriveTypeEmit.emit(JSON.stringify(driveType)); 
+  }  
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject,Subject } from 'rxjs';
-import { SearchListModel, SearchSelectedModels, SearchSelectedVariants,SearchSelectedPrice,SearchSelectedOdometer,SearchSelectedTransmission, SearchSelectedYear, SearchSelectedFuelType, SearchSelectedCylinder, SearchSelectedEngineSize, SearchSelectedEngineDescription,SearchSelectedFuelEconomy, SearchSelectedInductionTurbo, SearchSelectedPower, SearchSelectedTow, SearchSelectedPowerToWeight } from '../shared/models/SearchListModel';
+import { SearchListModel, SearchSelectedModels, SearchSelectedVariants,SearchSelectedPrice,SearchSelectedOdometer,SearchSelectedTransmission, SearchSelectedYear, SearchSelectedFuelType, SearchSelectedCylinder, SearchSelectedEngineSize, SearchSelectedEngineDescription,SearchSelectedFuelEconomy, SearchSelectedInductionTurbo, SearchSelectedPower, SearchSelectedTow, SearchSelectedPowerToWeight, SearchSelectedDriveType } from '../shared/models/SearchListModel';
 import { map } from 'rxjs/operators';
 import { SearchModel,SearchSelectedMakes } from '../shared/models/SearchListModel';
 
@@ -156,7 +156,7 @@ export class HomeService {
     return this.http.get<any>(this.baseUrl + 'Home/GetInductionTurboList');
   } 
   GetDriveTypeList() {
-    return this.http.get<any>(this.baseUrl + 'Home/GetInductionTurboList');
+    return this.http.get<any>(this.baseUrl + 'Home/GetDriveTypeList');
   } 
   GetVehicleListAccordingToSelectedInductionTurbo(searchSelectedInductionTurbo : SearchSelectedInductionTurbo)
   {
@@ -173,5 +173,9 @@ export class HomeService {
   GetVehicleListAccordingToSelectedTow(searchSelectedTow : SearchSelectedTow)
   {
     return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedTow', searchSelectedTow);
+  }
+  GetVehicleListAccordingToSelectedDriveType(searchSelectedDriveType : SearchSelectedDriveType)
+  {
+    return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedDriveType', searchSelectedDriveType);
   }
 }
