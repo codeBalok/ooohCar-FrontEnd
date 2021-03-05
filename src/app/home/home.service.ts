@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject,Subject } from 'rxjs';
-import { SearchListModel, SearchSelectedModels, SearchSelectedVariants,SearchSelectedPrice,SearchSelectedOdometer,SearchSelectedTransmission, SearchSelectedYear, SearchSelectedFuelType, SearchSelectedCylinder, SearchSelectedEngineSize, SearchSelectedEngineDescription,SearchSelectedFuelEconomy, SearchSelectedInductionTurbo, SearchSelectedPower, SearchSelectedTow, SearchSelectedPowerToWeight, SearchSelectedDriveType } from '../shared/models/SearchListModel';
+import { SearchListModel, SearchSelectedModels, SearchSelectedVariants,SearchSelectedPrice,SearchSelectedOdometer,SearchSelectedTransmission, SearchSelectedYear, SearchSelectedFuelType, SearchSelectedCylinder, SearchSelectedEngineSize, SearchSelectedEngineDescription,SearchSelectedFuelEconomy, SearchSelectedInductionTurbo, SearchSelectedPower, SearchSelectedTow, SearchSelectedPowerToWeight, SearchSelectedDriveType, SearchSelectedBodyType, SearchSelectedColour } from '../shared/models/SearchListModel';
 import { map } from 'rxjs/operators';
 import { SearchModel,SearchSelectedMakes } from '../shared/models/SearchListModel';
 
@@ -178,4 +178,14 @@ export class HomeService {
   {
     return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedDriveType', searchSelectedDriveType);
   }
+  GetVehicleListAccordingToSelectedBodyTypeRange(searchSelectedBodyType : SearchSelectedBodyType) {
+    return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedBodyType', searchSelectedBodyType);
+  }
+  GetVehicleListAccordingToSelectedColourRange(searchSelectedColour : SearchSelectedColour) {
+    return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedColour', searchSelectedColour);
+  }
+  GetPriceList(){
+  return this.http.get<any>(this.baseUrl + 'Home/GetPriceList');
+  }
+
 }

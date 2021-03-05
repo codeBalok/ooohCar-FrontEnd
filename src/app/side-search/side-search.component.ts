@@ -26,6 +26,8 @@ export interface IYear{
 export class SideSearchComponent implements OnInit {
   public SideSearchListModel = new SideSearchListModel();
   public SideSearchTransmission = new SideSearchListModel();
+  public SideSearchBodyType = new SideSearchListModel();
+  public SideSearchColour = new SideSearchListModel();
   public SideSearchYear= new SideSearchListModel();
   public SideSearchPower= new SideSearchListModel();
   public SideSearchPowerToWeight=new SideSearchListModel(); 
@@ -55,6 +57,9 @@ export class SideSearchComponent implements OnInit {
   public arrModel= []; 
   public arrVariant= []; 
   public arrTransmission=[];
+  public arrBodyType=[];
+  public arrColour=[];
+  public arrPrice=[];
   public arrYear=[];
   public arrPower=[];
   public arrPowerToWeight=[];
@@ -68,6 +73,8 @@ export class SideSearchComponent implements OnInit {
   public sideSearchModelSelected  = [];
   public sideSearchVariantSelected  = [];
   public sideSearchTransmissionSelected  = [];
+  public sideSearchBodyTypeSelected  = [];
+  public sideSearchColourSelected  = [];
   public sideSearchYearSelected  = []; 
   public sideSearchPowerSelected  = [];   
   public sideSearchPowerToWeightSelected = [];  
@@ -86,6 +93,9 @@ export class SideSearchComponent implements OnInit {
   variantpaginationLimit:number; 
   locationstartPage:number;
   locationpaginationLimit:number; 
+  colourpaginationLimit:number;        
+  colourstartPage:number;
+  
   @Output() selectedMakesEmit = new EventEmitter<string>();  
   @Output() selectedModelEmit= new EventEmitter<string>(); 
   @Output() selectedVariantEmit= new EventEmitter<string>(); 
@@ -103,6 +113,8 @@ export class SideSearchComponent implements OnInit {
   @Output() selectedPowerToWeightEmit= new EventEmitter<string>();
   @Output() selectedTowEmit= new EventEmitter<string>();
   @Output() selectedDriveTypeEmit= new EventEmitter<string>();
+  @Output() selectedBodyTypeEmit= new EventEmitter<string>();
+  @Output() selectedColourEmit= new EventEmitter<string>();
   states: any = [];
   sliderPrices:number [] =[];
   sliderOdometer:number [] =[];
@@ -141,6 +153,12 @@ export class SideSearchComponent implements OnInit {
     }
   };
   public IsExpandEngine:string='';
+  public IsExpandStyle:string='';
+  public IsExpandBodyType:string='';
+  public IsExpandColour:string='';
+  public IsExpandSeats:string='';
+  public IsExpandDoors:string='';
+  public IsExpandLifeStyles:string='';
   public IsExpandDriveType:string='';
   public IsExpandFuelType:string='';
   public IsExpandFuelEconomy:string='';
@@ -195,7 +213,11 @@ export class SideSearchComponent implements OnInit {
   toTowfilteredOptions: Observable<any[]>; 
   fromPowerToWeightfilteredOptions: Observable<any[]>;
   toPowerToWeightfilteredOptions: Observable<any[]>; 
- 
+  toPricefilteredOptions: Observable<any[]>;
+  FromPriceControl=new FormControl();
+  fromPricefilteredOptions: Observable<any[]>;
+  ToPriceControl=new FormControl();
+  
 
 
   constructor(private homeService: HomeService,private modalService: NgbModal,private router: Router) {
@@ -204,7 +226,9 @@ export class SideSearchComponent implements OnInit {
     this.variantstartPage = 0;
     this.variantpaginationLimit = 3;
     this.locationstartPage = 0;
-    this.locationpaginationLimit = 3;      
+    this.locationpaginationLimit = 3;  
+    this.colourstartPage=0;
+    this.colourpaginationLimit=3;    
   }
 
 
@@ -372,16 +396,6 @@ export class SideSearchComponent implements OnInit {
       } 
     });
 
-    this.homeService.GetInductionTurboList().subscribe((res)=>{ 
-      this.SideSearchInductionTurbo.InductionTurbo = res;            
-      for(let key in this.SideSearchInductionTurbo.InductionTurbo)
-      {  
-        if(this.SideSearchInductionTurbo.InductionTurbo.hasOwnProperty(key))
-        {  
-        this.arrInductionTurbo.push(this.SideSearchInductionTurbo.InductionTurbo[key]);    
-        }        
-      } 
-    });
 
     this.homeService.GetInductionTurboList().subscribe((res)=>{ 
       this.SideSearchInductionTurbo.InductionTurbo = res;            
@@ -498,7 +512,56 @@ export class SideSearchComponent implements OnInit {
       startWith(''),
       switchMap(value => this.filterTow(value))
     );
-  }
+
+    this.homeService.GetBodyTypeList().subscribe((res)=>{ 
+      this.SideSearchBodyType.BodyType = res;     
+      console.log(this.SideSearchBodyType.BodyType); 
+      for(let key in this.SideSearchBodyType.BodyType)
+      {  
+        if(this.SideSearchBodyType.BodyType.hasOwnProperty(key))
+        {  
+        this.arrBodyType.push(this.SideSearchBodyType.BodyType[key]);    
+        }        
+      } 
+    });
+
+    this.homeService.GetColourList().subscribe((res)=>{ 
+      this.SideSearchColour.Colour = res;     
+      console.log(this.SideSearchColour.Colour); 
+      for(let key in this.SideSearchColour.Colour)
+      {  
+        if(this.SideSearchColour.Colour.hasOwnProperty(key))
+        {  
+        this.arrColour.push(this.SideSearchColour.Colour[key]);    
+        }        
+      } 
+    });
+
+    
+ this.homeService.GetPriceList().subscribe((res)=>{ 
+  this.SideSearchVehicleType.Price = res;            
+  for(let key in this.SideSearchVehicleType.Price)
+  {  
+    if(this.SideSearchVehicleType.Price.hasOwnProperty(key))
+    {  
+    this.arrPrice.push(this.SideSearchVehicleType.Price[key]);    
+    }        
+  } 
+});
+
+this.fromPricefilteredOptions = this.FromPriceControl.valueChanges
+.pipe(
+  startWith(''),
+  switchMap(value => this.filterPrice(value))
+);   
+
+this.toPricefilteredOptions = this.ToPriceControl.valueChanges
+.pipe(
+  startWith(''),
+  switchMap(value => this.filterPrice(value))
+);
+ 
+}
   
   private filterYear(value: string) {
     
@@ -583,6 +646,16 @@ export class SideSearchComponent implements OnInit {
   private filterTow (value: string) {
     const filterValue = value.toLowerCase();
    return this.homeService.GetTowList().pipe(
+      filter(data => !!data),
+      map((data) => {        
+        return data.filter(option => option.name.toLowerCase().includes(value))
+      })
+    )     
+  }
+  private filterPrice(value: string) {
+    
+    const filterValue = value.toLowerCase();
+   return this.homeService.GetPriceList().pipe(
       filter(data => !!data),
       map((data) => {        
         return data.filter(option => option.name.toLowerCase().includes(value))
@@ -931,8 +1004,8 @@ export class SideSearchComponent implements OnInit {
   getCarModelListFromToPrice()
   {
     this.sliderPrices=[];
-    this.sliderPrices.push(Number(this.fromPrice));
-    this.sliderPrices.push(Number(this.toPrice));
+    this.sliderPrices.push(Number(this.FromPriceControl.value));
+    this.sliderPrices.push(Number(this.ToPriceControl.value));
     this.selectedPriceEmit.emit(JSON.stringify(this.sliderPrices));
   }
   getCarModelLisOdometerRange()
@@ -1008,7 +1081,25 @@ export class SideSearchComponent implements OnInit {
             break;  
       case "Tow":
             isOpen?this.IsExpandTow='':this.IsExpandTow='view-mode-open';
-             break;    
+             break;   
+      case 'Style':
+              isOpen?this.IsExpandStyle='':this.IsExpandStyle='view-mode-open';
+               break; 
+      case  'BodyType':
+             isOpen?this.IsExpandBodyType='':this.IsExpandBodyType='view-mode-open';
+             break; 
+      case  'Colour':
+            isOpen?this.IsExpandColour='':this.IsExpandColour='view-mode-open';
+            break; 
+      case  'Seats':
+            isOpen?this.IsExpandSeats='':this.IsExpandSeats='view-mode-open';
+            break; 
+      case  'Doors':
+            isOpen?this.IsExpandDoors='':this.IsExpandDoors='view-mode-open';
+            break; 
+      case  'LifeStyles':
+            isOpen?this.IsExpandLifeStyles='':this.IsExpandLifeStyles='view-mode-open';
+            break;         
       default:           
           break;
   }
@@ -1088,5 +1179,31 @@ getCarModelListEngineDescription()
   {   
     let driveType = this.arrDriveType.find(drvtype => drvtype.name===this.DriveTypeControl.value);   
     this.selectedDriveTypeEmit.emit(JSON.stringify(driveType)); 
-  }  
+  } 
+  
+  BindVehicleListBySideSearchBodyTypeId(e)
+  {
+    var id:number=+e.target.value;  // get the value i.e.ID  of checked checkbox
+    let  objIndex = this.arrBodyType.findIndex(x => x.id==id);  // select the checked BodyType from an array 
+    e.target.checked?this.arrBodyType[objIndex].Selected=true:this.arrBodyType[objIndex].Selected=false;   //set the Selected=true or Selected=false if unchecked 
+    this.sideSearchBodyTypeSelected=this.arrBodyType.filter(x=>x.Selected==true); // filter selected= true and bind to array
+    this.selectedBodyTypeEmit.emit(JSON.stringify(this.sideSearchBodyTypeSelected)); // emit to bind carSearch details 
+  }
+  BindVehicleListBySideSearchColourId(e)
+  {
+    var id:number=+e.target.value;  // get the value i.e.ID  of checked checkbox
+    let  objIndex = this.arrColour.findIndex(x => x.id==id);  // select the checked Colour from an array 
+    e.target.checked?this.arrColour[objIndex].Selected=true:this.arrColour[objIndex].Selected=false;   //set the Selected=true or Selected=false if unchecked 
+    this.sideSearchColourSelected=this.arrColour.filter(x=>x.Selected==true); // filter selected= true and bind to array
+    this.selectedColourEmit.emit(JSON.stringify(this.sideSearchColourSelected)); // emit to bind carSearch details 
+  }
+
+  showMoreColourItems()
+  {
+     this.colourpaginationLimit = Number(this.colourpaginationLimit) + 3;        
+  }
+  showLessColourItems()
+  {
+     this.colourpaginationLimit = Number(this.colourpaginationLimit) - 3;        
+  }
 }

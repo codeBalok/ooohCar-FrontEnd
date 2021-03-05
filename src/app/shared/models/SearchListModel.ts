@@ -81,3 +81,11 @@ export class  SearchSelectedDriveType
 {
     DriveType:CommonModel;
 }
+export class SearchSelectedBodyType
+{
+    BodyType:[];
+}
+export class SearchSelectedColour
+{
+    Colour:[];
+}
