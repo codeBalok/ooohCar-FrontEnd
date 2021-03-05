@@ -9,6 +9,18 @@ export class SideSearchListModel {
     Variant:CommonModel;
     Transmission:CommonModel;
     CertifiedInspected:CommonModel;
+    FuelType:CommonModel;
+    Cylinders:CommonModel;
+    EngineSize:CommonModel;
+    EngineDescription:CommonModel;
+    FuelEconomy:CommonModel;
+    BodyType:CommonModel;
+    Colour:CommonModel;
+    InductionTurbo:CommonModel;
+    Power:CommonModel;
+    PowerToWeight:CommonModel;
+    Tow:CommonModel;
+    DriveType:CommonModel;
 }
 
 export class SideSearchModel {

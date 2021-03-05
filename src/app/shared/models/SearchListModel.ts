@@ -39,3 +39,45 @@ export class SearchSelectedYear
 {
     Year:CommonModel[] ;
 }
+
+export class  SearchSelectedFuelType
+{
+    FuelType:[];
+}
+export class  SearchSelectedCylinder
+{
+    Cylinder:[];
+}
+export class  SearchSelectedEngineSize
+{
+    EngineSize:[];
+}
+export class  SearchSelectedEngineDescription
+{
+    EngineDescription:CommonModel;
+}
+
+export class  SearchSelectedFuelEconomy
+{
+    FuelEconomy:CommonModel;
+}
+export class  SearchSelectedInductionTurbo
+{
+    InductionTurbo:CommonModel;
+}
+export class  SearchSelectedPower
+{
+    Power:CommonModel;
+}
+export class  SearchSelectedPowerToWeight
+{
+    PowerToWeight:CommonModel;
+}
+export class  SearchSelectedTow
+{
+    Tow:CommonModel;
+}
+export class  SearchSelectedDriveType
+{
+    DriveType:CommonModel;
+}
