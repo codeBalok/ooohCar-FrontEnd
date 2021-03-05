@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../home/home.service';
 import {AddNewCarListModel} from '../shared/models/AddNewCarModel';
+import { sellusedcarService } from './sell-used-car.service';
 @Component({
   selector: 'app-sell-used-car',
   templateUrl: './sell-used-car.component.html',
@@ -15,14 +16,14 @@ export class SellUsedCarComponent implements OnInit {
   carregstate:boolean=false;
   carcode:boolean=false;
   carmodelbind:string="-1";
-  constructor(private homeService: HomeService) { }
+  constructor(private sellusedcarService: sellusedcarService) { }
 
   ngOnInit(): void {
-    this.homeService.GetMakeList().subscribe((res)=>{
-      this.AddNewCarListModel.MakeType = res;
-     
+    this.sellusedcarService.GetMakeList().subscribe((res)=>{
+      this.AddNewCarListModel.MakeType = res; 
+      
+      console.log(this.AddNewCarListModel);
     }); 
-   
   }
   clickMake(MakeType){
     this.carmake=false;
@@ -35,7 +36,7 @@ export class SellUsedCarComponent implements OnInit {
   }
 
   getModelList(id){
-    this.homeService.GetModelList(id).subscribe((res)=>{
+    this.sellusedcarService.GetModelList(id).subscribe((res)=>{
       this.AddNewCarListModel.CarModel = res;
     }); 
   }
