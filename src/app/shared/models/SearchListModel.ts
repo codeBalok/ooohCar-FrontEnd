@@ -89,3 +89,26 @@ export class SearchSelectedColour
 {
     Colour:[];
 }
+export class  SearchSelectedSeats
+{
+    Seat:CommonModel[];
+}
+
+export class  SearchSelectedLifeStyles
+{
+    LifeStyles:CommonModel;
+}
+
+export class  SearchSelectedDoors
+{
+    Doors:CommonModel;    
+}
+export class SearchSelectedVehicleType
+{
+    VehicleType:[];
+}
+
+export class SearchSelectedCertifiedInspected
+{
+    CertifiedInspected:[];
+}

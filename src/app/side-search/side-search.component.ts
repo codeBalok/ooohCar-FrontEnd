@@ -36,6 +36,9 @@ export class SideSearchComponent implements OnInit {
   public SideSearchEngineDescription= new SideSearchListModel();
   public SideSearchCertifiedInspected= new SideSearchListModel();
   public SideSearchVehicleType= new SideSearchListModel();
+  public SideSearchSeat= new SideSearchListModel();
+  public SideSearchDoors= new SideSearchListModel();
+  public SideSearchLifeStyles= new SideSearchListModel();  
   public IsExpandMake : string = '';
   public IsExpandLocation : string = '';
   public IsExpandPrice: string = '';
@@ -58,9 +61,12 @@ export class SideSearchComponent implements OnInit {
   public arrVariant= []; 
   public arrTransmission=[];
   public arrBodyType=[];
-  public arrColour=[];
+  public arrColour=[];  
   public arrPrice=[];
   public arrYear=[];
+  public arrSeats=[];
+  public arrDoors=[]
+  public arrLifeStyles=[];
   public arrPower=[];
   public arrPowerToWeight=[];
   public arrTow=[];
@@ -73,9 +79,12 @@ export class SideSearchComponent implements OnInit {
   public sideSearchModelSelected  = [];
   public sideSearchVariantSelected  = [];
   public sideSearchTransmissionSelected  = [];
+  public sideSearchVehicelTypeSelected= [];
   public sideSearchBodyTypeSelected  = [];
   public sideSearchColourSelected  = [];
+  public sideSearchCertifiedInspecteSelected  = [];
   public sideSearchYearSelected  = []; 
+  public sideSearchSeatSelected  = []; 
   public sideSearchPowerSelected  = [];   
   public sideSearchPowerToWeightSelected = [];  
   public sideSearchTowSelected=[];
@@ -115,6 +124,11 @@ export class SideSearchComponent implements OnInit {
   @Output() selectedDriveTypeEmit= new EventEmitter<string>();
   @Output() selectedBodyTypeEmit= new EventEmitter<string>();
   @Output() selectedColourEmit= new EventEmitter<string>();
+  @Output() selectedSeatsEmit= new EventEmitter<string>();
+  @Output() selectedDoorsEmit= new EventEmitter<string>();
+  @Output() selectedLifeStylesEmit= new EventEmitter<string>();
+  @Output() selectedVehicelTypeEmit= new EventEmitter<string>();
+  @Output() selectedCertifiedInspectedEmit= new EventEmitter<string>();
   states: any = [];
   sliderPrices:number [] =[];
   sliderOdometer:number [] =[];
@@ -217,7 +231,14 @@ export class SideSearchComponent implements OnInit {
   FromPriceControl=new FormControl();
   fromPricefilteredOptions: Observable<any[]>;
   ToPriceControl=new FormControl();
-  
+  ToSeatControl=new FormControl();
+  toSeatfilteredOptions: Observable<any[]>;
+  fromSeatfilteredOptions: Observable<any[]>;
+  FromSeatControl=new FormControl();
+  DoorsControl=new FormControl();
+  DoorsfilteredOptions: Observable<any[]>;
+  LifeStylesControl=new FormControl();
+  LifeStylesfilteredOptions: Observable<any[]>;
 
 
   constructor(private homeService: HomeService,private modalService: NgbModal,private router: Router) {
@@ -561,6 +582,74 @@ this.toPricefilteredOptions = this.ToPriceControl.valueChanges
   switchMap(value => this.filterPrice(value))
 );
  
+this.homeService.GetPriceList().subscribe((res)=>{ 
+  this.SideSearchVehicleType.Price = res;            
+  for(let key in this.SideSearchVehicleType.Price)
+  {  
+    if(this.SideSearchVehicleType.Price.hasOwnProperty(key))
+    {  
+    this.arrPrice.push(this.SideSearchVehicleType.Price[key]);    
+    }        
+  } 
+});
+
+this.homeService.GetSeatsList().subscribe((res)=>{ 
+  this.SideSearchSeat.Seat = res;            
+  for(let key in this.SideSearchSeat.Seat)
+  {  
+    if(this.SideSearchSeat.Seat.hasOwnProperty(key))
+    {  
+    this.arrSeats.push(this.SideSearchSeat.Seat[key]);    
+    }        
+  } 
+});
+
+this.fromSeatfilteredOptions = this.FromSeatControl.valueChanges
+.pipe(
+  startWith(''),
+  switchMap(value => this.filterSeat(value))
+);   
+
+this.toSeatfilteredOptions = this.ToSeatControl.valueChanges
+.pipe(
+  startWith(''),
+  switchMap(value => this.filterSeat(value))
+);
+this.homeService.GetLifeStylesList().subscribe((res)=>{ 
+  this.SideSearchLifeStyles.LifeStyles = res;            
+  for(let key in this.SideSearchLifeStyles.LifeStyles)
+  {  
+    if(this.SideSearchLifeStyles.LifeStyles.hasOwnProperty(key))
+    {  
+    this.arrLifeStyles.push(this.SideSearchLifeStyles.LifeStyles[key]);    
+    }        
+  } 
+});
+
+
+this.homeService.GetDoorsList().subscribe((res)=>{ 
+  this.SideSearchDoors.Doors = res;            
+  for(let key in this.SideSearchDoors.Doors)
+  {  
+    if(this.SideSearchDoors.Doors.hasOwnProperty(key))
+    {  
+    this.arrDoors.push(this.SideSearchDoors.Doors[key]);    
+    }        
+  } 
+});
+this.DoorsfilteredOptions = this.DoorsControl.valueChanges
+.pipe(
+  startWith(''),
+  switchMap(value => this.filterDoors(value))
+); 
+
+this.LifeStylesfilteredOptions = this.LifeStylesControl.valueChanges
+.pipe(
+  startWith(''),
+  switchMap(value => this.filterLifeStyles(value))
+); 
+
+
 }
   
   private filterYear(value: string) {
@@ -656,6 +745,37 @@ this.toPricefilteredOptions = this.ToPriceControl.valueChanges
     
     const filterValue = value.toLowerCase();
    return this.homeService.GetPriceList().pipe(
+      filter(data => !!data),
+      map((data) => {        
+        return data.filter(option => option.name.toLowerCase().includes(value))
+      })
+    )     
+  }
+  private filterSeat(value: string) {
+    
+    const filterValue = value.toLowerCase();
+   return this.homeService.GetSeatsList().pipe(
+      filter(data => !!data),
+      map((data) => {        
+        return data.filter(option => option.name.toLowerCase().includes(value))
+      })
+    )     
+  }
+  private filterLifeStyles(value: string) {
+    
+    const filterValue = value.toLowerCase();
+   return this.homeService.GetLifeStylesList().pipe(
+      filter(data => !!data),
+      map((data) => {        
+        return data.filter(option => option.name.toLowerCase().includes(value))
+      })
+    )     
+  }
+
+  private filterDoors(value: string) {
+    
+    const filterValue = value.toLowerCase();
+   return this.homeService.GetDoorsList().pipe(
       filter(data => !!data),
       map((data) => {        
         return data.filter(option => option.name.toLowerCase().includes(value))
@@ -1035,13 +1155,14 @@ this.toPricefilteredOptions = this.ToPriceControl.valueChanges
     this.sideSearchYearSelected.push(toYear);    
     this.selectedYearEmit.emit(JSON.stringify(this.sideSearchYearSelected));   
   }
-  BindVehicleListBySideSearchcarCertifiedInspectedId(e)
-  {
-
-  } 
+  
   BindVehicleListBySideSearchcarVehicleTypeId(e)
   {
-
+    var id:number=+e.target.value;  // get the value i.e.ID  of checked checkbox
+    let  objIndex = this.arrVehicleType.findIndex(x => x.id==id);  // select the checked VehicelType from an array 
+    e.target.checked?this.arrVehicleType[objIndex].Selected=true:this.arrVehicleType[objIndex].Selected=false;   //set the Selected=true or Selected=false if unchecked 
+    this.sideSearchVehicelTypeSelected=this.arrVehicleType.filter(x=>x.Selected==true); // filter selected= true and bind to array
+    this.selectedVehicelTypeEmit.emit(JSON.stringify(this.sideSearchVehicelTypeSelected));
   } 
   ExpandSearch(SideSearchName:string)  
   {
@@ -1205,5 +1326,34 @@ getCarModelListEngineDescription()
   showLessColourItems()
   {
      this.colourpaginationLimit = Number(this.colourpaginationLimit) - 3;        
+  }
+  getCarModelLisSeatsRange() {
+    this.sideSearchSeatSelected=[];  
+     let frmSeats = this.arrSeats.find(o => o.name===this.FromSeatControl.value);
+     let toSeats=this.arrSeats.find(st => st.name===this.ToSeatControl.value);    
+
+    this.sideSearchSeatSelected.push(frmSeats);
+    this.sideSearchSeatSelected.push(toSeats);
+    
+    this.selectedSeatsEmit.emit(JSON.stringify(this.sideSearchSeatSelected));   
+  }
+
+  getCarModelListDoors()
+  {   
+    let Doors = this.arrDoors.find(dr=> dr.name===this.DoorsControl.value);   
+    this.selectedDoorsEmit.emit(JSON.stringify(Doors)); 
+  } 
+   getCarModelListLifeStyles()
+  {   
+    let LifeStyles = this.arrLifeStyles.find(lf => lf.name===this.LifeStylesControl.value);   
+    this.selectedLifeStylesEmit.emit(JSON.stringify(LifeStyles)); 
+  } 
+  BindVehicleListBySideSearchcarCertifiedInspectedId(e)
+  {
+    var id:number=+e.target.value;  // get the value i.e.ID  of checked checkbox
+    let  objIndex = this.arrCertified.findIndex(x => x.id==id);  // select the checked CertifiedInspected from an array 
+    e.target.checked?this.arrCertified[objIndex].Selected=true:this.arrCertified[objIndex].Selected=false;   //set the Selected=true or Selected=false if unchecked 
+    this.sideSearchCertifiedInspecteSelected=this.arrCertified.filter(x=>x.Selected==true); // filter selected= true and bind to array
+    this.selectedCertifiedInspectedEmit.emit(JSON.stringify(this.sideSearchCertifiedInspecteSelected)); // emit to bind carSearch details 
   }
 }

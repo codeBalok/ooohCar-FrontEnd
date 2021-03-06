@@ -22,6 +22,9 @@ export class SideSearchListModel {
     Tow:CommonModel;
     DriveType:CommonModel;
     Price:CommonModel;
+    Seat:CommonModel;
+    Doors:CommonModel;
+    LifeStyles:CommonModel;
 }
 
 export class SideSearchModel {
