@@ -1,37 +1,79 @@
+
+<form [formGroup]="myForm" (ngSubmit)="submit()">
 <div class="contact-2 content-area-5">
    
     <div class="container">
-
-        <div class="car-brand {{carmake == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}" >
-            <span class="select-car-brand-span">Select Car Make
+        
+        <div class="car-brand {{step1 == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}" >
+            <span class="select-car-brand-span">
             </span>
          
             <div>
             <ul class="row row-car-brand">
-            <li class="li-car-brand" *ngFor="let sort of AddNewCarListModel.MakeType">
-           
-            <div class="text-center div-car-brand" (click)="clickMake(sort.id)">
-                <img [id]="sort.id"   data-title="sort.name" [src]="sort.logoImages" [alt]="sort.name" class="img-fluid _1jMfy">
+                <ng-container  *ngFor="let sort of AddNewCarListModel.MakeType" >
+            <li class="li-car-brand" *ngIf="sort.logoImages">
+            <div class="text-center div-car-brand {{applyclassactiveMake === sort.id ? 'div-car-brand-active' : ''}}" (click)="clickMake(sort.id)" >
+                <img style="height: 60px;width: 70px;" [id]="sort.id" data-title="sort.name" src='{{ "/assets/images/car_make_images/" +sort.logoImages }}' [alt]="sort.name" class="img-fluid _1jMfy">
             </div>
-        </li>
-            
+           </li>
+        </ng-container>
             </ul>
             </div>
             </div>
-            <div class="row py-4 m-0 car-model {{carmodel == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}" >
-                <div class="col-md-5 p-0"><span class="select-car-model">Select Your Car Model</span></div>
-                <div class="col-md-7 p-0">
-                    <select  class="form-control drp-add-new-car" 
+            <div class="row py-4 m-0 car-model {{step2 == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}" >
+                <div class="col-md-11 p-0">
+                    
+                    <span class="select-car-model">Select Your Car Model, Fual Type and Varient</span>
+
+                    <span  class="lnr lnr-arrow-left modelback" (click)="backtomake()">
+                        BACK
+                    </span>
+                    <span  class="lnr lnr-arrow-right modelback" (click)="moveNextStep3()">
+                        NEXT
+                    </span>
+                  
+                </div>
+                 
+                  
+                <div class="col-md-7 p-0" >
+                    <select formControlName="model"  (change)='getVarientList(selectModal.value)'  class="form-control drp-add-new-car" 
                     #selectModal>
                         <option selected  disabled value="">Select Model Type*</option>
                        
-                        <option *ngFor="let sort of AddNewCarListModel.CarModel" 
+                        <option  *ngFor="let sort of AddNewCarListModel.CarModel" 
                         [value]="sort.id">
                         {{sort.name}}
                     </option>
                     </select>
             </div>
-            <div class="d-block"><span class="popular-model-div">Popular Models</span></div>
+            <div class="col-md-7 p-0" style="margin-top: 50px;">
+                <select formControlName="fualtype" class="form-control drp-add-new-car" 
+                #fualType>
+                    <option selected  disabled value="">Select Fual Type*</option>
+                   
+                    <option *ngFor="let sort of AddNewCarListModel.Fuel" 
+                    [value]="sort.id">
+                    {{sort.name}}
+                </option>
+                </select>
+        </div>
+
+        <div class="col-md-7 p-0" style="margin-top: 50px;">
+            <select formControlName="varient" (change)='moveNextStep3()'  class="form-control drp-add-new-car" 
+            #selectVarient>
+                <option selected  disabled value="">Select Car Varient*</option>
+               
+                <option *ngFor="let sort of AddNewCarListModel.Variant" 
+                [value]="sort.id">
+                {{sort.name}}
+            </option>
+            </select>
+    </div>
+
+   
+
+           
+            <!-- <div class="d-block"><span class="popular-model-div">Popular Models</span></div> -->
             <div class="col-md-12 p-0 innerRow">
                 <div class="innerRow">
                     <div class="row ml-0">
@@ -46,230 +88,330 @@
     </div>
 
 
-    <div class="row py-4 m-0 car-varient {{carvarient == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}">
-        <div class="col-12 p-0">
-            <div><span class="span-select-car-reg-state">Select Your Car Variant</span></div>
-            <div class="w-100">
-                <div>
-                    <div class="row m-0">
-                        <ul class="_3u-cI">
-                            <li class="IuWzB"><span>Petrol</span></li>
-                        </ul>
-                    </div>
-                    <div class="innerRow">
-                        <div class="innerRow">
-                            <div class="row ml-0">
-                                <div class="col-6 cars-popular-models">
-                                    <div class="card car-card">MAGNA 1.2 VTVT</div>
-                                </div>
-                                <div class="col-6 cars-popular-models">
-                                    <div class="card car-card">SPORTZ 1.2 KAPPA VTVT</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="row py-4 m-0 car-varient {{step3 == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}">
+        <div class="col-md-11 p-0">
+                    
+            <span class="select-car-model">Select Year, Condition, Price</span>
+
+            <span  class="lnr lnr-arrow-left modelback" (click)="moveNextStep2()">
+                BACK
+            </span>
+            <span  class="lnr lnr-arrow-right modelback" (click)="moveNextStep4()">
+                NEXT
+            </span>
         </div>
+
+        <div class="col-md-7 p-0" >
+            <select formControlName="year" (change)='getVarientList(selectModal.value)'  class="form-control drp-add-new-car" 
+            #selectYear>
+                <option selected  disabled value="">Select Year*</option>
+               
+                <option  *ngFor="let sort of AddNewCarListModel.Year" 
+                [value]="sort.id">
+                {{sort.name}}
+            </option>
+            </select>
+    </div>
+    <div  class="col-md-7 p-0" style="margin-top: 50px;">
+        <select formControlName="condition"  class="form-control drp-add-new-car" 
+        #selectCondition>
+            <option selected  disabled value="">Select Condition*</option>
+           
+            <option *ngFor="let sort of AddNewCarListModel.Condition" 
+            [value]="sort.id">
+            {{sort.condition}}
+        </option>
+        </select>
+</div>
+
+<div class="col-md-7 p-0" style="margin-top: 50px;">
+    <!-- <select *ngIf="pricedrop" formControlName="price" (change)='ChangePrice()' class="form-control drp-add-new-car" 
+    #selectPrice>
+        <option selected  disabled value="">Select Price*</option>
+        <option  value="Other">Other</option>
+        <option *ngFor="let sort of AddNewCarListModel.Price" 
+        [value]="sort.price">
+        {{sort.price}}
+    </option>
+    </select> -->
+    <input type="number"  name="price" 
+    formControlName="price" 
+    class="form-control" (change)="moveNextStep4()" placeholder="Price*" #price>
+</div>
+
+    </div>
+
+    <div class="row m-0 py-4 car-year {{step4 == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}">
+
+        <div class="col-md-12 p-0">
+                    
+            <span class="select-car-model">Select Kilometer driven, Transmission, Drive Train</span>
+
+            <span  class="lnr lnr-arrow-left modelback" (click)="moveNextStep3()">
+                BACK
+            </span>
+            <span  class="lnr lnr-arrow-right modelback" (click)="moveNextStep5()">
+                NEXT
+            </span>
+        </div>
+        <div class="col-md-7 p-0" >
+            <!-- <select formControlName="kilometer"  (change)='getVarientList(selectModal.value)'  class="form-control drp-add-new-car" 
+            #selectKilometer>
+                <option selected  disabled value="">Select Kilometer driven*</option>
+               
+                <option value="1000">> 1000</option>
+                <option value="2500">> 2500</option>
+                <option value="5000">> 5000</option>
+                <option value="10000">> 10000</option>
+                <option value="Other">Other</option>
+            </select> -->
+
+            <input type="text"  name="kilometer"
+            formControlName="kilometer"
+         class="form-control"  placeholder="Kilometer driven*" #kilometer>
+
+
+    </div>
+
+    <div class="col-md-7 p-0" style="margin-top: 50px;">
+        <select  formControlName="transmission" class="form-control drp-add-new-car" 
+        #selectTransmission>
+            <option selected  disabled value="">Select Transmission*</option>
+           
+            
+                                    <option *ngFor="let sort of AddNewCarListModel.Transmission" 
+                                    [value]="sort.id">
+                                    {{sort.name}}
+                                </option>
+        </select>
+</div>
+
+<div class="col-md-7 p-0" style="margin-top: 50px;">
+    <select formControlName="drivetrain" (change)="moveNextStep5()"  class="form-control drp-add-new-car" 
+    #selectDrivetrain>
+        <option selected  disabled value="">Select Drive Train*</option>
         
+        <option value="Front Wheel Drive">Front Wheel Drive</option>
+        <option value="Rear Wheel Drive">Rear Wheel Drive</option>
+        <option value="All Wheel Drive">All Wheel Drive</option>
+        <option value="4x4">4x4</option>
+        <option value="Other">Other</option>
+    </select>
+
+  
+</div>
+</div>
+
+
+<div class="row py-4 m-0 car-reg-state {{step5 == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}">
+  
+    <div class="col-md-12 p-0">
+                    
+        <span class="select-car-model">Select Cylinder, Body Type, Color</span>
+        <span  class="lnr lnr-arrow-left modelback" (click)="moveNextStep4()">
+            BACK
+        </span>
+        <span  class="lnr lnr-arrow-right modelback" (click)="moveNextStep6()">
+            NEXT
+        </span>
     </div>
 
+    <div class="col-md-7 p-0" >
+        <select formControlName="cylinder"  class="form-control drp-add-new-car" 
+        #selectCylinder>
+            <option selected  disabled value="">Select Cylinder*</option>
+           formControlName="cylinder"
+                                    <option *ngFor="let sort of AddNewCarListModel.Cylinder" 
+                                    [value]="sort.id">
+                                    {{sort.name}}
+                                </option>
+        </select>
+    </div>
+        <div class="col-md-7 p-0" style="margin-top: 50px;">
+            <select formControlName="bodytype" class="form-control drp-add-new-car" 
+            #selectBodytype>
+                <option selected  disabled value="">Select Body Type*</option>
+               
+                
+                                        <option *ngFor="let sort of AddNewCarListModel.BodyType" 
+                                        [value]="sort.id">
+                                        {{sort.name}}
+                                    </option>
+            </select>
 
-    <div class="row m-0 py-4 car-year {{caryear == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}">
+            <div (change)="moveNextStep6()" class="col-md-7 p-0" style="margin-top: 50px;">
+                <select  formControlName="color" class="form-control drp-add-new-car" 
+                #selectColor>
+                    <option selected  disabled value="">Select color*</option>
+                   
+                    
+                                            <option *ngFor="let sort of AddNewCarListModel.Color" 
+                                            [value]="sort.id">
+                                            {{sort.name}}
+                                        </option>
+                </select>
+</div>
 
-        
-        <div class="col-12 p-0">
-            <div class="d-inline"><span class="span-select-car-reg-state">Car Registration Year</span></div>
-            <div class="ml-2 d-inline"><span class="span-registration-code"> (As per RC)</span></div>
-        </div>
-        <div class="col-md-8 pt-3 px-0">
-            <div class="css-1pcexqc-container search-select-container">
-                <div class="css-bg1rzq-control search-select__control">
-                    <div class="css-1hwfws3 search-select__value-container search-select__value-container--has-value">
-                        <div class="css-1g6gooi">
-                            <div class="search-select__input" style="display: inline-block;"><input autocapitalize="none" autocomplete="off" autocorrect="off" id="react-select-9-input" spellcheck="false" tabindex="-1" type="text" aria-autocomplete="list" value="2020" style="box-sizing: content-box; width: 33px; background: 0px center; border: 0px; font-size: inherit; opacity: 1; outline: 0px; padding: 0px; color: inherit;">
-                                <div
-                                    style="position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: 14px; font-family: Roboto, sans-serif; font-weight: 400; font-style: normal; letter-spacing: normal; text-transform: none;">2020</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="css-1wy0on6 search-select__indicators"><span class="css-bgvzuu-indicatorSeparator search-select__indicator-separator"></span>
-                    <div aria-hidden="true" class="css-16pqwjk-indicatorContainer search-select__indicator search-select__dropdown-indicator"><svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-19bqh2r"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg></div>
-                </div>
+</div>
+</div>
+
+
+<div class="row py-4 m-0 car-reg-state {{step6 == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}">
+  
+    <div class="col-md-12 p-0">
+                    
+        <span class="select-car-model">Select AirCondition, Auction Grade</span>
+        <span  class="lnr lnr-arrow-left modelback" (click)="moveNextStep5()">
+            BACK
+        </span>
+        <span  class="lnr lnr-arrow-right modelback" (click)="moveNextStep7()">
+            NEXT
+        </span>
+    </div>
+
+    <div class="col-md-7 p-0" >
+        <select formControlName="aircondition"  class="form-control drp-add-new-car" 
+        #selectAircondition>
+            <option selected  disabled value="">Select AirCondition*</option>
+           
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
+        <div class="col-md-7 p-0" style="margin-top: 50px;">
+            <select formControlName="auctiongrade"    class="form-control drp-add-new-car" 
+            #selectAuctiongrade>
+                
+                <option selected value="" disabled>Select Auction Grade*</option>
+                <option value="Grade 4">Grade 4</option>
+                <option value="Grade 3.5">Grade 3.5</option>
+                <option value="Grade 3">Grade 3</option>
+                <option value="Grade 2">Grade 2</option>
+            </select>
+
+           
+</div>
+
+<div class="col-md-7 p-0" style="margin-top: 50px;">
+    <select (change)="moveNextStep7()" formControlName="enginesize" class="form-control drp-add-new-car" 
+    #selectEngineSize>
+        <option selected  disabled value="">Engine Size*</option>
+                                       <option *ngFor="let sort of AddNewCarListModel.enginesize" 
+                                [value]="sort.id">
+                                {{sort.name}}
+                            </option>
+    </select>
+</div>
+
+
+
+
+    </div>        
+</div>
+
+
+<div class="row py-4 m-0 car-reg-state {{step7 == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}">
+  
+    <div class="col-md-12 p-0">
+                    
+        <span class="select-car-model">Select Odometer, Vin, Registration number</span>
+        <span  class="lnr lnr-arrow-left modelback" (click)="moveNextStep6()">
+            BACK
+        </span>
+        <span  class="lnr lnr-arrow-right modelback" (click)="moveNextStep8()">
+            NEXT
+        </span>
+    </div>
+
+    <div class="col-md-7 p-0" >
+        <select formControlName="odometer"  class="form-control drp-add-new-car" 
+        #odometer>
+            <option selected  disabled value="">Select Odometer*</option>
+
+            <option value="4000">4000</option>
+            <option value="5000">5000</option>
+            <option value="6000">6000</option>
+            <option value="7000">7000</option>
+            <option value="8000">8000</option>           
+            <option value="9000">9000</option>
+        </select>
+
+        <div class="col-md-7 p-0" style="margin-top: 50px;">
+           
+             
+                <input type="text"  name="vin"
+                formControlName="vin"
+             class="form-control" placeholder="VIN*" #vin>
+
+           
+</div>
+<div class="col-md-7 p-0" style="margin-top: 50px;">
+      <input type="text"  name="regnumber"
+    formControlName="regnumber"
+ class="form-control" placeholder="Reg Number*" #regnumber>
+</div>
+
+<div class="col-md-7 p-0" style="margin-top: 50px;">
+    <textarea class="form-control" formControlName="description" maxlength="1500"
+    placeholder="Description*" #description
+      rows="3" (change)="moveNextStep8()"></textarea>
+   </div>
+</div>        
+</div>
+<div class="row py-4 m-0 {{step8 == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}">
+    <div class="col-md-11 p-0">                    
+        <span class="select-car-model">Select Files(Max 20)</span>
+        <span  class="lnr lnr-arrow-left modelback" (click)="moveNextStep7()">
+            BACK
+        </span>
+      
+    </div>
+    <div class="col-md-7 p-0" >
+    <input #inputFile
+            formControlName="file"
+            id="file" 
+            type="file" 
+            class="form-control"
+            multiple="" 
+            (change)="onFileChange($event,inputFile.files)">
+            <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
+                <div *ngIf="f.name.errors.required">Name is required.</div>              
             </div>
-        </div>
+            <img *ngFor='let url of images'  [src]="url" height="100px" width="100px" style="margin: 3px;">
+<div class="col-md-11 p-0" style="margin-top: 50px;">
+                          </div>
     </div>
+
+
+    <div  class="col-md-7 p-0" style="margin-top: 50px;">
+        <select  formControlName="contactprefrencetype"   
+         class="form-control drp-add-new-car" 
+        #Contactprefrencetype (change)='changeprefrencetype()'>
+      
+            <option selected >Get contacted via*</option>
+            <option value="Call">Via Call</option>
+            <option value="Email">Via Email</option>
+            <option value="MessagingSystem">Our Messaging System</option>
+            <option value="Whatsapp">Whatsapp</option>
+        </select>
+    </div>
+    
+    <div class="col-md-7 p-0" style="margin-top: 50px;">
+       
+        <input type="text" *ngIf="PrefrenceType !=''" name="Contactprefrencedetail"
+        formControlName="contactprefrencedetail"
+     class="form-control"  placeholder="{{PrefrenceType}}" #kilometer>
+    
+    </div>
+    <div class="col-md-7 p-0" style="margin-top: 50px;">
+        <button class="btn btn-primary" (click)="emptyImagesArray()" type="button">Cancel</button>
+        <button class="btn btn-primary" style="margin-left: 20px;"type="submit" >Submit</button>
    
-</div>
-
-
-<div class="row py-4 m-0 car-reg-state {{carregstate == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}">
-    <div class="col-12 p-0">
-        <div><span class="span-select-car-reg-state">Select Your Car Registration State</span></div>
-        <div><span class="span-registration-code">We don’t buy cars with registration numbers different from below mentioned states</span></div>
-        <div>
-            <div class="innerRow">
-                <div class="row ml-0">
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card car-card-new">DL</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">HR</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">UP</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">KA</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">MP</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">MH</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">AP</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">KL</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">TS</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">RJ</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">CH</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">PB</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">WB</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">AS</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">BR</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">CG</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">GA</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">GJ</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">HP</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">JK</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">JH</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">OD</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">SK</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">TN</div>
-                    </div>
-                    <div class="col-3 cars-popular-models">
-                        <div class="card car-card">UK</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-   
-</div>
-
-
-<div class="car-codes {{carcode == true ? 'sell-car-steps-active': 'sell-car-steps-deactive'}}">
-    <div class="_2APrS">
-        <div class="_1ly2A">DL (Delhi)</div>
-        <div class="L7SEc"><img src="https://www.cars24.com/js/41b2dd81007d30084e7f3a2869a68779.svg" alt="check">
-            <p>Change</p>
-        </div>
-    </div>
-    <div class="_1ovk7">
-        <div><span class="span-registration-code">An RTO City code will help us give you a more exact price for your vehicle</span></div>
-    </div>
-    <div class="_1SHaz">
-        <div class="css-1pcexqc-container search-select-container">
-            <div class="css-bg1rzq-control search-select__control">
-                <div class="css-1hwfws3 search-select__value-container">
-                    <div class="css-1g6gooi">
-                        <div class="search-select__input" style="display: inline-block;"><input autocapitalize="none" autocomplete="off" autocorrect="off" id="react-select-9-input" spellcheck="false" tabindex="-1" type="text" aria-autocomplete="list" value="DL-08" style="box-sizing: content-box; width: 38px; background: 0px center; border: 0px; font-size: inherit; opacity: 1; outline: 0px; padding: 0px; color: inherit;">
-                            <div
-                                style="position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: 14px; font-family: Roboto, sans-serif; font-weight: 400; font-style: normal; letter-spacing: normal; text-transform: none;">DL-08</div>
-                    </div>
-                </div>
-            </div>
-            <div class="css-1wy0on6 search-select__indicators"><span class="css-bgvzuu-indicatorSeparator search-select__indicator-separator"></span>
-                <div aria-hidden="true" class="css-16pqwjk-indicatorContainer search-select__indicator search-select__dropdown-indicator"><svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-19bqh2r"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg></div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="B4MFd">
-    <div class="mb-0 d-block"><span class="BnzPv">Popular RTO Codes</span></div>
-</div>
-<div class="row wBjvQ">
-    <div class="col-4 _23XSz">
-        <div class="card _1DywR">
-            <div><span>DL</span><strong>03</strong></div>
-        </div>
-    </div>
-    <div class="col-4 _23XSz">
-        <div class="card _1DywR _3ATEE">
-            <div><span>DL</span><strong>08</strong></div>
-        </div>
-    </div>
-    <div class="col-4 _23XSz">
-        <div class="card _1DywR">
-            <div><span>DL</span><strong>04</strong></div>
-        </div>
-    </div>
-    <div class="col-4 _23XSz">
-        <div class="card _1DywR">
-            <div><span>DL</span><strong>02</strong></div>
-        </div>
-    </div>
-    <div class="col-4 _23XSz">
-        <div class="card _1DywR">
-            <div><span>DL</span><strong>01</strong></div>
-        </div>
-    </div>
-    <div class="col-4 _23XSz">
-        <div class="card _1DywR">
-            <div><span>DL</span><strong>07</strong></div>
-        </div>
-    </div>
-    <div class="col-4 _23XSz">
-        <div class="card _1DywR">
-            <div><span>DL</span><strong>10</strong></div>
-        </div>
-    </div>
-    <div class="col-4 _23XSz">
-        <div class="card _1DywR">
-            <div><span>DL</span><strong>12</strong></div>
-        </div>
-    </div>
-    <div class="col-4 _23XSz">
-        <div class="card _1DywR">
-            <div><span>DL</span><strong>06</strong></div>
-        </div>
     </div>
 </div>
 
-</div>
 
+
+
+    </div>
+</div></form>

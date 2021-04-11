@@ -1,12 +1,12 @@
-import { CommonModel } from './commonModel';
+import { CommonModel, PriceModel,ConditionModel} from './commonModel';
 
 export class AddNewCarListModel {
     MakeType: CommonModel;
     CarModel: CommonModel;
     Year: CommonModel;
     Variant: CommonModel;
-    Condition: CommonModel;
-    Price: CommonModel;
+    Condition: ConditionModel;
+    Price: PriceModel;
     Transmission: CommonModel;
     Fuel: CommonModel;
     Cylinder: CommonModel;
@@ -17,6 +17,7 @@ export class AddNewCarListModel {
     AuctionGrade: string;
     Location: CommonModel;
     Kilometer:string;
+    enginesize:CommonModel;
 }
 
 export class addvehicleForm {
@@ -39,4 +40,14 @@ export class addvehicleForm {
     LocationId: string = "0";
     VehicleImageId:string="0";
     VehicleImage:any;
+    lat:string="";
+    long:string="";
+    city:string="";
+    enginesize:string="0";
+    vin:string="";
+    odometer:string="";
+    regnumber:string="";
+    description="";
+    Contactprefrencetype="";
+    Contactprefrencedetail="";
 }

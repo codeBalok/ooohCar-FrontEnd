@@ -6802,7 +6802,7 @@ font-size: 0.75rem;
     display: inline-block;
     right: -30px;
     text-align: center;
-    background: #a5a5a5;
+    background: none;
     border-radius: 5%;
 }
 
@@ -6821,7 +6821,7 @@ font-size: 0.75rem;
     z-index: 5;
     display: inline-block;
     text-align: center;
-    background: #a5a5a5;
+    background: none;
     border-radius: 5%;
 }
 

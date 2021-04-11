@@ -1,5 +1,4 @@
-<app-header ></app-header>
-
+<!-- <app-header></app-header> -->
 
 <!-- Car details page start -->
 <div class="car-details-page content-area-6">
@@ -10,63 +9,47 @@
                     <!-- Heading start -->
                     <div class="heading-car clearfix">
                         <div class="pull-left">
-                            <h3>Porsche Cayen Last</h3>
+                            <h3>{{vehicleDetail.vehicleName}}</h3>
                             <h6>
-                                <i class="flaticon-pin"></i>123 Kathal St. Tampa City,
+                                <i class="flaticon-pin"></i>{{vehicleDetail.city}}
                             </h6>
                         </div>
                         <div class="pull-right">
-                            <div class="price-box-3"><sup>$</sup>650<span>/month</span></div>
+                            <div class="price-box-3"><sup>$</sup>{{vehicleDetail.vehiclePrice}}<span></span></div>
                         </div>
                     </div>
                     <!-- carDetailsSlider start -->
                     <div id="carDetailsSlider" class="carousel car-details-sliders slide slide-2">
-                        <!-- main slider carousel items -->
+                       
                         <div class="carousel-inner">
-                            <div class="active item carousel-item" data-slide-number="0">
-                               <img src="http://placehold.it/730x486" class="img-fluid" alt="slider-car">
+                            <div>
+                            <div class="item carousel-item"  *ngFor="let sort of vehicleDetail.vehileImage;let i = index" data-slide-number="i" [class.active]="1 === i">      
+                               <img src="{{sort}}" class="img-fluid" alt="slider-car">
                             </div>
-                            <div class="item carousel-item" data-slide-number="1">
-                               <img src="http://placehold.it/730x486" class="img-fluid" alt="slider-car">
-                            </div>
-                            <div class="item carousel-item" data-slide-number="2">
-                               <img src="http://placehold.it/730x486" class="img-fluid" alt="slider-car">
-                            </div>
-                            <div class="item carousel-item" data-slide-number="4">
-                               <img src="http://placehold.it/730x486" class="img-fluid" alt="slider-car">
-                            </div>
-                            <div class="item carousel-item" data-slide-number="5">
-                               <img src="http://placehold.it/730x486" class="img-fluid" alt="slider-car">
-                            </div>
+                        </div>
                         </div>
                         <!-- main slider carousel nav controls -->
                         <ul class="carousel-indicators car-properties list-inline nav nav-justified">
-                            <li class="list-inline-item active">
-                                <a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#carDetailsSlider">
-                                    <img src="http://placehold.it/80x53" class="img-fluid" alt="small-car">
+                            <li class="list-inline-item" *ngFor="let sort of vehicleDetail.vehileImage;let i = index" [class.active]="1 === i">
+                                <a id="carousel-selector-{{i}}" class="selected" data-slide-to="i" data-target="#carDetailsSlider" >
+                                    <img src="{{sort}}" class="img-fluid" alt="small-car">
                                 </a>
                             </li>
-                            <li class="list-inline-item">
-                                <a id="carousel-selector-1" data-slide-to="1" data-target="#carDetailsSlider">
-                                    <img src="http://placehold.it/80x53" class="img-fluid" alt="small-car">
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a id="carousel-selector-2" data-slide-to="2" data-target="#carDetailsSlider">
-                                    <img src="http://placehold.it/80x53" class="img-fluid" alt="small-car">
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a id="carousel-selector-3" data-slide-to="3" data-target="#carDetailsSlider">
-                                    <img src="http://placehold.it/80x53" class="img-fluid" alt="small-car">
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a id="carousel-selector-4" data-slide-to="4" data-target="#carDetailsSlider">
-                                    <img src="http://placehold.it/80x53" class="img-fluid" alt="small-car">
-                                </a>
-                            </li>
+                            
                         </ul>
+
+                       
+
+                          <a class="left carousel-control" href="#carDetailsSlider" data-slide="prev">
+                            <span class="lnr lnr-chevron-left" style="color: white;
+                            font-size: xx-large;"></span>
+                            <span class="sr-only">Previous</span>
+                          </a>
+                          <a class="right carousel-control" href="#carDetailsSlider" data-slide="next">
+                            <span class="lnr lnr-chevron-right" style="color: white;
+                            font-size: xx-large;"></span>
+                            <span class="sr-only">Next</span>
+                          </a>
                     </div>
                     <!-- Advanced search start -->
                     <div class="widget-2 advanced-search bg-grea-2 as-2">
@@ -75,40 +58,40 @@
                         <div class="m-border"></div>
                         <ul>
                             <li>
-                                <span>Make</span>Ferrari
+                                <span>Make</span>{{vehicleDetail.makeName}}
                             </li>
                             <li>
-                                <span>Model</span>Maxima
+                                <span>Model</span>{{vehicleDetail.modelName}}
                             </li>
                             <li>
-                                <span>Body Style</span>Convertible
+                                <span>Body Style</span>{{vehicleDetail.bodyTypeName}}
                             </li>
                             <li>
-                                <span>Year</span>2017
+                                <span>Year</span>{{vehicleDetail.year}}
                             </li>
                             <li>
-                                <span>Condition</span>Brand New
+                                <span>Condition</span>{{vehicleDetail.condition}}
+                            </li>
+                            
+                           
+                            <li>
+                                <span>Transmission</span>{{vehicleDetail.transmission}}
+                            </li>
+                           
+                            <li>
+                                <span>Location</span>{{vehicleDetail.location}}
                             </li>
                             <li>
-                                <span>Mileage</span>34,000 mi
+                                <span>Fuel Type</span>{{vehicleDetail.fuelType}}
                             </li>
                             <li>
-                                <span>Interior Color</span>Dark Grey
+                                <span>Kilometer Driven</span>{{vehicleDetail.kiloMeterDriven}}
                             </li>
                             <li>
-                                <span>Transmission</span>6-speed Manual
+                                <span>Registration Number</span>{{vehicleDetail.registrationNumber}}
                             </li>
                             <li>
-                                <span>Engine</span>3.4L Mid-Engine V6
-                            </li>
-                            <li>
-                                <span>No. of Gears:</span>5
-                            </li>
-                            <li>
-                                <span>Location</span>Toronto
-                            </li>
-                            <li>
-                                <span>Fuel Type</span>Gasoline Fuel
+                                <span>OdoMeter</span>{{vehicleDetail.odoMeter}}
                             </li>
                         </ul>
                     </div>
@@ -124,15 +107,8 @@
                             <li class="nav-item">
                                 <a class="nav-link" id="6-tab" data-toggle="tab" href="#6" role="tab" aria-controls="6" aria-selected="true">Specifications</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Related Car</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="5-tab" data-toggle="tab" href="#5" role="tab" aria-controls="5" aria-selected="true">Location</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="4-tab" data-toggle="tab" href="#4" role="tab" aria-controls="4" aria-selected="true">Video</a>
-                            </li>
+                            
+                          
                         </ul>
                         <div class="tab-content" id="carTabContent">
                             <div class="tab-pane fade active show" id="one" role="tabpanel" aria-labelledby="one-tab">
@@ -140,9 +116,7 @@
                                     <h3 class="heading-2">
                                         Description
                                     </h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. Curabitur convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In fermentum facilisis massa, a consequat purus viverra a. Aliquam pellentesque nibh et nibh feugiat gravida. Maecenas ultricies, diam vitae semper placerat, velit risus accumsan nisl, eget tempor lacus est vel nunc. Proin accumsan elit sed neque euismod fringilla. Curabitur lobortis nunc velit, et fermentum urna dapibus non. Vivamus magna lorem, elementum id gravida ac, laoreet tristique augue. Maecenas dictum lacus eu nunc porttitor, ut hendrerit arcu efficitur.</p>
-                                    <p>Aliquam ultricies nunc porta metus interdum mollis. Donec porttitor libero augue, vehicula tincidunt lectus placerat a. Sed tincidunt dolor non sem dictum dignissim. Nulla vulputate orci felis, ac ornare purus ultricies a. Fusce euismod magna orci, sit amet aliquam turpis dignissim ac. In at tortor at ligula pharetra sollicitudin. Sed tincidunt, purus eget laoreet elementum, felis est pharetra ante, tincidunt feugiat libero enim sed risus. Sed at leo sit amet mi bibendum aliquam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent cursus varius odio, non faucibus dui. Nunc vehicula lectus sed velit suscipit aliquam vitae eu ipsum. adipiscing elit.</p>
-                                </div>
+                                   <p>{{vehicleDetail.description}}</p>                                </div>
                             </div>
                             <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="two-tab">
                                 <div class="features-info mb-50">
@@ -559,7 +533,7 @@
                             <div class="tab-pane fade " id="5" role="tabpanel" aria-labelledby="5-tab">
                                 <div class="location mb-50">
                                     <div class="map">
-                                        <h3 class="heading-2">Location</h3>
+                                         <h3 class="heading-2">Location</h3>
                                         <div id="map" class="contact-map"></div>
                                     </div>
                                 </div>
@@ -574,88 +548,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Heading 2 -->
-                    <h3 class="heading-2">Comments Section</h3>
-                    <!-- Comments start -->
-                    <ul class="comments">
-                        <li>
-                            <div class="comment">
-                                <div class="comment-author">
-                                    <a href="#">
-                                        <img src="http://placehold.it/60x60" alt="comments-user">
-                                    </a>
-                                </div>
-                                <div class="comment-content">
-                                    <div class="comment-meta">
-                                        <h6>
-                                            Maikel Alisa
-                                            <span class="float-right">11/28/2019<a href="#">Reply</a></span>
-                                        </h6>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum et vel eros. Maecenas eros enim  sem vulputate interdum et vel eros.</p>
-                                </div>
-                            </div>
-                            <ul>
-                                <li>
-                                    <div class="comment">
-                                        <div class="comment-author">
-                                            <a href="#">
-                                                <img src="http://placehold.it/60x60" alt="comments-user">
-                                            </a>
-                                        </div>
-                                        <div class="comment-content">
-                                            <div class="comment-meta">
-                                                <h6>
-                                                    Carolyn Stone
-                                                    <span class="float-right">11/28/2019<a href="#">Reply</a></span>
-                                                </h6>
-                                            </div>
-                                            <P>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum et.</P>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="comment">
-                                <div class="comment-author">
-                                    <a href="#">
-                                        <img src="http://placehold.it/60x60" alt="comments-user">
-                                    </a>
-                                </div>
-                                <div class="comment-content">
-                                    <div class="comment-meta">
-                                        <h6>
-                                            Brandon Miller
-                                            <span class="float-right">11/28/2019<a href="#">Reply</a></span>
-                                        </h6>
-                                    </div>
-                                    <P>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum et vel eros. Maecenas eros enim.</P>
-                                </div>
-                            </div>
-                            <ul>
-                                <li>
-                                    <div class="comment mb-50">
-                                        <div class="comment-author">
-                                            <a href="#">
-                                                <img src="http://placehold.it/60x60" alt="comments-user">
-                                            </a>
-                                        </div>
-                                        <div class="comment-content b-none">
-                                            <div class="comment-meta">
-                                                <h6>
-                                                    Michelle Nelson
-                                                    <span class="float-right">11/28/2019<a href="#">Reply</a></span>
-                                                </h6>
-                                            </div>
-                                            <P>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum et vel eros. Maecenas eros enim.</P>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <!-- Contact 2 start -->
+                  
                     <div class="contact-2 ca mb-50">
                         <h3 class="heading-2">Contact Form</h3>
                         <form action="#" method="GET" enctype="multipart/form-data">
@@ -692,41 +585,40 @@
                         <div class="m-border"></div>
                         <ul>
                             <li>
-                                <span>Make</span>Ferrari
+                                <span>Make</span>{{vehicleDetail.makeName}}
                             </li>
                             <li>
-                                <span>Model</span>Maxima
+                                <span>Model</span>{{vehicleDetail.modelName}}
                             </li>
                             <li>
-                                <span>Body Style</span>Convertible
+                                <span>Body Style</span>{{vehicleDetail.bodyTypeName}}
                             </li>
                             <li>
-                                <span>Year</span>2017
+                                <span>Year</span>{{vehicleDetail.year}}
                             </li>
                             <li>
-                                <span>Condition</span>Brand New
+                                <span>Condition</span>{{vehicleDetail.condition}}
                             </li>
                             <li>
-                                <span>Mileage</span>34,000 mi
+                                <span>Transmission</span>{{vehicleDetail.transmission}}
+                            </li>
+                           
+                            <li>
+                                <span>Location</span>{{vehicleDetail.location}}
                             </li>
                             <li>
-                                <span>Interior Color</span>Dark Grey
+                                <span>Fuel Type</span>{{vehicleDetail.fuelType}}
                             </li>
                             <li>
-                                <span>Transmission</span>6-speed Manual
+                                <span>Kilometer Driven</span>{{vehicleDetail.kiloMeterDriven}}
                             </li>
                             <li>
-                                <span>Engine</span>3.4L Mid-Engine V6
+                                <span>Registration Number</span>{{vehicleDetail.registrationNumber}}
                             </li>
                             <li>
-                                <span>No. of Gears:</span>5
+                                <span>OdoMeter</span>{{vehicleDetail.odoMeter}}
                             </li>
-                            <li>
-                                <span>Location</span>Toronto
-                            </li>
-                            <li>
-                                <span>Fuel Type</span>Gasoline Fuel
-                            </li>
+
                         </ul>
                     </div>
                     <!-- Question start -->
@@ -745,7 +637,7 @@
                                 <i class="flaticon-phone"></i><a href="tel:+0477-85x6-552">+0477 85x6 552</a>
                             </li>
                         </ul>
-                        <div class="social-list clearfix">
+                        <!-- <div class="social-list clearfix">
                             <ul>
                                 <li><a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a></li>
@@ -753,40 +645,13 @@
                                 <li><a href="#" class="rss-bg"><i class="fa fa-rss"></i></a></li>
                                 <li><a href="#" class="linkedin-bg"><i class="fa fa-linkedin"></i></a></li>
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
-                    <!-- Financing calculator start -->
-                    <div class="contact-2 financing-calculator widget widget-3">
-                        <h3 class="sidebar-title">Financing Calculator</h3>
-                        <div class="s-border"></div>
-                        <div class="m-border"></div>
-                        <form action="#" method="GET" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label class="form-label">Price</label>
-                                <input type="text" class="form-control" placeholder="$24.400">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Interest Rate (%)</label>
-                                <input type="text" class="form-control" placeholder="12%">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Period In Months</label>
-                                <input type="text" class="form-control" placeholder="6 Months">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Down PaymenT</label>
-                                <input type="text" class="form-control" placeholder="$32,300">
-                            </div>
-
-                            <div class="form-group mb-0">
-                                <button type="submit" class="btn button-theme btn-md btn-block">Cauculate</button>
-                            </div>
-                        </form>
-                    </div>
+                   
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<app-footer ></app-footer>
+<app-footer></app-footer>
