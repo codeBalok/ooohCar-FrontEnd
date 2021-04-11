@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SearchModel,SearchSelectedMakes, SearchSelectedModels,SearchSelectedVariants,SearchSelectedPrice,SearchSelectedOdometer,SearchSelectedTransmission, SearchSelectedYear,SearchSelectedFuelType, SearchSelectedCylinder, SearchSelectedEngineSize, SearchSelectedEngineDescription, SearchSelectedFuelEconomy, SearchSelectedInductionTurbo, SearchSelectedPower, SearchSelectedPowerToWeight, SearchSelectedTow, SearchSelectedDriveType} from '../shared/models/SearchListModel';
+import { SearchModel,SearchSelectedMakes, SearchSelectedModels,SearchSelectedVariants,SearchSelectedPrice,SearchSelectedOdometer,SearchSelectedTransmission, SearchSelectedYear,SearchSelectedFuelType, SearchSelectedCylinder, SearchSelectedEngineSize, SearchSelectedEngineDescription, SearchSelectedFuelEconomy, SearchSelectedInductionTurbo, SearchSelectedPower, SearchSelectedPowerToWeight, SearchSelectedTow, SearchSelectedDriveType,SearchSelectedBodyType, SearchSelectedColour, SearchSelectedSeats, SearchSelectedLifeStyles, SearchSelectedDoors,  SearchSelectedVehicleType,SearchSelectedCertifiedInspected} from '../shared/models/SearchListModel';
 import { HomeService } from '../home/home.service';
 import { VehicleModel } from '../shared/models/VehicleModel';
 import { WhistListModel } from '../shared/models/WishtlistModel';
@@ -34,7 +34,14 @@ export class CarSearchComponent implements OnInit {
   public SearchSelectedPowerToWeight= new SearchSelectedPowerToWeight();
   public SearchSelectedTow= new SearchSelectedTow();
   public SearchSelectedDriveType= new SearchSelectedDriveType();
+  public SearchSelectedBodyType= new SearchSelectedBodyType();
+  public SearchSelectedColour= new SearchSelectedColour();
+  public SearchSelectedSeats= new SearchSelectedSeats();
+  public SearchSelectedLifeStyles= new SearchSelectedLifeStyles();
+  public SearchSelectedDoors= new SearchSelectedDoors();
   public WhistListModels = new WhistListModel();
+  public SearchSelectedVehicleType= new SearchSelectedVehicleType();
+  public SearchSelectedCertifiedInspected= new SearchSelectedCertifiedInspected();
   constructor(private homeService: HomeService, private route: ActivatedRoute,
     private router: Router, private carService: CarSearchService,
     private toastr: ToastrService) { }
@@ -548,6 +555,183 @@ export class CarSearchComponent implements OnInit {
       if(this.SearchSelectedDriveType.DriveType!=null || this.SearchSelectedDriveType.DriveType!=undefined)
       {
       this.homeService.GetVehicleListAccordingToSelectedDriveType(this.SearchSelectedDriveType).subscribe((res)=>{
+        if (res.length > 0){
+          this.vehicleModel = res;
+          this.isData = false;
+        }
+        else {
+          this.isData = true;
+        }
+      });
+    }
+    else // empty array then bind all data of VehicleList
+    {
+      this.searchModel.CarTypeId = "0";
+      this.searchModel.MakeId = "0";
+      this.searchModel.CarModelId ="0";
+      this.searchModel.LocationId ="0";
+      this.searchModel.YearId ="0";
+      this.getSearchVehicleList(this.searchModel);
+    }
+
+  }
+  getSelectedBodyType(selected_BodyType:string){
+    this.SearchSelectedBodyType.BodyType=JSON.parse(selected_BodyType);
+      if(this.SearchSelectedBodyType.BodyType!=null || this.SearchSelectedBodyType.BodyType!=undefined)
+      {
+      this.homeService.GetVehicleListAccordingToSelectedBodyTypeRange(this.SearchSelectedBodyType).subscribe((res)=>{
+        if (res.length > 0){
+          this.vehicleModel = res;
+          this.isData = false;
+        }
+        else {
+          this.isData = true;
+        }
+      });
+    }
+    else // empty array then bind all data of VehicleList
+    {
+      this.searchModel.CarTypeId = "0";
+      this.searchModel.MakeId = "0";
+      this.searchModel.CarModelId ="0";
+      this.searchModel.LocationId ="0";
+      this.searchModel.YearId ="0";
+      this.getSearchVehicleList(this.searchModel);
+    }
+
+  }
+  getSelectedColour(selected_Colour:string){
+    this.SearchSelectedColour.Colour=JSON.parse(selected_Colour);
+      if(this.SearchSelectedColour.Colour!=null || this.SearchSelectedColour.Colour!=undefined)
+      {
+      this.homeService.GetVehicleListAccordingToSelectedColourRange(this.SearchSelectedColour).subscribe((res)=>{
+        if (res.length > 0){
+          this.vehicleModel = res;
+          this.isData = false;
+        }
+        else {
+          this.isData = true;
+        }
+      });
+    }
+    else // empty array then bind all data of VehicleList
+    {
+      this.searchModel.CarTypeId = "0";
+      this.searchModel.MakeId = "0";
+      this.searchModel.CarModelId ="0";
+      this.searchModel.LocationId ="0";
+      this.searchModel.YearId ="0";
+      this.getSearchVehicleList(this.searchModel);
+    }
+
+  }
+  getSelectedSeats(selected_Seats:string){
+    this.SearchSelectedSeats.Seat=JSON.parse(selected_Seats);
+      if(this.SearchSelectedSeats.Seat.length>0){
+      this.homeService.GetVehicleListAccordingToSelectedSeatsRange(this.SearchSelectedSeats).subscribe((res)=>{
+        if (res.length > 0){
+          this.vehicleModel = res;
+          this.isData = false;
+        }
+        else {
+          this.isData = true;
+        }
+      });
+    }
+    else // empty array then bind all data of VehicleList
+    {
+      this.searchModel.CarTypeId = "0";
+      this.searchModel.MakeId = "0";
+      this.searchModel.CarModelId ="0";
+      this.searchModel.LocationId ="0";
+      this.searchModel.YearId ="0";
+      this.getSearchVehicleList(this.searchModel);
+    }
+
+  }
+
+  getSelectedLifeStyles(selected_LifeStyles:string){
+    this.SearchSelectedLifeStyles.LifeStyles=JSON.parse(selected_LifeStyles);
+    if(this.SearchSelectedLifeStyles.LifeStyles!=null || this.SearchSelectedLifeStyles.LifeStyles!=undefined) {
+      this.homeService.GetVehicleListAccordingToSelectedLifeStyles(this.SearchSelectedLifeStyles).subscribe((res)=>{
+        if (res.length > 0){
+          this.vehicleModel = res;
+          this.isData = false;
+        }
+        else {
+          this.isData = true;
+        }
+      });
+    }
+    else // empty array then bind all data of VehicleList
+    {
+      this.searchModel.CarTypeId = "0";
+      this.searchModel.MakeId = "0";
+      this.searchModel.CarModelId ="0";
+      this.searchModel.LocationId ="0";
+      this.searchModel.YearId ="0";
+      this.getSearchVehicleList(this.searchModel);
+    }
+
+  }
+
+
+   getSelectedDoors(selected_Doors:string){
+    this.SearchSelectedDoors.Doors=JSON.parse(selected_Doors);
+    if(this.SearchSelectedDoors.Doors!=null || this.SearchSelectedDoors.Doors!=undefined) {
+      this.homeService.GetVehicleListAccordingToSelectedDoors(this.SearchSelectedDoors).subscribe((res)=>{
+        if (res.length > 0){
+          this.vehicleModel = res;
+          this.isData = false;
+        }
+        else {
+          this.isData = true;
+        }
+      });
+    }
+    else // empty array then bind all data of VehicleList
+    {
+      this.searchModel.CarTypeId = "0";
+      this.searchModel.MakeId = "0";
+      this.searchModel.CarModelId ="0";
+      this.searchModel.LocationId ="0";
+      this.searchModel.YearId ="0";
+      this.getSearchVehicleList(this.searchModel);
+    }
+
+  }
+
+  getSelectedVehicelType(selected_VehicelType:string){
+    this.SearchSelectedVehicleType.VehicleType=JSON.parse(selected_VehicelType);
+      if(this.SearchSelectedVehicleType.VehicleType!=null || this.SearchSelectedVehicleType.VehicleType!=undefined)
+      {
+      this.homeService.GetVehicleListAccordingToSelectedVehicleType(this.SearchSelectedVehicleType).subscribe((res)=>{
+        if (res.length > 0){
+          this.vehicleModel = res;
+          this.isData = false;
+        }
+        else {
+          this.isData = true;
+        }
+      });
+    }
+    else // empty array then bind all data of VehicleList
+    {
+      this.searchModel.CarTypeId = "0";
+      this.searchModel.MakeId = "0";
+      this.searchModel.CarModelId ="0";
+      this.searchModel.LocationId ="0";
+      this.searchModel.YearId ="0";
+      this.getSearchVehicleList(this.searchModel);
+    }
+
+  }
+
+  getSelectedCertifiedInspected(selected_CertifiedInspected:string){
+    this.SearchSelectedCertifiedInspected.CertifiedInspected=JSON.parse(selected_CertifiedInspected);
+      if(this.SearchSelectedCertifiedInspected.CertifiedInspected!=null || this.SearchSelectedCertifiedInspected.CertifiedInspected!=undefined)
+      {
+      this.homeService.GetVehicleListAccordingToSelectedCertifiedInspected(this.SearchSelectedCertifiedInspected).subscribe((res)=>{
         if (res.length > 0){
           this.vehicleModel = res;
           this.isData = false;

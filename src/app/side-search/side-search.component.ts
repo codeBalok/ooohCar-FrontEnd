@@ -26,6 +26,8 @@ export interface IYear{
 export class SideSearchComponent implements OnInit {
   public SideSearchListModel = new SideSearchListModel();
   public SideSearchTransmission = new SideSearchListModel();
+  public SideSearchBodyType = new SideSearchListModel();
+  public SideSearchColour = new SideSearchListModel();
   public SideSearchYear= new SideSearchListModel();
   public SideSearchPower= new SideSearchListModel();
   public SideSearchPowerToWeight=new SideSearchListModel(); 
@@ -34,6 +36,9 @@ export class SideSearchComponent implements OnInit {
   public SideSearchEngineDescription= new SideSearchListModel();
   public SideSearchCertifiedInspected= new SideSearchListModel();
   public SideSearchVehicleType= new SideSearchListModel();
+  public SideSearchSeat= new SideSearchListModel();
+  public SideSearchDoors= new SideSearchListModel();
+  public SideSearchLifeStyles= new SideSearchListModel();  
   public IsExpandMake : string = '';
   public IsExpandLocation : string = '';
   public IsExpandPrice: string = '';
@@ -55,7 +60,13 @@ export class SideSearchComponent implements OnInit {
   public arrModel= []; 
   public arrVariant= []; 
   public arrTransmission=[];
+  public arrBodyType=[];
+  public arrColour=[];  
+  public arrPrice=[];
   public arrYear=[];
+  public arrSeats=[];
+  public arrDoors=[]
+  public arrLifeStyles=[];
   public arrPower=[];
   public arrPowerToWeight=[];
   public arrTow=[];
@@ -68,7 +79,12 @@ export class SideSearchComponent implements OnInit {
   public sideSearchModelSelected  = [];
   public sideSearchVariantSelected  = [];
   public sideSearchTransmissionSelected  = [];
+  public sideSearchVehicelTypeSelected= [];
+  public sideSearchBodyTypeSelected  = [];
+  public sideSearchColourSelected  = [];
+  public sideSearchCertifiedInspecteSelected  = [];
   public sideSearchYearSelected  = []; 
+  public sideSearchSeatSelected  = []; 
   public sideSearchPowerSelected  = [];   
   public sideSearchPowerToWeightSelected = [];  
   public sideSearchTowSelected=[];
@@ -86,6 +102,9 @@ export class SideSearchComponent implements OnInit {
   variantpaginationLimit:number; 
   locationstartPage:number;
   locationpaginationLimit:number; 
+  colourpaginationLimit:number;        
+  colourstartPage:number;
+  
   @Output() selectedMakesEmit = new EventEmitter<string>();  
   @Output() selectedModelEmit= new EventEmitter<string>(); 
   @Output() selectedVariantEmit= new EventEmitter<string>(); 
@@ -103,6 +122,13 @@ export class SideSearchComponent implements OnInit {
   @Output() selectedPowerToWeightEmit= new EventEmitter<string>();
   @Output() selectedTowEmit= new EventEmitter<string>();
   @Output() selectedDriveTypeEmit= new EventEmitter<string>();
+  @Output() selectedBodyTypeEmit= new EventEmitter<string>();
+  @Output() selectedColourEmit= new EventEmitter<string>();
+  @Output() selectedSeatsEmit= new EventEmitter<string>();
+  @Output() selectedDoorsEmit= new EventEmitter<string>();
+  @Output() selectedLifeStylesEmit= new EventEmitter<string>();
+  @Output() selectedVehicelTypeEmit= new EventEmitter<string>();
+  @Output() selectedCertifiedInspectedEmit= new EventEmitter<string>();
   states: any = [];
   sliderPrices:number [] =[];
   sliderOdometer:number [] =[];
@@ -141,6 +167,12 @@ export class SideSearchComponent implements OnInit {
     }
   };
   public IsExpandEngine:string='';
+  public IsExpandStyle:string='';
+  public IsExpandBodyType:string='';
+  public IsExpandColour:string='';
+  public IsExpandSeats:string='';
+  public IsExpandDoors:string='';
+  public IsExpandLifeStyles:string='';
   public IsExpandDriveType:string='';
   public IsExpandFuelType:string='';
   public IsExpandFuelEconomy:string='';
@@ -195,7 +227,18 @@ export class SideSearchComponent implements OnInit {
   toTowfilteredOptions: Observable<any[]>; 
   fromPowerToWeightfilteredOptions: Observable<any[]>;
   toPowerToWeightfilteredOptions: Observable<any[]>; 
- 
+  toPricefilteredOptions: Observable<any[]>;
+  FromPriceControl=new FormControl();
+  fromPricefilteredOptions: Observable<any[]>;
+  ToPriceControl=new FormControl();
+  ToSeatControl=new FormControl();
+  toSeatfilteredOptions: Observable<any[]>;
+  fromSeatfilteredOptions: Observable<any[]>;
+  FromSeatControl=new FormControl();
+  DoorsControl=new FormControl();
+  DoorsfilteredOptions: Observable<any[]>;
+  LifeStylesControl=new FormControl();
+  LifeStylesfilteredOptions: Observable<any[]>;
 
 
   constructor(private homeService: HomeService,private modalService: NgbModal,private router: Router) {
@@ -204,7 +247,9 @@ export class SideSearchComponent implements OnInit {
     this.variantstartPage = 0;
     this.variantpaginationLimit = 3;
     this.locationstartPage = 0;
-    this.locationpaginationLimit = 3;      
+    this.locationpaginationLimit = 3;  
+    this.colourstartPage=0;
+    this.colourpaginationLimit=3;    
   }
 
 
@@ -372,16 +417,6 @@ export class SideSearchComponent implements OnInit {
       } 
     });
 
-    this.homeService.GetInductionTurboList().subscribe((res)=>{ 
-      this.SideSearchInductionTurbo.InductionTurbo = res;            
-      for(let key in this.SideSearchInductionTurbo.InductionTurbo)
-      {  
-        if(this.SideSearchInductionTurbo.InductionTurbo.hasOwnProperty(key))
-        {  
-        this.arrInductionTurbo.push(this.SideSearchInductionTurbo.InductionTurbo[key]);    
-        }        
-      } 
-    });
 
     this.homeService.GetInductionTurboList().subscribe((res)=>{ 
       this.SideSearchInductionTurbo.InductionTurbo = res;            
@@ -498,7 +533,124 @@ export class SideSearchComponent implements OnInit {
       startWith(''),
       switchMap(value => this.filterTow(value))
     );
-  }
+
+    this.homeService.GetBodyTypeList().subscribe((res)=>{ 
+      this.SideSearchBodyType.BodyType = res;     
+      console.log(this.SideSearchBodyType.BodyType); 
+      for(let key in this.SideSearchBodyType.BodyType)
+      {  
+        if(this.SideSearchBodyType.BodyType.hasOwnProperty(key))
+        {  
+        this.arrBodyType.push(this.SideSearchBodyType.BodyType[key]);    
+        }        
+      } 
+    });
+
+    this.homeService.GetColourList().subscribe((res)=>{ 
+      this.SideSearchColour.Colour = res;     
+      console.log(this.SideSearchColour.Colour); 
+      for(let key in this.SideSearchColour.Colour)
+      {  
+        if(this.SideSearchColour.Colour.hasOwnProperty(key))
+        {  
+        this.arrColour.push(this.SideSearchColour.Colour[key]);    
+        }        
+      } 
+    });
+
+    
+ this.homeService.GetPriceList().subscribe((res)=>{ 
+  this.SideSearchVehicleType.Price = res;            
+  for(let key in this.SideSearchVehicleType.Price)
+  {  
+    if(this.SideSearchVehicleType.Price.hasOwnProperty(key))
+    {  
+    this.arrPrice.push(this.SideSearchVehicleType.Price[key]);    
+    }        
+  } 
+});
+
+this.fromPricefilteredOptions = this.FromPriceControl.valueChanges
+.pipe(
+  startWith(''),
+  switchMap(value => this.filterPrice(value))
+);   
+
+this.toPricefilteredOptions = this.ToPriceControl.valueChanges
+.pipe(
+  startWith(''),
+  switchMap(value => this.filterPrice(value))
+);
+ 
+this.homeService.GetPriceList().subscribe((res)=>{ 
+  this.SideSearchVehicleType.Price = res;            
+  for(let key in this.SideSearchVehicleType.Price)
+  {  
+    if(this.SideSearchVehicleType.Price.hasOwnProperty(key))
+    {  
+    this.arrPrice.push(this.SideSearchVehicleType.Price[key]);    
+    }        
+  } 
+});
+
+this.homeService.GetSeatsList().subscribe((res)=>{ 
+  this.SideSearchSeat.Seat = res;            
+  for(let key in this.SideSearchSeat.Seat)
+  {  
+    if(this.SideSearchSeat.Seat.hasOwnProperty(key))
+    {  
+    this.arrSeats.push(this.SideSearchSeat.Seat[key]);    
+    }        
+  } 
+});
+
+this.fromSeatfilteredOptions = this.FromSeatControl.valueChanges
+.pipe(
+  startWith(''),
+  switchMap(value => this.filterSeat(value))
+);   
+
+this.toSeatfilteredOptions = this.ToSeatControl.valueChanges
+.pipe(
+  startWith(''),
+  switchMap(value => this.filterSeat(value))
+);
+this.homeService.GetLifeStylesList().subscribe((res)=>{ 
+  this.SideSearchLifeStyles.LifeStyles = res;            
+  for(let key in this.SideSearchLifeStyles.LifeStyles)
+  {  
+    if(this.SideSearchLifeStyles.LifeStyles.hasOwnProperty(key))
+    {  
+    this.arrLifeStyles.push(this.SideSearchLifeStyles.LifeStyles[key]);    
+    }        
+  } 
+});
+
+
+this.homeService.GetDoorsList().subscribe((res)=>{ 
+  this.SideSearchDoors.Doors = res;            
+  for(let key in this.SideSearchDoors.Doors)
+  {  
+    if(this.SideSearchDoors.Doors.hasOwnProperty(key))
+    {  
+    this.arrDoors.push(this.SideSearchDoors.Doors[key]);    
+    }        
+  } 
+});
+this.DoorsfilteredOptions = this.DoorsControl.valueChanges
+.pipe(
+  startWith(''),
+  switchMap(value => this.filterDoors(value))
+); 
+
+this.LifeStylesfilteredOptions = this.LifeStylesControl.valueChanges
+.pipe(
+  startWith(''),
+  switchMap(value => this.filterLifeStyles(value))
+); 
+
+
+}
   
   private filterYear(value: string) {
     
@@ -583,6 +735,47 @@ export class SideSearchComponent implements OnInit {
   private filterTow (value: string) {
     const filterValue = value.toLowerCase();
    return this.homeService.GetTowList().pipe(
+      filter(data => !!data),
+      map((data) => {        
+        return data.filter(option => option.name.toLowerCase().includes(value))
+      })
+    )     
+  }
+  private filterPrice(value: string) {
+    
+    const filterValue = value.toLowerCase();
+   return this.homeService.GetPriceList().pipe(
+      filter(data => !!data),
+      map((data) => {        
+        return data.filter(option => option.name.toLowerCase().includes(value))
+      })
+    )     
+  }
+  private filterSeat(value: string) {
+    
+    const filterValue = value.toLowerCase();
+   return this.homeService.GetSeatsList().pipe(
+      filter(data => !!data),
+      map((data) => {        
+        return data.filter(option => option.name.toLowerCase().includes(value))
+      })
+    )     
+  }
+  private filterLifeStyles(value: string) {
+    
+    const filterValue = value.toLowerCase();
+   return this.homeService.GetLifeStylesList().pipe(
+      filter(data => !!data),
+      map((data) => {        
+        return data.filter(option => option.name.toLowerCase().includes(value))
+      })
+    )     
+  }
+
+  private filterDoors(value: string) {
+    
+    const filterValue = value.toLowerCase();
+   return this.homeService.GetDoorsList().pipe(
       filter(data => !!data),
       map((data) => {        
         return data.filter(option => option.name.toLowerCase().includes(value))
@@ -931,8 +1124,8 @@ export class SideSearchComponent implements OnInit {
   getCarModelListFromToPrice()
   {
     this.sliderPrices=[];
-    this.sliderPrices.push(Number(this.fromPrice));
-    this.sliderPrices.push(Number(this.toPrice));
+    this.sliderPrices.push(Number(this.FromPriceControl.value));
+    this.sliderPrices.push(Number(this.ToPriceControl.value));
     this.selectedPriceEmit.emit(JSON.stringify(this.sliderPrices));
   }
   getCarModelLisOdometerRange()
@@ -962,13 +1155,14 @@ export class SideSearchComponent implements OnInit {
     this.sideSearchYearSelected.push(toYear);    
     this.selectedYearEmit.emit(JSON.stringify(this.sideSearchYearSelected));   
   }
-  BindVehicleListBySideSearchcarCertifiedInspectedId(e)
-  {
-
-  } 
+  
   BindVehicleListBySideSearchcarVehicleTypeId(e)
   {
-
+    var id:number=+e.target.value;  // get the value i.e.ID  of checked checkbox
+    let  objIndex = this.arrVehicleType.findIndex(x => x.id==id);  // select the checked VehicelType from an array 
+    e.target.checked?this.arrVehicleType[objIndex].Selected=true:this.arrVehicleType[objIndex].Selected=false;   //set the Selected=true or Selected=false if unchecked 
+    this.sideSearchVehicelTypeSelected=this.arrVehicleType.filter(x=>x.Selected==true); // filter selected= true and bind to array
+    this.selectedVehicelTypeEmit.emit(JSON.stringify(this.sideSearchVehicelTypeSelected));
   } 
   ExpandSearch(SideSearchName:string)  
   {
@@ -1008,7 +1202,25 @@ export class SideSearchComponent implements OnInit {
             break;  
       case "Tow":
             isOpen?this.IsExpandTow='':this.IsExpandTow='view-mode-open';
-             break;    
+             break;   
+      case 'Style':
+              isOpen?this.IsExpandStyle='':this.IsExpandStyle='view-mode-open';
+               break; 
+      case  'BodyType':
+             isOpen?this.IsExpandBodyType='':this.IsExpandBodyType='view-mode-open';
+             break; 
+      case  'Colour':
+            isOpen?this.IsExpandColour='':this.IsExpandColour='view-mode-open';
+            break; 
+      case  'Seats':
+            isOpen?this.IsExpandSeats='':this.IsExpandSeats='view-mode-open';
+            break; 
+      case  'Doors':
+            isOpen?this.IsExpandDoors='':this.IsExpandDoors='view-mode-open';
+            break; 
+      case  'LifeStyles':
+            isOpen?this.IsExpandLifeStyles='':this.IsExpandLifeStyles='view-mode-open';
+            break;         
       default:           
           break;
   }
@@ -1088,5 +1300,60 @@ getCarModelListEngineDescription()
   {   
     let driveType = this.arrDriveType.find(drvtype => drvtype.name===this.DriveTypeControl.value);   
     this.selectedDriveTypeEmit.emit(JSON.stringify(driveType)); 
-  }  
+  } 
+  
+  BindVehicleListBySideSearchBodyTypeId(e)
+  {
+    var id:number=+e.target.value;  // get the value i.e.ID  of checked checkbox
+    let  objIndex = this.arrBodyType.findIndex(x => x.id==id);  // select the checked BodyType from an array 
+    e.target.checked?this.arrBodyType[objIndex].Selected=true:this.arrBodyType[objIndex].Selected=false;   //set the Selected=true or Selected=false if unchecked 
+    this.sideSearchBodyTypeSelected=this.arrBodyType.filter(x=>x.Selected==true); // filter selected= true and bind to array
+    this.selectedBodyTypeEmit.emit(JSON.stringify(this.sideSearchBodyTypeSelected)); // emit to bind carSearch details 
+  }
+  BindVehicleListBySideSearchColourId(e)
+  {
+    var id:number=+e.target.value;  // get the value i.e.ID  of checked checkbox
+    let  objIndex = this.arrColour.findIndex(x => x.id==id);  // select the checked Colour from an array 
+    e.target.checked?this.arrColour[objIndex].Selected=true:this.arrColour[objIndex].Selected=false;   //set the Selected=true or Selected=false if unchecked 
+    this.sideSearchColourSelected=this.arrColour.filter(x=>x.Selected==true); // filter selected= true and bind to array
+    this.selectedColourEmit.emit(JSON.stringify(this.sideSearchColourSelected)); // emit to bind carSearch details 
+  }
+
+  showMoreColourItems()
+  {
+     this.colourpaginationLimit = Number(this.colourpaginationLimit) + 3;        
+  }
+  showLessColourItems()
+  {
+     this.colourpaginationLimit = Number(this.colourpaginationLimit) - 3;        
+  }
+  getCarModelLisSeatsRange() {
+    this.sideSearchSeatSelected=[];  
+     let frmSeats = this.arrSeats.find(o => o.name===this.FromSeatControl.value);
+     let toSeats=this.arrSeats.find(st => st.name===this.ToSeatControl.value);    
+
+    this.sideSearchSeatSelected.push(frmSeats);
+    this.sideSearchSeatSelected.push(toSeats);
+    
+    this.selectedSeatsEmit.emit(JSON.stringify(this.sideSearchSeatSelected));   
+  }
+
+  getCarModelListDoors()
+  {   
+    let Doors = this.arrDoors.find(dr=> dr.name===this.DoorsControl.value);   
+    this.selectedDoorsEmit.emit(JSON.stringify(Doors)); 
+  } 
+   getCarModelListLifeStyles()
+  {   
+    let LifeStyles = this.arrLifeStyles.find(lf => lf.name===this.LifeStylesControl.value);   
+    this.selectedLifeStylesEmit.emit(JSON.stringify(LifeStyles)); 
+  } 
+  BindVehicleListBySideSearchcarCertifiedInspectedId(e)
+  {
+    var id:number=+e.target.value;  // get the value i.e.ID  of checked checkbox
+    let  objIndex = this.arrCertified.findIndex(x => x.id==id);  // select the checked CertifiedInspected from an array 
+    e.target.checked?this.arrCertified[objIndex].Selected=true:this.arrCertified[objIndex].Selected=false;   //set the Selected=true or Selected=false if unchecked 
+    this.sideSearchCertifiedInspecteSelected=this.arrCertified.filter(x=>x.Selected==true); // filter selected= true and bind to array
+    this.selectedCertifiedInspectedEmit.emit(JSON.stringify(this.sideSearchCertifiedInspecteSelected)); // emit to bind carSearch details 
+  }
 }

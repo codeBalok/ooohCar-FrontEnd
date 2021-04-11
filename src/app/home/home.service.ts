@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject,Subject } from 'rxjs';
-import { SearchListModel, SearchSelectedModels, SearchSelectedVariants,SearchSelectedPrice,SearchSelectedOdometer,SearchSelectedTransmission, SearchSelectedYear, SearchSelectedFuelType, SearchSelectedCylinder, SearchSelectedEngineSize, SearchSelectedEngineDescription,SearchSelectedFuelEconomy, SearchSelectedInductionTurbo, SearchSelectedPower, SearchSelectedTow, SearchSelectedPowerToWeight, SearchSelectedDriveType } from '../shared/models/SearchListModel';
-import { map } from 'rxjs/operators';
+import { SearchSelectedModels, SearchSelectedVariants,SearchSelectedPrice,SearchSelectedOdometer,SearchSelectedTransmission, SearchSelectedYear, SearchSelectedFuelType, SearchSelectedCylinder, SearchSelectedEngineSize, SearchSelectedEngineDescription,SearchSelectedFuelEconomy, SearchSelectedInductionTurbo, SearchSelectedPower, SearchSelectedTow, SearchSelectedPowerToWeight, SearchSelectedDriveType, SearchSelectedBodyType, SearchSelectedColour, SearchSelectedSeats, SearchSelectedDoors, SearchSelectedLifeStyles,SearchSelectedVehicleType, SearchSelectedCertifiedInspected } from '../shared/models/SearchListModel';
 import { SearchModel,SearchSelectedMakes } from '../shared/models/SearchListModel';
 
 @Injectable({
@@ -178,4 +176,40 @@ export class HomeService {
   {
     return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedDriveType', searchSelectedDriveType);
   }
+  GetVehicleListAccordingToSelectedBodyTypeRange(searchSelectedBodyType : SearchSelectedBodyType) {
+    return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedBodyType', searchSelectedBodyType);
+  }
+  GetVehicleListAccordingToSelectedColourRange(searchSelectedColour : SearchSelectedColour) {
+    return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedColour', searchSelectedColour);
+  }
+  GetPriceList(){
+  return this.http.get<any>(this.baseUrl + 'Home/GetPriceList');
+  }
+  GetDoorsList(){
+    return this.http.get<any>(this.baseUrl + 'Home/GetDoorsList');
+  }
+  GetSeatsList(){
+   return this.http.get<any>(this.baseUrl + 'Home/GetSeatsList');
+   }
+  GetLifeStylesList(){
+   return this.http.get<any>(this.baseUrl + 'Home/GetLifeStylesList');
+  }
+  GetVehicleListAccordingToSelectedSeatsRange(searchSelectedSeats : SearchSelectedSeats) {
+    return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedSeat', searchSelectedSeats);
+  }
+
+  GetVehicleListAccordingToSelectedDoors(searchSelectedDoors : SearchSelectedDoors) {
+      return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedDoors', searchSelectedDoors);
+    } 
+  
+  GetVehicleListAccordingToSelectedLifeStyles(searchSelectedLifeStyles : SearchSelectedLifeStyles) {
+      return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedLifeStyles', searchSelectedLifeStyles);
+    }
+  GetVehicleListAccordingToSelectedVehicleType(searchSelectedVehicleType : SearchSelectedVehicleType) {
+      return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedVehicleType', searchSelectedVehicleType);
+    }
+  GetVehicleListAccordingToSelectedCertifiedInspected(searchSelectedCertifiedInspected : SearchSelectedCertifiedInspected) {
+      return this.http.post<any>(this.baseUrl + 'Home/GetVehicleListAccordingToSelectedCertifiedInspected', searchSelectedCertifiedInspected);
+    }
+
 }

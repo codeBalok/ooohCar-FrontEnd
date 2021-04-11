@@ -9,14 +9,12 @@
     <div class="nav-elements">
         <div class="nav-element-category category-default" data-category-name="default">
             <div class="element-selection">
-                <div id="expand-make" class="nav-element  {{IsExpandMake}}" data-control="aspectnavigationelement"
-                    data-name="make">
+                <div id="expand-make" class="nav-element  {{IsExpandMake}}" data-control="aspectnavigationelement"    data-name="make">
                     <div class="heading-summary">
                         <span class="heading">Make</span>
                         <a href="javascript:void(0);" class="clear-link" data-text="Clear" (click)="ClearModel();"
                             rel="nofollow noindex"></a>                            
                         <div class="expand-link" (click)="ExpandMake()">xx</div>
-
                     </div>
                     <div class="element-summary">
                     </div>
@@ -34,18 +32,12 @@
                                                 (click)="BindVehicleListBySideSearchMakeId($event)">{{Make.name}}({{Make.childCount}})</label>
                                             <label style="pointer-events:none;" id="Make_{{Make.name}}"
                                                 *ngIf="Make.childCount==0">{{Make.name}}</label>
-                                            <!--span id="Make_{{Make.childCount}}">({{Make.childCount}})</span-->
+
                                             <span></span>
 
                                             <!-- model binding-->
                                             <div class="selected-facets" *ngIf="Make.name===makeClickedName">
-                                                <div class="selected-facet">
-                                                    <div class="facet-name">
-                                                        <!--{{modelClickedName}}-->
-                                                    </div>
-                                                    <div class="child-aspects">
-                                                        <div class="aspect" data-aspect-name="model">
-                                                            <div class="aspect-name ">Model</div>
+                                                      <div class="aspect-name ">Model</div>
                                                             <ul class="default-facets">
                                                                 <li class="facet-visible"
                                                                     *ngFor="let carModel of  arrModel.slice(startPage,paginationLimit)">
@@ -56,19 +48,11 @@
                                                                         id="Model_{{carModel.id}}"
                                                                         (click)="BindVehicleListBySideSearchCarModelId($event)">{{carModel.name}}({{carModel.childCount}})</label>
                                                                     <label style="pointer-events:none;"
-                                                                        *ngIf="carModel.childCount==0">{{carModel.name}}</label>
-                                                                    <!--span id="carModel_{{carModel.childCount}}">({{carModel.childCount}})</span-->
+                                                                        *ngIf="carModel.childCount==0">{{carModel.name}}</label>                                                                 
                                                                     <!-- Variant binding-->
                                                                     <div class="selected-facets"
                                                                         *ngIf="carModel.name===modelClickedName">
-                                                                        <div class="selected-facet">
-                                                                            <div class="facet-name">
-                                                                                <!--{{variantClickedName}}-->
-                                                                            </div>
-                                                                            <div class="child-aspects">
-                                                                                <div class="aspect"
-                                                                                    data-aspect-name="variant">
-                                                                                    <div class="aspect-name ">Variant
+                                                                                 <div class="aspect-name ">Variant
                                                                                     </div>
                                                                                     <ul class="default-facets">
                                                                                         <li class="facet-visible"
@@ -89,10 +73,9 @@
                                                                                         *ngIf="variantpaginationLimit > 3"
                                                                                         (click)="showLessItemsVariant()">Show
                                                                                         Less</a>
-                                                                                </div>
+                                                                                
                                                                                 <div class="aspect-separator"></div>
-                                                                            </div>
-                                                                        </div>
+                                                                             
                                                                     </div>
                                                                     <!-- variant end -->
 
@@ -104,10 +87,9 @@
                                                             </a>
                                                             <a class="view-link all" *ngIf="paginationLimit > 3"
                                                                 (click)="showLessItems()">Show Less</a>
-                                                        </div>
+                                                        
                                                         <div class="aspect-separator"></div>
-                                                    </div>
-                                                </div>
+                                                    
                                             </div>
                                             <!-- end -->
                                             <!-- <a class="add-another-link" *ngIf="IsModelSelected">+ Add another</a> -->
@@ -241,38 +223,55 @@
                     </div>
                  </div>
                </div>
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="price">
-                    <div id="expand-price" class="nav-element  {{IsExpandPrice}}" data-control="aspectnavigationelement"
-                      data-name="price">
-                      <div class="heading-summary">
-                          <span class="heading">
-                              Price
-                          </span>
-                          <div class="expand-link" (click)="ExpandPrice()">xx</div>
-                      </div>                    
-                          <div class="element-summary">
+               <div class="nav-element " data-control="aspectnavigationelement" data-name="price">
+                <div id="expand-price" class="nav-element  {{IsExpandPrice}}" data-control="aspectnavigationelement"
+                  data-name="price">
+                  <div class="heading-summary">
+                      <span class="heading">
+                          Price
+                      </span>
+                      <div class="expand-link" (click)="ExpandPrice()">xx</div>
+                  </div>                    
+                      <div class="element-summary">
+                      </div>
+                      <div class="element-selection">
+                          <h5 class="element-selection-title">Price</h5>
+                          <div class="aspect-navigation-element" data-aspect-name="Price">                                              
+                               <div class="aspect" data-aspect-name="price">
+                                <label>From:</label>
+                 <div class="autocomplete-dropdown">
+                                   <input matInput placeholder="AU $" aria-label="Price" [matAutocomplete]="fromPriceauto"
+                                    [formControl]="FromPriceControl">
+                                    <mat-autocomplete #fromPriceauto="matAutocomplete">                                        
+                                       <mat-option *ngFor="let option of fromPricefilteredOptions | async" 
+                                          [value]="option.name">
+                                          {{option.name}}
+                                          </mat-option>                                              
+                                    </mat-autocomplete>
+                                    </div>  
+                              <label>To:</label>
+                                   <div class="autocomplete-dropdown">
+                                   <input matInput placeholder="AU $" aria-label="Price" [matAutocomplete]="ToPriceauto"
+                                    [formControl]="ToPriceControl">
+                                    <mat-autocomplete #ToPriceauto="matAutocomplete">                                        
+                                       <mat-option *ngFor="let option of toPricefilteredOptions | async" 
+                                          [value]="option.name">
+                                          {{option.name}}
+                                          </mat-option>                                              
+                                    </mat-autocomplete>
+                                    </div> 									 
+                                  <span></span>                                                 
+                               <a (click)="getCarModelListFromToPrice()"> 
+                                <img  src="../../assets/images/right.png"/> </a>
+                            </div> 
+                                
+                               <div class="aspect custom-slider" data-aspect-name="price">
+                                <ng5-slider    [(value)]="minValue" [(highValue)]="maxValue" [options]="priceoptions" (userChangeEnd)="onSliderPriceChange($event)"></ng5-slider>
+                               </div>
                           </div>
-                          <div class="element-selection">
-                              <h5 class="element-selection-title">Price</h5>
-                              <div class="aspect-navigation-element" data-aspect-name="Price">                                              
-                                   <div class="aspect" data-aspect-name="price">
-                                    <label>From:</label><input  size="5" maxlength="6" type="text" (keypress)="numberOnly($event)" placeholder="AU $"
-                                  [(ngModel)]="fromPrice" />
-                                  <label>To:</label>
-                                      <input   size="5" maxlength="6" type="text" (keypress)="numberOnly($event)"
-                                      placeholder="AU $" [(ngModel)]="toPrice"/>                                   
-                                      <span></span>                                                 
-                                   <a (click)="getCarModelListFromToPrice()"> 
-                                    <img  src="../../assets/images/right.png"/> </a>
-                                </div> 
-                                    
-                                   <div class="aspect custom-slider" data-aspect-name="price">
-                                    <ng5-slider    [(value)]="minValue" [(highValue)]="maxValue" [options]="priceoptions" (userChangeEnd)="onSliderPriceChange($event)"></ng5-slider>
-                                   </div>
-                              </div>
-                         </div>
-                  </div>
-                </div>
+                     </div>
+              </div>
+            </div>
                 <div class="nav-element " data-control="aspectnavigationelement" data-name="purchaseoptions">
                     <div class="heading-summary">
                         <span class="heading">
@@ -426,7 +425,7 @@
                                          
                                         <input type="checkbox" class="chekboxmake"  id="carCertified_{{carCertified.id}}"  value="{{carCertified.id}}" 
                                         [(ngModel)]="carCertified.Selected" (change)="BindVehicleListBySideSearchcarCertifiedInspectedId($event)"/>                     
-                                                 {{carCertified.name}}
+                                                 {{carCertified.name}} ({{carCertified.childCount}})
                                     </li>                                     
                                 </ul>
                             </div>
@@ -453,7 +452,7 @@
                                     <li class="facet-visible" *ngFor="let vehicleType of  arrVehicleType" >                                         
                                         <input type="checkbox" class="chekboxmake"  id="vehicleType_{{vehicleType.id}}"  value="{{vehicleType.id}}" 
                                         [(ngModel)]="vehicleType.Selected" (change)="BindVehicleListBySideSearchcarVehicleTypeId($event)"/>                     
-                                                 {{vehicleType.name}}
+                                                 {{vehicleType.name}} ({{vehicleType.childCount}})
                                     </li>                                     
                                 </ul>
                             </div>
@@ -957,17 +956,19 @@
         <div class="nav-element-category category-style" data-category-name="style">
             <div class="heading-summary">
                 <span class="heading">Style</span>
-                <div class="expand-link"></div>
+                <div class="expand-link" (click)="ExpandSearch('Style')">xx</div>                
             </div>
+            <div id="expand-Style" class="nav-element  {{IsExpandStyle}}" data-control="aspectnavigationelement"
+            data-name="carStyle">  
             <div class="element-selection">
                 <div class="nav-element " data-control="aspectnavigationelement" data-name="bodystyle">
-                    <div class="heading-summary">
+                    <div id="expand-BodyType" class="nav-element  {{IsExpandBodyType}}" data-control="aspectnavigationelement"
+                    data-name="carBodyType">   
+                     <div class="heading-summary">
                         <span class="heading">
                             Body Type
                         </span>
-
-
-                        <div class="expand-link"></div>
+                        <div class="expand-link" (click)="ExpandSearch('BodyType')">xx</div>                
                     </div>
                     <div class="element-summary">
                     </div>
@@ -979,85 +980,17 @@
                             <div class="aspect" data-aspect-name="bodystyle">
 
 
-
-
                                 <ul class="default-facets">
-                                    <li class="facet-hidden">
-                                        <a href="/cars/bus-bodystyle/"
-                                            data-opm-event="click-listings-refinement">Bus</a>
-
-                                        <span>(491)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/cab-chassis-bodystyle/"
-                                            data-opm-event="click-listings-refinement">Cab Chassis</a>
-
-                                        <span>(3,368)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/convertible-bodystyle/"
-                                            data-opm-event="click-listings-refinement">Convertible</a>
-
-                                        <span>(3,645)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/coupe-bodystyle/"
-                                            data-opm-event="click-listings-refinement">Coupe</a>
-
-                                        <span>(6,691)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/hatch-bodystyle/"
-                                            data-opm-event="click-listings-refinement">Hatch</a>
-
-                                        <span>(25,052)</span>
-                                    </li>
-                                    <li class="facet-hidden">
-                                        <a href="/cars/light-truck-bodystyle/"
-                                            data-opm-event="click-listings-refinement">Light Truck</a>
-
-                                        <span>(74)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/people-mover-bodystyle/"
-                                            data-opm-event="click-listings-refinement">People Mover</a>
-
-                                        <span>(3,413)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/sedan-bodystyle/"
-                                            data-opm-event="click-listings-refinement">Sedan</a>
-
-                                        <span>(27,317)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/suv-bodystyle/"
-                                            data-opm-event="click-listings-refinement">SUV</a>
-
-                                        <span>(54,568)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/ute-bodystyle/"
-                                            data-opm-event="click-listings-refinement">Ute</a>
-
-                                        <span>(10,745)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/van-bodystyle/"
-                                            data-opm-event="click-listings-refinement">Van</a>
-
-                                        <span>(3,541)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/wagon-bodystyle/"
-                                            data-opm-event="click-listings-refinement">Wagon</a>
-
-                                        <span>(4,591)</span>
-                                    </li>
+                                    <li class="facet-visible" *ngFor="let carBodyType of  arrBodyType" >
+                                         
+                                        <input type="checkbox" class="chekboxmake"  id="BodyType_{{carBodyType.id}}"  value="{{carBodyType.id}}" 
+                                        [(ngModel)]="carBodyType.Selected" (change)="BindVehicleListBySideSearchBodyTypeId($event)"/>                     
+                                                 {{carBodyType.name}} ({{carBodyType.childCount}})
+                                    </li>                                     
                                 </ul>
 
-                                <a class="view-link all">view all...</a>
-                                <a class="view-link less">view less</a>
+                                <!--a class="view-link all">view all...</a-->
+                                <!--a class="view-link less">view less</a-->
                             </div>
 
 
@@ -1067,14 +1000,17 @@
                         </div>
                     </div>
                 </div>
+            </div>
                 <div class="nav-element " data-control="aspectnavigationelement" data-name="colour">
+                    <div id="expand-Colour" class="nav-element  {{IsExpandColour}}" data-control="aspectnavigationelement"
+                    data-name="carColour">   
                     <div class="heading-summary">
                         <span class="heading">
                             Colour
                         </span>
 
 
-                        <div class="expand-link"></div>
+                        <div class="expand-link" (click)="ExpandSearch('Colour')">xx</div>   
                     </div>
                     <div class="element-summary">
                     </div>
@@ -1085,140 +1021,43 @@
 
                             <div class="aspect" data-aspect-name="colour">
 
-
-
-
+                              
                                 <ul class="default-facets">
-                                    <li class="facet-hidden">
-                                        <a href="/cars/beige-colour/"
-                                            data-opm-event="click-listings-refinement">Beige</a>
-
-                                        <span>(756)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/black-colour/"
-                                            data-opm-event="click-listings-refinement">Black</a>
-
-                                        <span>(20,223)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/blue-colour/" data-opm-event="click-listings-refinement">Blue</a>
-
-                                        <span>(14,856)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/bronze-colour/"
-                                            data-opm-event="click-listings-refinement">Bronze</a>
-
-                                        <span>(1,046)</span>
-                                    </li>
-                                    <li class="facet-hidden">
-                                        <a href="/cars/brown-colour/"
-                                            data-opm-event="click-listings-refinement">Brown</a>
-
-                                        <span>(704)</span>
-                                    </li>
-                                    <li class="facet-hidden">
-                                        <a href="/cars/burgundy-colour/"
-                                            data-opm-event="click-listings-refinement">Burgundy</a>
-
-                                        <span>(383)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/gold-colour/" data-opm-event="click-listings-refinement">Gold</a>
-
-                                        <span>(1,270)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/green-colour/"
-                                            data-opm-event="click-listings-refinement">Green</a>
-
-                                        <span>(1,648)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/grey-colour/" data-opm-event="click-listings-refinement">Grey</a>
-
-                                        <span>(21,041)</span>
-                                    </li>
-                                    <li class="facet-hidden">
-                                        <a href="/cars/magenta-colour/"
-                                            data-opm-event="click-listings-refinement">Magenta</a>
-
-                                        <span>(18)</span>
-                                    </li>
-                                    <li class="facet-hidden">
-                                        <a href="/cars/maroon-colour/"
-                                            data-opm-event="click-listings-refinement">Maroon</a>
-
-                                        <span>(517)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/orange-colour/"
-                                            data-opm-event="click-listings-refinement">Orange</a>
-
-                                        <span>(1,409)</span>
-                                    </li>
-                                    <li class="facet-hidden">
-                                        <a href="/cars/pink-colour/" data-opm-event="click-listings-refinement">Pink</a>
-
-                                        <span>(49)</span>
-                                    </li>
-                                    <li class="facet-hidden">
-                                        <a href="/cars/purple-colour/"
-                                            data-opm-event="click-listings-refinement">Purple</a>
-
-                                        <span>(235)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/red-colour/" data-opm-event="click-listings-refinement">Red</a>
-
-                                        <span>(11,178)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/silver-colour/"
-                                            data-opm-event="click-listings-refinement">Silver</a>
-
-                                        <span>(21,868)</span>
-                                    </li>
-                                    <li class="facet-hidden">
-                                        <a href="/cars/unknown-colour/"
-                                            data-opm-event="click-listings-refinement">Unknown</a>
-
-                                        <span>(1)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/white-colour/"
-                                            data-opm-event="click-listings-refinement">White</a>
-
-                                        <span>(45,453)</span>
-                                    </li>
-                                    <li class="facet-hidden">
-                                        <a href="/cars/yellow-colour/"
-                                            data-opm-event="click-listings-refinement">Yellow</a>
-
-                                        <span>(936)</span>
-                                    </li>
+                                    <li class="facet-visible" *ngFor="let carColour of  arrColour.slice(colourstartPage,colourpaginationLimit)" >
+                                         
+                                        <input type="checkbox" class="chekboxmake"  id="Colour_{{carColour.id}}"  value="{{carColour.id}}" 
+                                        [(ngModel)]="carColour.Selected" (change)="BindVehicleListBySideSearchColourId($event)"/>                     
+                                                 {{carColour.name}} ({{carColour.childCount}})
+                                    </li>                                     
                                 </ul>
 
-                                <a class="view-link all">view all...</a>
-                                <a class="view-link less">view less</a>
+                                <a class="view-link all"
+                                *ngIf="colourpaginationLimit < arrColour?.length"
+                                (click)="showMoreColourItems()">Show
+                                More
+                            </a>
+                            <a class="view-link all"
+                                *ngIf="colourpaginationLimit > 3"
+                                (click)="showLessColourItems()">Show
+                                Less</a>
                             </div>
 
 
 
-
-
+                        </div>
                         </div>
                     </div>
                 </div>
                 <div class="nav-element " data-control="rangenavigationelement" data-name="seats">
+                    <div id="expand-Seats" class="nav-element  {{IsExpandSeats}}" data-control="aspectnavigationelement"
+                    data-name="carSeats">   
                     <div class="heading-summary">
                         <span class="heading">
                             Seats
                         </span>
 
 
-                        <div class="expand-link"></div>
+                        <div class="expand-link" (click)="ExpandSearch('Seats')">xx</div> 
                     </div>
                     <div class="element-summary">
 
@@ -1232,43 +1071,29 @@
                                     <label>From:</label>
 
                                     <div class="autocomplete-dropdown">
-                                        <div>
-                                            <input type="text" placeholder="Min" data-value=""><i></i>
-                                        </div>
-                                        <ul style="display: none;">
-                                            <li data-value="" data-text="Min">Min</li>
-                                            <li data-value="1" data-text="1">1</li>
-                                            <li data-value="2" data-text="2">2</li>
-                                            <li data-value="3" data-text="3">3</li>
-                                            <li data-value="4" data-text="4">4</li>
-                                            <li data-value="5" data-text="5">5</li>
-                                            <li data-value="6" data-text="6">6</li>
-                                            <li data-value="7" data-text="7">7</li>
-                                            <li data-value="8" data-text="8">8</li>
-                                            <li data-value="9" data-text="9">9</li>
-                                        </ul>
-                                    </div>
+                                        <input matInput placeholder="Select Seat" aria-label="Seat" [matAutocomplete]="fromSeatauto"
+                                         [formControl]="FromSeatControl">
+                                         <mat-autocomplete #fromSeatauto="matAutocomplete">                                        
+                                            <mat-option *ngFor="let option of fromSeatfilteredOptions | async" 
+                                               [value]="option.name">
+                                               {{option.name}}
+                                               </mat-option>                                              
+                                         </mat-autocomplete>
+                                         </div>
                                 </div>
                                 <div class="range range-max">
                                     <label>To:</label>
 
-                                    <div class="autocomplete-dropdown">
-                                        <div>
-                                            <input type="text" placeholder="Max" data-value=""><i></i>
-                                        </div>
-                                        <ul style="display: none;">
-                                            <li data-value="" data-text="Max">Max</li>
-                                            <li data-value="1" data-text="1">1</li>
-                                            <li data-value="2" data-text="2">2</li>
-                                            <li data-value="3" data-text="3">3</li>
-                                            <li data-value="4" data-text="4">4</li>
-                                            <li data-value="5" data-text="5">5</li>
-                                            <li data-value="6" data-text="6">6</li>
-                                            <li data-value="7" data-text="7">7</li>
-                                            <li data-value="8" data-text="8">8</li>
-                                            <li data-value="9" data-text="9">9</li>
-                                        </ul>
-                                    </div>
+                                    <div class="aucomplete-dropdown">
+                                        <input matInput placeholder="Select Seat" aria-label="Seat" [matAutocomplete]="toSeatAuto"
+                                         [formControl]="ToSeatControl">
+                                         <mat-autocomplete #toSeatAuto="matAutocomplete">                                        
+                                            <mat-option *ngFor="let option of toSeatfilteredOptions | async" 
+                                               [value]="option.name">
+                                               {{option.name}}
+                                               </mat-option>                                              
+                                         </mat-autocomplete>
+                                         </div>
                                 </div>
                             </div>
 
@@ -1276,19 +1101,22 @@
                                 <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
                                     data-upper-placeholder="<!upper>"
                                     data-expression-url="/cars/?q=Seats.range(%3C!lower%3E..%3C!upper%3E)."
-                                    data-clear-link="">Go</button>
+                                    data-clear-link="" (click)="getCarModelLisSeatsRange()">Go</button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
                 <div class="nav-element " data-control="aspectnavigationelement" data-name="doors">
+                    <div id="expand-Doors" class="nav-element  {{IsExpandDoors}}" data-control="aspectnavigationelement"
+                    data-name="carDoors">  
                     <div class="heading-summary">
                         <span class="heading">
                             Doors
                         </span>
 
 
-                        <div class="expand-link"></div>
+                        <div class="expand-link" (click)="ExpandSearch('Doors')">xx</div>   
                     </div>
                     <div class="element-summary">
                     </div>
@@ -1299,64 +1127,42 @@
 
                             <div class="aspect" data-aspect-name="doors">
 
+                                <div class="autocomplete-dropdown">
+                                    <input matInput placeholder="Doors" aria-label="Doors" [matAutocomplete]="Doorsauto"
+                                     [formControl]="DoorsControl">
+                                     <mat-autocomplete #Doorsauto="matAutocomplete">                                        
+                                        <mat-option *ngFor="let option of DoorsfilteredOptions | async" 
+                                           [value]="option.name">
+                                           {{option.name}} ({{option.childCount}})
+                                           </mat-option>                                              
+                                     </mat-autocomplete>
+                                </div>
 
 
-
-                                <ul class="default-facets">
-                                    <li class="facet-visible">
-                                        <a href="/cars/0-doors/" data-opm-event="click-listings-refinement">0</a>
-
-                                        <span>(96)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/1-doors/" data-opm-event="click-listings-refinement">1</a>
-
-                                        <span>(3)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/2-doors/" data-opm-event="click-listings-refinement">2</a>
-
-                                        <span>(13,339)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/3-doors/" data-opm-event="click-listings-refinement">3</a>
-
-                                        <span>(2,125)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/4-doors/" data-opm-event="click-listings-refinement">4</a>
-
-                                        <span>(40,648)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/5-doors/" data-opm-event="click-listings-refinement">5</a>
-
-                                        <span>(87,368)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/6-doors/" data-opm-event="click-listings-refinement">6</a>
-
-                                        <span>(1)</span>
-                                    </li>
-                                </ul>
-
+                            </div>
+                            <div class="range-actions">
+                                <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
+                                    data-upper-placeholder="<!upper>"
+                                    data-expression-url="/cars/?q=Seats.range(%3C!lower%3E..%3C!upper%3E)."
+                                    data-clear-link="" (click)="getCarModelListDoors()" >Go</button>
                             </div>
 
 
 
-
-
+                         </div>
                         </div>
                     </div>
                 </div>
                 <div class="nav-element " data-control="aspectnavigationelement" data-name="lifestyles">
+                    <div id="expand-LifeStyles" class="nav-element  {{IsExpandLifeStyles}}" data-control="aspectnavigationelement"
+                    data-name="carLifeStyles"> 
                     <div class="heading-summary">
                         <span class="heading">
                             Lifestyles
                         </span>
 
 
-                        <div class="expand-link"></div>
+                        <div class="expand-link" (click)="ExpandSearch('LifeStyles')">xx</div>    
                     </div>
                     <div class="element-summary">
                     </div>
@@ -1368,70 +1174,37 @@
                             <div class="aspect" data-aspect-name="lifestyles">
 
 
+                                <div class="autocomplete-dropdown">
+                                    <input matInput placeholder="LifeStyles" aria-label="LifeStyles" [matAutocomplete]="LifeStylesauto"
+                                     [formControl]="LifeStylesControl">
+                                     <mat-autocomplete #LifeStylesauto="matAutocomplete">                                        
+                                        <mat-option *ngFor="let option of LifeStylesfilteredOptions | async" 
+                                           [value]="option.name">
+                                           {{option.name}} ({{option.childCount}})
+                                           </mat-option>                                              
+                                     </mat-autocomplete>
+                                </div>
 
 
-                                <ul class="default-facets">
-                                    <li class="facet-visible">
-                                        <a href="/cars/family-lifestyles/"
-                                            data-opm-event="click-listings-refinement">Family</a>
-
-                                        <span>(71,004)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/first-car-lifestyles/"
-                                            data-opm-event="click-listings-refinement">First Car</a>
-
-                                        <span>(37,882)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/green-lifestyles/"
-                                            data-opm-event="click-listings-refinement">Green</a>
-
-                                        <span>(20,515)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/offroad-4x4-lifestyles/"
-                                            data-opm-event="click-listings-refinement">Offroad 4x4</a>
-
-                                        <span>(14,047)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/performance-lifestyles/"
-                                            data-opm-event="click-listings-refinement">Performance</a>
-
-                                        <span>(13,092)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/prestige-lifestyles/"
-                                            data-opm-event="click-listings-refinement">Prestige</a>
-
-                                        <span>(33,245)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/tradie-lifestyles/"
-                                            data-opm-event="click-listings-refinement">Tradie</a>
-
-                                        <span>(16,980)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/unique-lifestyles/"
-                                            data-opm-event="click-listings-refinement">Unique</a>
-
-                                        <span>(2,817)</span>
-                                    </li>
-                                </ul>
-
+                            </div>
+                            <div class="range-actions">
+                                <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
+                                    data-upper-placeholder="<!upper>"
+                                    data-expression-url="/cars/?q=Seats.range(%3C!lower%3E..%3C!upper%3E)."
+                                    data-clear-link="" (click)="getCarModelListLifeStyles()" >Go</button>
                             </div>
 
 
 
 
-
+                        </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    
         <div class="nav-element-category category-other" data-category-name="other">
             <div class="heading-summary">
                 <span class="heading">Other</span>
@@ -1733,4 +1506,5 @@
             </div>
         </div>
     </div>
+  
 </section>
