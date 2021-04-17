@@ -7,6 +7,7 @@ import { addvehicleForm } from '../shared/models/AddNewCarModel';
 import { IpServiceService } from '../ip-service.service'; 
 import {LocationSerivceService} from '../location-serivce.service';
 import { ToastrService } from 'ngx-toastr';
+declare var $: any;
 @Component({
   selector: 'app-sell-used-car',
   templateUrl: './sell-used-car.component.html',
@@ -14,14 +15,14 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SellUsedCarComponent implements OnInit {
   public AddNewCarListModel = new AddNewCarListModel();
-  step1:boolean=false;
+  step1:boolean=true;
   step2:boolean=false;
   step3:boolean=false;
   step4:boolean=false;
   step5:boolean=false;
   step6:boolean=false;
   step7:boolean=false;
-  step8:boolean=true;
+  step8:boolean=false;
   applyclassactiveMake:number=0;
   images = [];
   selectedFiles = [];
@@ -32,6 +33,7 @@ export class SellUsedCarComponent implements OnInit {
   locationlong:string;
   city:string;
   PrefrenceType:string="";
+  BindValidationSummary:string="";
 
   myForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -293,12 +295,113 @@ this.PrefrenceType="Mobile Number*";
     this.myInputVariable.nativeElement.value = '';
     
   }
- 
-  submit(){
+
+  checkvalidInput = function (): string {
     debugger;
+    const make=this.myForm.controls['make'].value;
+    const year=this.myForm.controls['year'].value;
+    const model=this.myForm.controls['model'].value;
+    const varient=this.myForm.controls['varient'].value;
+    const condition=this.myForm.controls['condition'].value;
+    const price=this.myForm.controls['price'].value;
+    const kilometer=this.myForm.controls['kilometer'].value;
+    const transmission=this.myForm.controls['transmission'].value;
+    const fualType=this.myForm.controls['fualtype'].value;
+    const drivetrain=this.myForm.controls['drivetrain'].value;
+    const cylinder=this.myForm.controls['cylinder'].value;
+    const bodytype=this.myForm.controls['bodytype'].value;
+    const aircondition=this.myForm.controls['aircondition'].value;
+    const auctiongrade=this.myForm.controls['auctiongrade'].value;
+
+    const color= this.myForm.controls['color'].value;
+    const enginesize= this.myForm.controls['enginesize'].value;
+    const vin= this.myForm.controls['vin'].value;
+    const regnumber= this.myForm.controls['regnumber'].value;
+    const odometer= this.myForm.controls['odometer'].value;
+   
+    const file= this.selectedFiles;
+    const description= this.myForm.controls['description'].value;
+    const contactprefrencetype= this.myForm.controls['contactprefrencetype'].value;
+    const contactprefrencedetail= this.myForm.controls['contactprefrencedetail'].value;
+
+    var formValidationSummary="<ul>";
+    if(make==""){
+      formValidationSummary=formValidationSummary+"<li>Make is required !</li>";
+    }
+    if(year==""){
+      formValidationSummary=formValidationSummary+"<li>year is required !</li>";
+    }
+    if(model==""){
+      formValidationSummary=formValidationSummary+"<li>model is required !</li>";
+    }
+    if(condition==""){
+      formValidationSummary=formValidationSummary+"<li>condition is required !</li>";
+    }
+    if(price==""){
+      formValidationSummary=formValidationSummary+"<li>price is required !</li>";
+    }
+    if(kilometer==""){
+      formValidationSummary=formValidationSummary+"<li>kilometer is required !</li>";
+    }
+    if(transmission==""){
+      formValidationSummary=formValidationSummary+"<li>transmission is required !</li>";
+    }
+    if(fualType==""){
+      formValidationSummary=formValidationSummary+"<li>fualType is required !</li>";
+    }
+    if(drivetrain==""){
+      formValidationSummary=formValidationSummary+"<li>drivetrain is required !</li>";
+    }
+    if(cylinder==""){
+      formValidationSummary=formValidationSummary+"<li>cylinder is required !</li>";
+    }
+    if(bodytype==""){
+      formValidationSummary=formValidationSummary+"<li>bodytype is required !</li>";
+    }
+    if(aircondition==""){
+      formValidationSummary=formValidationSummary+"<li>air condition is required !</li>";
+    }
+    if(auctiongrade==""){
+      formValidationSummary=formValidationSummary+"<li>auction grade is required !</li>";
+    }
+    if(color==""){
+      formValidationSummary=formValidationSummary+"<li>color is required !</li>";
+    }
+    if(enginesize==""){
+      formValidationSummary=formValidationSummary+"<li>engine size is required !</li>";
+    }
+    if(vin==""){
+      formValidationSummary=formValidationSummary+"<li>vin is required !</li>";
+    }
+    if(regnumber==""){
+      formValidationSummary=formValidationSummary+"<li>reg number is required !</li>";
+    }
+    if(odometer==""){
+      formValidationSummary=formValidationSummary+"<li>odometer is required !</li>";
+    }
+    if(file.length==0){
+      formValidationSummary=formValidationSummary+"<li>Vehicle Images is required !</li>";
+    }
+    if(description==""){
+      formValidationSummary=formValidationSummary+"<li>description is required !</li>";
+    }
+    if(contactprefrencetype==""){
+      formValidationSummary=formValidationSummary+"<li>contact prefrence type is required !</li>";
+    }
+    if(contactprefrencedetail==""){
+      formValidationSummary=formValidationSummary+"<li>contact prefrence detail is required !</li>";
+    }
+
+    formValidationSummary=formValidationSummary+"</ul>";
+     return formValidationSummary;
+  }
+  submit(){
+   var isValid=this.checkvalidInput();
+   
+if(isValid==""){
     this.addvehicleForm.MakeId=this.myForm.controls['make'].value;
     this.addvehicleForm.YearId=this.myForm.controls['year'].value;
-    this.addvehicleForm.ModelId=this.myForm.controls['make'].value;
+    this.addvehicleForm.ModelId=this.myForm.controls['model'].value;
     this.addvehicleForm.Variant=this.myForm.controls['varient'].value;
     this.addvehicleForm.ConditionId=this.myForm.controls['condition'].value;
     this.addvehicleForm.PriceId=this.myForm.controls['price'].value;
@@ -324,6 +427,23 @@ this.PrefrenceType="Mobile Number*";
     this.addvehicleForm.Contactprefrencedetail= this.myForm.controls['contactprefrencedetail'].value;
     this.sellusedcarService.AddUpdateNewVehicle(this.addvehicleForm).subscribe((res)=>{
       this.toastr.success('Vehicle successfully Saved!');
-   }); 
+    
+   });
+  } 
+  else{
+    this.BindValidationSummary=isValid;
+    $("#myModal").modal('show');
+    var element = document.getElementById('element');
   }
+  }
+
+ 
+
+sendModal(): void {
+  //do something here
+  this.hideModal();
+}
+hideModal():void {
+  document.getElementById('close-modal').click();
+}
 }

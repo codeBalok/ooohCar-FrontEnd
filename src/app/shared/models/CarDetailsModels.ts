@@ -19,4 +19,5 @@ export class CarDetailsModel {
     odoMeter:string;
     makeName:string;
     description:string;
+    vechileSpecification:any;
 }
