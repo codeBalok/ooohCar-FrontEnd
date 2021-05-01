@@ -1,1510 +1,1458 @@
 <section class="carsales grouped-refinement">
-    <div class="nav-section">
-        <div class="nav-header">Refine Search</div>
-        <div class="nav-header-links">
-            <a href="#" data-webm-clickvalue="sv-newsearch">Clear All</a>
-        </div>
+  <div class="nav-section">
+    <div class="nav-header">Refine Search</div>
+    <div class="nav-header-links">
+      <a href="#" data-webm-clickvalue="sv-newsearch">Clear All</a>
     </div>
+  </div>
 
-    <div class="nav-elements">
-        <div class="nav-element-category category-default" data-category-name="default">
-            <div class="element-selection">
-                <div id="expand-make" class="nav-element  {{IsExpandMake}}" data-control="aspectnavigationelement"    data-name="make">
-                    <div class="heading-summary">
-                        <span class="heading">Make</span>
-                        <a href="javascript:void(0);" class="clear-link" data-text="Clear" (click)="ClearModel();"
-                            rel="nofollow noindex"></a>                            
-                        <div class="expand-link" (click)="ExpandMake()">xx</div>
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Make</h5>
-                        <div class="aspect-navigation-element" data-aspect-name="Make">
+  <div class="nav-elements">
+    <div class="nav-element-category category-default" data-category-name="default">
+      <div class="element-selection">
+        <div id="expand-make" class="nav-element  {{IsExpandMake}}" data-control="aspectnavigationelement"
+          data-name="make">
+          <div class="heading-summary">
+            <span class="heading">Make</span>
+            <a href="javascript:void(0);" class="clear-link" data-text="Clear" (click)="ClearModel();"
+              rel="nofollow noindex"></a>
+            <div class="expand-link" (click)="ExpandMake()">xx</div>
+          </div>
+          <div class="element-summary">
+          </div>
+          <div class="element-selection">
+            <h5 class="element-selection-title">Make</h5>
+            <div class="aspect-navigation-element" data-aspect-name="Make">
 
-                            <div class="add-another-content inactive">
-                                <div class="aspect" data-aspect-name="make">
-                                    <!--div class="aspect-name ">Make</div-->
-                                    <ul class="default-facets ">
-                                        <li class="facet-visible" *ngFor="let Make of SideSearchListModel.Make">
+              <div class="add-another-content inactive">
+                <div class="aspect" data-aspect-name="make">
+                  <!--div class="aspect-name ">Make</div-->
+                  <ul class="default-facets ">
+                    <li class="facet-visible" *ngFor="let Make of SideSearchListModel.Make">
 
-                                            <label *ngIf="Make.childCount>0" id="Make_{{Make.id}}"
-                                                (click)="BindVehicleListBySideSearchMakeId($event)">{{Make.name}}({{Make.childCount}})</label>
-                                            <label style="pointer-events:none;" id="Make_{{Make.name}}"
-                                                *ngIf="Make.childCount==0">{{Make.name}}</label>
+                      <label *ngIf="Make.childCount>0" id="Make_{{Make.id}}"
+                        (click)="BindVehicleListBySideSearchMakeId($event)">{{Make.name}}({{Make.childCount}})</label>
+                      <label style="pointer-events:none;" id="Make_{{Make.name}}"
+                        *ngIf="Make.childCount==0">{{Make.name}}</label>
 
-                                            <span></span>
+                      <span></span>
 
-                                            <!-- model binding-->
-                                            <div class="selected-facets" *ngIf="Make.name===makeClickedName">
-                                                      <div class="aspect-name ">Model</div>
-                                                            <ul class="default-facets">
-                                                                <li class="facet-visible"
-                                                                    *ngFor="let carModel of  arrModel.slice(startPage,paginationLimit)">
-                                                                    <!--input type="checkbox" class="chekboxmake"
+                      <!-- model binding-->
+                      <div class="selected-facets" *ngIf="Make.name===makeClickedName">
+                        <div class="aspect-name ">Model</div>
+                        <ul class="default-facets">
+                          <li class="facet-visible" *ngFor="let carModel of  arrModel.slice(startPage,paginationLimit)">
+                            <!--input type="checkbox" class="chekboxmake"
                                                         id="Model_{{carModel.id}}" value="{{carModel.id}}" 
                                                         [(ngModel)]="carModel.Selected" (change)="BindVehicleListBySideSearchCarModelId($event)" /-->
-                                                                    <label *ngIf="carModel.childCount>0"
-                                                                        id="Model_{{carModel.id}}"
-                                                                        (click)="BindVehicleListBySideSearchCarModelId($event)">{{carModel.name}}({{carModel.childCount}})</label>
-                                                                    <label style="pointer-events:none;"
-                                                                        *ngIf="carModel.childCount==0">{{carModel.name}}</label>                                                                 
-                                                                    <!-- Variant binding-->
-                                                                    <div class="selected-facets"
-                                                                        *ngIf="carModel.name===modelClickedName">
-                                                                                 <div class="aspect-name ">Variant
-                                                                                    </div>
-                                                                                    <ul class="default-facets">
-                                                                                        <li class="facet-visible"
-                                                                                            *ngFor="let carVariant of  arrVariant.slice(variantstartPage,variantpaginationLimit)">
-                                                                                            <label
-                                                                                                (click)="BindVehicleListBySideSearchCarVariantId($event)"
-                                                                                                id="variant_{{carVariant.id}}">{{carVariant.name}}({{carVariant.childCount}})</label>
-
-
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                    <a class="view-link all"
-                                                                                        *ngIf="variantpaginationLimit < SideSearchListModel?.Variant?.length"
-                                                                                        (click)="showMoreItemsVariant()">Show
-                                                                                        More
-                                                                                    </a>
-                                                                                    <a class="view-link all"
-                                                                                        *ngIf="variantpaginationLimit > 3"
-                                                                                        (click)="showLessItemsVariant()">Show
-                                                                                        Less</a>
-                                                                                
-                                                                                <div class="aspect-separator"></div>
-                                                                             
-                                                                    </div>
-                                                                    <!-- variant end -->
-
-                                                                </li>
-                                                            </ul>
-                                                            <a class="view-link all"
-                                                                *ngIf="paginationLimit < SideSearchListModel?.CarModel?.length"
-                                                                (click)="showMoreItems()">Show More
-                                                            </a>
-                                                            <a class="view-link all" *ngIf="paginationLimit > 3"
-                                                                (click)="showLessItems()">Show Less</a>
-                                                        
-                                                        <div class="aspect-separator"></div>
-                                                    
-                                            </div>
-                                            <!-- end -->
-                                            <!-- <a class="add-another-link" *ngIf="IsModelSelected">+ Add another</a> -->
-
-
-                                        </li>
-                                    </ul>
-                                    <a class="view-link all" *ngIf="SideSearchListModel?.Make?.lenght>5">view all
-                                        makes...</a>
-                                    <a class="view-link less">view less</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-   
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="state">
-                    <div id="expand-location" class="nav-element  {{IsExpandLocation}}" data-control="aspectnavigationelement"
-                      data-name="location">
-                      <div class="heading-summary">
-                          <span class="heading">
-                              Location
-                          </span>
-                            <div class="expand-link" (click)="ExpandLocation()">xx</div>
-                      </div>                    
-                          <div class="element-summary">
-                          </div>
-                          <div class="element-selection">
-                              <h5 class="element-selection-title">Location</h5>
-                              <div class="aspect-navigation-element" data-aspect-name="State">
-                                  <div class="aspect" data-aspect-name="state">
-                                      <ul class="default-facets">
-                                          <li class="facet-visible"
-                                              *ngFor="let state of  loogedInUsersStates.slice(locationstartPage,locationpaginationLimit)">
-                                              <label   id="{{state}}">{{state}}</label>
-                                          </li>
-                                      </ul>
-                                      <a class="view-link all"
-                                                                                          *ngIf="locationpaginationLimit < loogedInUsersStates?.length"
-                                                                                          (click)="showMoreLocation()">Show
-                                                                                          More
-                                                                                      </a>
-                                                                                      <a class="view-link all"
-                                                                                          *ngIf="locationpaginationLimit > 3"
-                                                                                          (click)="showLessLocation()">Show
-                                                                                          Less</a>
-                                  </div>
+                            <label *ngIf="carModel.childCount>0" id="Model_{{carModel.id}}"
+                              (click)="BindVehicleListBySideSearchCarModelId($event)">{{carModel.name}}({{carModel.childCount}})</label>
+                            <label style="pointer-events:none;" *ngIf="carModel.childCount==0">{{carModel.name}}</label>
+                            <!-- Variant binding-->
+                            <div class="selected-facets" *ngIf="carModel.name===modelClickedName">
+                              <div class="aspect-name ">Variant
                               </div>
-                          </div>
-                        </div>
-                    </div>
-                <div class="nav-element " data-control="poinavigationelement" data-name="postcode">
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Postcode
-                        </span>
-                        <div class="expand-link"></div>
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Postcode</h5>
-                        <div class="poi-element">
-                            <div class="poi-selection">
-                                <input type="text" maxlength="4">
-                                <select id="DistanceInKms" name="DistanceInKms">
-                                    <option value="10">10 km</option>
-                                    <option selected="selected" value="25">25 km</option>
-                                    <option value="50">50 km</option>
-                                    <option value="100">100 km</option>
-                                    <option value="250">250 km</option>
-                                    <option value="500">500 km</option>
-                                </select>
+                              <ul class="default-facets">
+                                <li class="facet-visible"
+                                  *ngFor="let carVariant of  arrVariant.slice(variantstartPage,variantpaginationLimit)">
+                                  <label (click)="BindVehicleListBySideSearchCarVariantId($event)"
+                                    id="variant_{{carVariant.id}}">{{carVariant.name}}({{carVariant.childCount}})</label>
+
+
+                                </li>
+                              </ul>
+                              <a class="view-link all"
+                                *ngIf="variantpaginationLimit < SideSearchListModel?.Variant?.length"
+                                (click)="showMoreItemsVariant()">Show
+                                More
+                              </a>
+                              <a class="view-link all" *ngIf="variantpaginationLimit > 3"
+                                (click)="showLessItemsVariant()">Show
+                                Less</a>
+
+                              <div class="aspect-separator"></div>
+
                             </div>
-                            <div class="poi-actions">
-                                <button class="btn-primary btn go" data-location-placeholder="<!loc>"
-                                    data-distinkms-placeholder="<!distInKms>"
-                                    data-expression-url="/cars/?q=Postcode.poi(%3C!loc%3Ex%3C!distInKms%3Ekm).">Go</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="nav-element " data-control="rangenavigationelement" data-name="year">
-                    <div id="expand-year" class="nav-element  {{IsExpandYear}}" data-control="aspectnavigationelement"
-                    data-name="Year">
-                    <div class="heading-summary">
-                        <span class="heading">Year</span>
-                        <div class="expand-link"(click)="ExpandYear()">xx</div>
-                    </div>
-                    <div class="element-summary"> </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Year</h5>
-                        <div class="range-element">
-                            <div class="range-selection">
-                                <div>
-                                    <label>From:</label>  
-                                    <div class="autocomplete-dropdown">
-                                       <input matInput placeholder="Select Year" aria-label="Year" [matAutocomplete]="fromYearauto"
-                                        [formControl]="FromYrControl">
-                                        <mat-autocomplete #fromYearauto="matAutocomplete">                                        
-                                           <mat-option *ngFor="let option of fromYearfilteredOptions | async" 
-                                              [value]="option.name">
-                                              {{option.name}}
-                                              </mat-option>                                              
-                                        </mat-autocomplete>
-                                        </div>                               
-                                </div>
-                                <div >
-                                    <label>To:</label>
-                                    <div class="autocomplete-dropdown">
-                                    <input matInput placeholder="Select Year" aria-label="Year" [matAutocomplete]="toYearauto"
-                                    [formControl]="ToYrControl">
-                                    <mat-autocomplete #toYearauto="matAutocomplete"   >
-                                        <mat-option *ngFor="let option of toYearfilteredOptions | async" [value]="option.name"
-                                         >
-                                           {{option.name}}
-                                          </mat-option>                                              
-                                    </mat-autocomplete>   
-                                </div>
-                             </div>
-                        </div>
-                            <div class="range-actions">
-                                <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
-                                    data-upper-placeholder="<!upper>"
-                                    data-expression-url="/cars/?q=Year.range(%3C!lower%3E..%3C!upper%3E)."
-                                    data-clear-link=""
-                                    (click)="getCarModelLisYearRange()"
-                                    >Go</button>
-                            </div>
-                        </div>
-                    </div>
-                 </div>
-               </div>
-               <div class="nav-element " data-control="aspectnavigationelement" data-name="price">
-                <div id="expand-price" class="nav-element  {{IsExpandPrice}}" data-control="aspectnavigationelement"
-                  data-name="price">
-                  <div class="heading-summary">
-                      <span class="heading">
-                          Price
-                      </span>
-                      <div class="expand-link" (click)="ExpandPrice()">xx</div>
-                  </div>                    
-                      <div class="element-summary">
+                            <!-- variant end -->
+
+                          </li>
+                        </ul>
+                        <a class="view-link all" *ngIf="paginationLimit < SideSearchListModel?.CarModel?.length"
+                          (click)="showMoreItems()">Show More
+                        </a>
+                        <a class="view-link all" *ngIf="paginationLimit > 3" (click)="showLessItems()">Show Less</a>
+
+                        <div class="aspect-separator"></div>
+
                       </div>
-                      <div class="element-selection">
-                          <h5 class="element-selection-title">Price</h5>
-                          <div class="aspect-navigation-element" data-aspect-name="Price">                                              
-                               <div class="aspect" data-aspect-name="price">
-                                <label>From:</label>
-                 <div class="autocomplete-dropdown">
-                                   <input matInput placeholder="AU $" aria-label="Price" [matAutocomplete]="fromPriceauto"
-                                    [formControl]="FromPriceControl">
-                                    <mat-autocomplete #fromPriceauto="matAutocomplete">                                        
-                                       <mat-option *ngFor="let option of fromPricefilteredOptions | async" 
-                                          [value]="option.name">
-                                          {{option.name}}
-                                          </mat-option>                                              
-                                    </mat-autocomplete>
-                                    </div>  
-                              <label>To:</label>
-                                   <div class="autocomplete-dropdown">
-                                   <input matInput placeholder="AU $" aria-label="Price" [matAutocomplete]="ToPriceauto"
-                                    [formControl]="ToPriceControl">
-                                    <mat-autocomplete #ToPriceauto="matAutocomplete">                                        
-                                       <mat-option *ngFor="let option of toPricefilteredOptions | async" 
-                                          [value]="option.name">
-                                          {{option.name}}
-                                          </mat-option>                                              
-                                    </mat-autocomplete>
-                                    </div> 									 
-                                  <span></span>                                                 
-                               <a (click)="getCarModelListFromToPrice()"> 
-                                <img  src="../../assets/images/right.png"/> </a>
-                            </div> 
-                                
-                               <div class="aspect custom-slider" data-aspect-name="price">
-                                <ng5-slider    [(value)]="minValue" [(highValue)]="maxValue" [options]="priceoptions" (userChangeEnd)="onSliderPriceChange($event)"></ng5-slider>
-                               </div>
-                          </div>
-                     </div>
+                      <!-- end -->
+                      <!-- <a class="add-another-link" *ngIf="IsModelSelected">+ Add another</a> -->
+
+
+                    </li>
+                  </ul>
+                  <a class="view-link all" *ngIf="SideSearchListModel?.Make?.lenght>5">view all
+                    makes...</a>
+                  <a class="view-link less">view less</a>
+                </div>
               </div>
             </div>
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="purchaseoptions">
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Purchase Options
-                        </span>
-
-
-                        <div class="expand-link"></div>
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Purchase Options</h5>
-                        <div class="aspect-navigation-element" data-aspect-name="PurchaseOptions">
-                            <div class="aspect" data-aspect-name="purchaseoptions">
-                                <ul class="default-facets">
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=PurchaseOptions.Available+to+be+financed."
-                                            data-opm-event="click-listings-refinement">Available to be financed</a>
-                                        <span>(9,773)</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="nav-element " data-control="rangenavigationelement" data-name="odometer">
-                    <div id="expand-Odometer" class="nav-element  {{IsExpandOdometer}}" data-control="aspectnavigationelement"
-                    data-name="odometer"> 
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Odometer
-                        </span>
-                        <div class="expand-link" (click)="ExpandOdometer()">xx</div>
-                    </div>
-                    <div class="element-summary">
-
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Odometer</h5>
-
-                        <div class="range-element">
-                            <div class="range-selection">
-                                <div class="range range-min">
-                                    <label>From:</label>
-
-                                    <div class="autocomplete-dropdown">
-                                        <div>
-                                            <input type="text" placeholder="Min" [(ngModel)]="fromOdometer" data-value="">Km<i></i>
-                                        </div>
-                                        <ul style="display: none;">
-                                            <li data-value="" data-text="Min">Min</li>
-                                            <li data-value="10000" data-text="10,000 km">10,000 km</li>
-                                            <li data-value="20000" data-text="20,000 km">20,000 km</li>
-                                            <li data-value="40000" data-text="40,000 km">40,000 km</li>
-                                            <li data-value="60000" data-text="60,000 km">60,000 km</li>
-                                            <li data-value="80000" data-text="80,000 km">80,000 km</li>
-                                            <li data-value="100000" data-text="100,000 km">100,000 km</li>
-                                            <li data-value="150000" data-text="150,000 km">150,000 km</li>
-                                            <li data-value="200000" data-text="200,000 km">200,000 km</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="range range-max">
-                                    <label>To:</label>
-
-                                    <div class="autocomplete-dropdown">
-                                        <div>
-                                            <input type="text" placeholder="Max"  [(ngModel)]="toOdometer" data-value="">Km<i></i>
-                                        </div>
-                                        <ul style="display: none;">
-                                            <li data-value="" data-text="Max">Max</li>
-                                            <li data-value="10000" data-text="10,000 km">10,000 km</li>
-                                            <li data-value="20000" data-text="20,000 km">20,000 km</li>
-                                            <li data-value="40000" data-text="40,000 km">40,000 km</li>
-                                            <li data-value="60000" data-text="60,000 km">60,000 km</li>
-                                            <li data-value="80000" data-text="80,000 km">80,000 km</li>
-                                            <li data-value="100000" data-text="100,000 km">100,000 km</li>
-                                            <li data-value="150000" data-text="150,000 km">150,000 km</li>
-                                            <li data-value="200000" data-text="200,000 km">200,000 km</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="range-actions">
-                                <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
-                                    data-upper-placeholder="<!upper>"
-                                    data-expression-url="/cars/?q=Odometer.range(%3C!lower%3E..%3C!upper%3E)."
-                                    data-clear-link=""
-                                    (click)="getCarModelLisOdometerRange()">Go</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-                <div class="nav-element " data-control="aspectnavigationelement"          data-name="genericgeartype">
-                <div id="expand-Transmission" class="nav-element  {{IsExpandTransmission}}" data-control="aspectnavigationelement"
-                data-name="Transmission"> 
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Transmission
-                        </span>
-                        <div class="expand-link" (click)="ExpandTransmission()">xx</div>
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Transmission</h5>
-
-                        <div class="aspect-navigation-element" data-aspect-name="GenericGearType">
-
-                            <div class="aspect" data-aspect-name="genericgeartype">
-
-
-
-
-                                <ul class="default-facets">
-                                    <li class="facet-visible" *ngFor="let carTransmission of  arrTransmission" >
-                                         
-                                        <input type="checkbox" class="chekboxmake"  id="Transmission_{{carTransmission.id}}"  value="{{carTransmission.id}}" 
-                                        [(ngModel)]="carTransmission.Selected" (change)="BindVehicleListBySideSearchTransmissionId($event)"/>                     
-                                                 {{carTransmission.name}}
-                                    </li>                                     
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="certifiedinspected">
-                    <div id="expand-certifiedinspected" class="nav-element  {{IsExpandcertifiedinspected}}" data-control="aspectnavigationelement"
-                    data-name="certifiedinspected"> 
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Certified / Inspected
-                        </span>
-                        <div class="expand-link"(click)="ExpandCertifiedinspected()">xx</div>
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Certified / Inspected</h5>
-
-                        <div class="aspect-navigation-element" data-aspect-name="CertifiedInspected">
-
-                            <div class="aspect" data-aspect-name="certifiedinspected">
-
-                                <ul class="default-facets">
-                                    <li class="facet-visible" *ngFor="let carCertified of  arrCertified" >
-                                         
-                                        <input type="checkbox" class="chekboxmake"  id="carCertified_{{carCertified.id}}"  value="{{carCertified.id}}" 
-                                        [(ngModel)]="carCertified.Selected" (change)="BindVehicleListBySideSearchcarCertifiedInspectedId($event)"/>                     
-                                                 {{carCertified.name}} ({{carCertified.childCount}})
-                                    </li>                                     
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="VehicleType">
-                    <div id="expand-VehicleType" class="nav-element  {{IsExpandVehicleType}}" data-control="aspectnavigationelement"
-                    data-name="VehicleType"> 
-                    <div class="heading-summary">
-                        <span class="heading">
-                            New / Used
-                        </span>
-                        <div class="expand-link"  (click)="ExpandVehicleType()">xx</div> 
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">New / Used</h5>
-                        <div class="aspect-navigation-element" data-aspect-name="Condition">
-                            <div class="aspect" data-aspect-name="condition">
-                                <ul class="default-facets">
-                                    <li class="facet-visible" *ngFor="let vehicleType of  arrVehicleType" >                                         
-                                        <input type="checkbox" class="chekboxmake"  id="vehicleType_{{vehicleType.id}}"  value="{{vehicleType.id}}" 
-                                        [(ngModel)]="vehicleType.Selected" (change)="BindVehicleListBySideSearchcarVehicleTypeId($event)"/>                     
-                                                 {{vehicleType.name}} ({{vehicleType.childCount}})
-                                    </li>                                     
-                                </ul>
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="nav-element " data-control="keywordnavigationelement" data-name="carall">
-                    <div id="expand-Keywords" class="nav-element  {{IsExpandKeywords}}" data-control="aspectnavigationelement"
-                    data-name="carall"> 
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Keywords
-                        </span>
-                        <div class="expand-link" (click)="ExpandKeywords()">xx</div> 
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Keywords</h5>
-                        <div class="keyword-element">
-                            <div class="keyword-selection">
-                                <input type="text" placeholder="Search..." maxlength="100"
-                                    data-msg-required="Please enter keyword.">
-                                <button class="go btn btn-primary" data-placeholder="<!>"
-                                    data-expression-url="/cars/?q=CarAll.keyword(%3C!%3E).">Go</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-        </div>
-        <div class="nav-element-category category-engine" data-category-name="engine">              
+
+        <div class="nav-element " data-control="aspectnavigationelement" data-name="state">
+          <div id="expand-location" class="nav-element  {{IsExpandLocation}}" data-control="aspectnavigationelement"
+            data-name="location">
             <div class="heading-summary">
-                <span class="heading">Engine</span>
-                <div class="expand-link" (click)="ExpandSearch('Engine')">xx</div>
-            </div> 
-            <div id="expand-Engine" class="nav-element  {{IsExpandEngine}}" data-control="aspectnavigationelement"
-            data-name="carengine">        
-            <div class="element-selection">
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="fueltype">
-                    <div id="expand-FuelType" class="nav-element  {{IsExpandFuelType}}" data-control="aspectnavigationelement"
-            data-name="carFuelType"> 
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Fuel Type
-                        </span>
-                        <div class="expand-link" (click)="ExpandSearch('FuelType')">xx</div>
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Fuel Type</h5>
-
-                        <div class="aspect-navigation-element" data-aspect-name="FuelType">
-
-                            <div class="aspect" data-aspect-name="fueltype">
-                                <ul class="default-facets">
-                                    <li class="facet-visible" *ngFor="let fueltype of  arrFuelType" >                                         
-                                        <input type="checkbox" class="chekboxmake"  id="fueltype_{{fueltype.id}}"  value="{{fueltype.id}}" 
-                                        [(ngModel)]="fueltype.Selected" (change)="BindVehicleListBySideSearchFuelType($event)"/>                     
-                                                 {{fueltype.name}}
-                                                 <span>({{fueltype.childCount}})</span>
-                                    </li>                                     
-                                </ul>
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="drive">
-                    <div id="expand-DriveType" class="nav-element  {{IsExpandDriveType}}" data-control="aspectnavigationelement"
-                    data-name="carExpandDriveType">
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Drive Type
-                        </span>
-                        <div class="expand-link" (click)="ExpandSearch('DriveType')">xx</div>
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Drive Type</h5>
-                        <div class="aspect-navigation-element" data-aspect-name="Drive">
-                            <div class="aspect" data-aspect-name="drive">
-                                
-        
-        
-         <div class="autocomplete-dropdown">
-            <input matInput placeholder="DriveType" aria-label="DriveType" [matAutocomplete]="DriveTypeauto"
-             [formControl]="DriveTypeControl">
-             <mat-autocomplete #DriveTypeauto="matAutocomplete">                                        
-                <mat-option *ngFor="let option of DriveTypefilteredOptions | async" 
-                   [value]="option.name">
-                   {{option.name}} ({{option.childCount}})
-                   </mat-option>                                              
-             </mat-autocomplete>
-        </div>  
-             <div class="range-actions">
-                <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
-                    data-upper-placeholder="<!upper>"
-                    data-expression-url="/cars/?q=Year.range(%3C!lower%3E..%3C!upper%3E)."
-                    data-clear-link=""
-                    (click)="getCarModelListDriveType()"
-                    >Go</button>
+              <span class="heading">
+                Location
+              </span>
+              <div class="expand-link" (click)="ExpandLocation()">xx</div>
             </div>
-
-
-
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="cylinders">
-                    <div id="expand-Cylinders" class="nav-element  {{IsExpandCylinders}}" data-control="aspectnavigationelement"
-            data-name="carCylinders">
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Cylinders
-                        </span>
-                        <div class="expand-link"(click)="ExpandSearch('Cylinders')">xx</div>
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Cylinders</h5>
-                        <div class="aspect-navigation-element" data-aspect-name="Cylinders">
-                            <div class="aspect" data-aspect-name="cylinders">
-                                <ul class="default-facets">
-                                <li class="facet-visible" *ngFor="let cylinder of  arrCylinders" >                                         
-                                    <input type="checkbox" class="chekboxmake"  id="cylinder_{{cylinder.id}}"  value="{{cylinder.id}}" 
-                                    [(ngModel)]="cylinder.Selected" (change)="BindVehicleListBySideSearchCylinder($event)"/>                     
-                                             {{cylinder.name}}
-                                             <span>({{cylinder.childCount}})</span>
-                                </li>
-                            </ul>
-
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="nav-element " data-control="rangenavigationelement" data-name="enginesize">                    
-                <div id="expand-EngineSize" class="nav-element  {{IsExpandEngineSize}}" data-control="aspectnavigationelement"
-                    data-name="carEngineSize">
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Engine Size
-                        </span>
-                        <div class="expand-link" (click)="ExpandSearch('EngineSize')">xx</div>
-                    </div>
-                    <div class="element-summary">
-
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Engine Size</h5>
-                        <div class="range-element">
-                            <div class="range-selection">
-                                <div>
-                                    <label>From:</label>  
-                                    <div class="autocomplete-dropdown">
-                                       <input matInput placeholder="Select Engine Size" aria-label="EngineSize" [matAutocomplete]="fromEngineSizeauto"
-                                        [formControl]="fromEngineSizeControl">
-                                        <mat-autocomplete #fromEngineSizeauto="matAutocomplete">                                        
-                                           <mat-option *ngFor="let option of fromEngineSizefilteredOptions | async" 
-                                              [value]="option.name">
-                                              {{option.name}} ({{option.childCount}})
-                                              </mat-option>                                              
-                                        </mat-autocomplete>
-                                        </div>                               
-                                </div>
-                                <div >
-                                    <label>To:</label>
-                                    <div class="autocomplete-dropdown">
-                                    <input matInput placeholder="Select Engine Size" aria-label="EngineSize" [matAutocomplete]="toEngineSizeauto"
-                                    [formControl]="toEngineSizeControl">
-                                    <mat-autocomplete #toEngineSizeauto="matAutocomplete"   >
-                                        <mat-option *ngFor="let option of toEngineSizefilteredOptions | async" [value]="option.name"
-                                         >
-                                           {{option.name}} ({{option.childCount}})
-                                          </mat-option>                                              
-                                    </mat-autocomplete>   
-                                </div>
-                             </div>
-                        </div>
-                            <div class="range-actions">
-                                <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
-                                    data-upper-placeholder="<!upper>"
-                                    data-expression-url="/cars/?q=Year.range(%3C!lower%3E..%3C!upper%3E)."
-                                    data-clear-link=""
-                                    (click)="getCarModelListEngineSizeRange()"
-                                    >Go</button>
-                            </div>
-                        </div>
-                      
-                    </div>
-                </div>
-            </div>
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="enginedescription">
-                    <div id="expand-EngineDescription" class="nav-element  {{IsExpandEngineDescription}}" data-control="aspectnavigationelement"
-                    data-name="carEngineDescription">        
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Engine Description
-                        </span>
-                        <div class="expand-link" (click)="ExpandSearch('EngineDescription')">xx</div>
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Engine Description</h5>
-                        <div class="aspect-navigation-element" data-aspect-name="EngineDescription">
-                            <div class="aspect" data-aspect-name="enginedescription">
-                                <div class="autocomplete-dropdown">
-                                    <input matInput placeholder="Engine Description" aria-label="EngineDescription" [matAutocomplete]="engineDescriptionauto"
-                                     [formControl]="EngineDescriptionControl">
-                                     <mat-autocomplete #engineDescriptionauto="matAutocomplete">                                        
-                                        <mat-option *ngFor="let option of EngineDescriptionfilteredOptions | async" 
-                                           [value]="option.name">
-                                           {{option.name}}  ({{option.childCount}})
-                                           </mat-option>                                              
-                                     </mat-autocomplete>
-                                </div>  
-                                     <div class="range-actions">
-                                        <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
-                                            data-upper-placeholder="<!upper>"
-                                            data-expression-url="/cars/?q=Year.range(%3C!lower%3E..%3C!upper%3E)."
-                                            data-clear-link=""
-                                            (click)="getCarModelListEngineDescription()"
-                                            >Go</button>
-                                    </div> 
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="fueleconomy">                    
-              <div id="expand-FuelEconomy" class="nav-element  {{IsExpandFuelEconomy}}" data-control="aspectnavigationelement"
-              data-name="carFuelEconomy">
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Fuel Economy
-                        </span>
-                        <div class="expand-link" (click)="ExpandSearch('FuelEconomy')">xx</div>
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Fuel Economy</h5>
-
-                        <div class="aspect-navigation-element" data-aspect-name="FuelEconomy">
-                            <div class="aspect" data-aspect-name="fueleconomy">
-                                <div class="autocomplete-dropdown">
-                                    <input matInput placeholder="Fuel Economy" aria-label="FuelEconomy" [matAutocomplete]="FuelEconomyauto"
-                                     [formControl]="FuelEconomyControl">
-                                     <mat-autocomplete #FuelEconomyauto="matAutocomplete">                                        
-                                        <mat-option *ngFor="let option of FuelEconomyfilteredOptions | async" 
-                                           [value]="option.name">
-                                           {{option.name}} ({{option.childCount}})
-                                           </mat-option>                                              
-                                     </mat-autocomplete>
-                                </div>  
-                                     <div class="range-actions">
-                                        <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
-                                            data-upper-placeholder="<!upper>"
-                                            data-expression-url="/cars/?q=Year.range(%3C!lower%3E..%3C!upper%3E)."
-                                            data-clear-link=""
-                                            (click)="getCarModelListFuelEconomy()"
-                                            >Go</button>
-                                    </div>
-
-                            </div>
-                         </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="induction">
-                    <div id="expand-InductionTurbo" class="nav-element  {{IsExpandInductionTurbo}}" data-control="aspectnavigationelement"
-                    data-name="carInductionTurbo"> 
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Induction / Turbo
-                        </span>
-
-
-                        <div class="expand-link" (click)="ExpandSearch('InductionTurbo')">xx</div>
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Induction / Turbo</h5>
-
-                        <div class="aspect-navigation-element" data-aspect-name="Induction">
-
-                            <div class="aspect" data-aspect-name="induction">
-
-                                <div class="autocomplete-dropdown">
-                                    <input matInput placeholder="Induction Turbo" aria-label="InductionTurbo" [matAutocomplete]="InductionTurboauto"
-                                     [formControl]="InductionTurboControl">
-                                     <mat-autocomplete #InductionTurboauto="matAutocomplete">                                        
-                                        <mat-option *ngFor="let option of InductionTurbofilteredOptions | async" 
-                                           [value]="option.name">
-                                           {{option.name}} ({{option.childCount}})
-                                           </mat-option>                                              
-                                     </mat-autocomplete>
-                                </div>  
-                                     <div class="range-actions">
-                                        <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
-                                            data-upper-placeholder="<!upper>"
-                                            data-expression-url="/cars/?q=Year.range(%3C!lower%3E..%3C!upper%3E)."
-                                            data-clear-link=""
-                                            (click)="getCarModelListInductionTurbo()"
-                                            >Go</button>
-                                    </div>                             
-
-                            </div>
-
-
-
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-                <div class="nav-element " data-control="rangenavigationelement" data-name="power">
-                    <div id="expand-Power" class="nav-element  {{IsExpandPower}}" data-control="aspectnavigationelement"
-                    data-name="carPower"> 
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Power
-                        </span>
-
-
-                        <div class="expand-link" (click)="ExpandSearch('Power')">xx</div>
-                    </div>
-                    <div class="element-summary">
-
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Power</h5>
-
-                        <div class="range-element">
-                            <div class="range-selection">
-                                <div class="range range-min">
-                                    <label>From:</label>
-                                    <div class="autocomplete-dropdown">
-                                        <input matInput placeholder="Select Power" aria-label="PowerToWeight" [matAutocomplete]="fromPowerauto"
-                                         [formControl]="fromPowerControl">
-                                         <mat-autocomplete #fromPowerauto="matAutocomplete">                                        
-                                            <mat-option *ngFor="let option of fromPowerfilteredOptions | async" 
-                                               [value]="option.name">
-                                               {{option.name}}
-                                               </mat-option>                                              
-                                         </mat-autocomplete>
-                                         </div>                                     
-                                </div>
-                                <div class="range range-max">
-                                    <label>To:</label>
-                                    <div class="autocomplete-dropdown">
-                                        <input matInput placeholder="Select Power" aria-label="PowerToWeight" [matAutocomplete]="ToPowerauto"
-                                         [formControl]="toPowerControl">
-                                         <mat-autocomplete #ToPowerauto="matAutocomplete">                                        
-                                            <mat-option *ngFor="let option of toPowerfilteredOptions | async" 
-                                               [value]="option.name">
-                                               {{option.name}}
-                                               </mat-option>                                              
-                                         </mat-autocomplete>
-                                         </div>                                     
-                                </div>
-                            </div>
-
-                            <div class="range-actions">
-                                <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
-                                    data-upper-placeholder="<!upper>"
-                                    data-expression-url="/cars/?q=Power.range(%3C!lower%3E..%3C!upper%3E)."
-                                    data-clear-link=""  (click)="getCarModelListByPowerRange()">Go</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-                <div class="nav-element " data-control="rangenavigationelement" data-name="calcpowerweightratio">
-                    <div id="expand-PowerToWeight" class="nav-element  {{IsExpandPowerToWeight}}" data-control="aspectnavigationelement"
-                    data-name="carPowerToWeight"> 
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Power to Weight
-                        </span>
-                        <div class="expand-link" (click)="ExpandSearch('PowerToWeight')">xx</div>
-                    </div>
-                    <div class="element-summary">
-
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Power to Weight</h5>
-
-                        <div class="range-element">
-                            <div class="range-selection">
-                                <div class="range range-min">
-                                    <label>From:</label>
-                                    <div class="autocomplete-dropdown">
-                                        <input matInput placeholder="Select PowerToWeight" aria-label="PowerToWeight" [matAutocomplete]="fromPowerToWeightauto"
-                                         [formControl]="fromPowerToWeightControl">
-                                         <mat-autocomplete #fromPowerToWeightauto="matAutocomplete">                                        
-                                            <mat-option *ngFor="let option of fromPowerToWeightfilteredOptions | async" 
-                                               [value]="option.name">
-                                               {{option.name}}
-                                               </mat-option>                                              
-                                         </mat-autocomplete>
-                                         </div>  
-                                   
-                                </div>
-                                <div class="range range-max">
-                                    <label>To:</label>
-                                    <div class="autocomplete-dropdown">
-                                        <input matInput placeholder="Select PowerToWeight" aria-label="PowerToWeight" [matAutocomplete]="toPowerToWeightauto"
-                                         [formControl]="toPowerToWeightControl">
-                                         <mat-autocomplete #toPowerToWeightauto="matAutocomplete">                                        
-                                            <mat-option *ngFor="let option of toPowerToWeightfilteredOptions | async" 
-                                               [value]="option.name">
-                                               {{option.name}}
-                                               </mat-option>                                              
-                                         </mat-autocomplete>
-                                         </div>  
-                                </div>
-                            </div>
-
-                            <div class="range-actions">
-                                <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
-                                    data-upper-placeholder="<!upper>"
-                                    data-expression-url="/cars/?q=CalcPowerWeightRatio.range(%3C!lower%3E..%3C!upper%3E)."
-                                    data-clear-link=""  (click)="getCarModelListByPowerToWeightRange()">Go</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                <div class="nav-element " data-control="rangenavigationelement" data-name="towingbrakes">
-                    <div id="expand-Tow" class="nav-element  {{IsExpandTow}}" data-control="aspectnavigationelement"
-                    data-name="carTow"> 
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Tow (Braked)
-                        </span>
-
-
-                        <div class="expand-link" (click)="ExpandSearch('Tow')">xx</div>
-                    </div>
-                    <div class="element-summary">
-
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Tow (Braked)</h5>
-
-                        <div class="range-element">
-                            <div class="range-selection">
-                                <div class="range range-min">
-                                    <label>From:</label>
-                                    <div class="autocomplete-dropdown">
-                                        <input matInput placeholder="Select Tow" aria-label="Tow" [matAutocomplete]="fromTowauto"
-                                         [formControl]="fromTowControl">
-                                         <mat-autocomplete #fromTowauto="matAutocomplete">                                        
-                                            <mat-option *ngFor="let option of fromTowfilteredOptions | async" 
-                                               [value]="option.name">
-                                               {{option.name}}
-                                               </mat-option>                                              
-                                         </mat-autocomplete>
-                                         </div>                                     
-                                </div>
-                                <div class="range range-max">
-                                    <label>To:</label>
-                                    <div class="autocomplete-dropdown">
-                                        <input matInput placeholder="Select Tow" aria-label="Tow" [matAutocomplete]="toTowauto"
-                                         [formControl]="toTowControl">
-                                         <mat-autocomplete #toTowauto="matAutocomplete">                                        
-                                            <mat-option *ngFor="let option of toTowfilteredOptions | async" 
-                                               [value]="option.name">
-                                               {{option.name}}
-                                               </mat-option>                                              
-                                         </mat-autocomplete>
-                                         </div>  
-                                </div>
-                            </div>
-
-                            <div class="range-actions">
-                                <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
-                                    data-upper-placeholder="<!upper>"
-                                    data-expression-url="/cars/?q=TowingBrakes.range(%3C!lower%3E..%3C!upper%3E)."
-                                    data-clear-link="" (click)="getCarModelListByTowRange()">Go</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-         </div>
-       </div>
-    </div>
-        <div class="nav-element-category category-style" data-category-name="style">
-            <div class="heading-summary">
-                <span class="heading">Style</span>
-                <div class="expand-link" (click)="ExpandSearch('Style')">xx</div>                
-            </div>
-            <div id="expand-Style" class="nav-element  {{IsExpandStyle}}" data-control="aspectnavigationelement"
-            data-name="carStyle">  
-            <div class="element-selection">
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="bodystyle">
-                    <div id="expand-BodyType" class="nav-element  {{IsExpandBodyType}}" data-control="aspectnavigationelement"
-                    data-name="carBodyType">   
-                     <div class="heading-summary">
-                        <span class="heading">
-                            Body Type
-                        </span>
-                        <div class="expand-link" (click)="ExpandSearch('BodyType')">xx</div>                
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Body Type</h5>
-
-                        <div class="aspect-navigation-element" data-aspect-name="BodyStyle">
-
-                            <div class="aspect" data-aspect-name="bodystyle">
-
-
-                                <ul class="default-facets">
-                                    <li class="facet-visible" *ngFor="let carBodyType of  arrBodyType" >
-                                         
-                                        <input type="checkbox" class="chekboxmake"  id="BodyType_{{carBodyType.id}}"  value="{{carBodyType.id}}" 
-                                        [(ngModel)]="carBodyType.Selected" (change)="BindVehicleListBySideSearchBodyTypeId($event)"/>                     
-                                                 {{carBodyType.name}} ({{carBodyType.childCount}})
-                                    </li>                                     
-                                </ul>
-
-                                <!--a class="view-link all">view all...</a-->
-                                <!--a class="view-link less">view less</a-->
-                            </div>
-
-
-
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="colour">
-                    <div id="expand-Colour" class="nav-element  {{IsExpandColour}}" data-control="aspectnavigationelement"
-                    data-name="carColour">   
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Colour
-                        </span>
-
-
-                        <div class="expand-link" (click)="ExpandSearch('Colour')">xx</div>   
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Colour</h5>
-
-                        <div class="aspect-navigation-element" data-aspect-name="Colour">
-
-                            <div class="aspect" data-aspect-name="colour">
-
-                              
-                                <ul class="default-facets">
-                                    <li class="facet-visible" *ngFor="let carColour of  arrColour.slice(colourstartPage,colourpaginationLimit)" >
-                                         
-                                        <input type="checkbox" class="chekboxmake"  id="Colour_{{carColour.id}}"  value="{{carColour.id}}" 
-                                        [(ngModel)]="carColour.Selected" (change)="BindVehicleListBySideSearchColourId($event)"/>                     
-                                                 {{carColour.name}} ({{carColour.childCount}})
-                                    </li>                                     
-                                </ul>
-
-                                <a class="view-link all"
-                                *ngIf="colourpaginationLimit < arrColour?.length"
-                                (click)="showMoreColourItems()">Show
-                                More
-                            </a>
-                            <a class="view-link all"
-                                *ngIf="colourpaginationLimit > 3"
-                                (click)="showLessColourItems()">Show
-                                Less</a>
-                            </div>
-
-
-
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="nav-element " data-control="rangenavigationelement" data-name="seats">
-                    <div id="expand-Seats" class="nav-element  {{IsExpandSeats}}" data-control="aspectnavigationelement"
-                    data-name="carSeats">   
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Seats
-                        </span>
-
-
-                        <div class="expand-link" (click)="ExpandSearch('Seats')">xx</div> 
-                    </div>
-                    <div class="element-summary">
-
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Seats</h5>
-
-                        <div class="range-element">
-                            <div class="range-selection">
-                                <div class="range range-min">
-                                    <label>From:</label>
-
-                                    <div class="autocomplete-dropdown">
-                                        <input matInput placeholder="Select Seat" aria-label="Seat" [matAutocomplete]="fromSeatauto"
-                                         [formControl]="FromSeatControl">
-                                         <mat-autocomplete #fromSeatauto="matAutocomplete">                                        
-                                            <mat-option *ngFor="let option of fromSeatfilteredOptions | async" 
-                                               [value]="option.name">
-                                               {{option.name}}
-                                               </mat-option>                                              
-                                         </mat-autocomplete>
-                                         </div>
-                                </div>
-                                <div class="range range-max">
-                                    <label>To:</label>
-
-                                    <div class="aucomplete-dropdown">
-                                        <input matInput placeholder="Select Seat" aria-label="Seat" [matAutocomplete]="toSeatAuto"
-                                         [formControl]="ToSeatControl">
-                                         <mat-autocomplete #toSeatAuto="matAutocomplete">                                        
-                                            <mat-option *ngFor="let option of toSeatfilteredOptions | async" 
-                                               [value]="option.name">
-                                               {{option.name}}
-                                               </mat-option>                                              
-                                         </mat-autocomplete>
-                                         </div>
-                                </div>
-                            </div>
-
-                            <div class="range-actions">
-                                <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
-                                    data-upper-placeholder="<!upper>"
-                                    data-expression-url="/cars/?q=Seats.range(%3C!lower%3E..%3C!upper%3E)."
-                                    data-clear-link="" (click)="getCarModelLisSeatsRange()">Go</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="doors">
-                    <div id="expand-Doors" class="nav-element  {{IsExpandDoors}}" data-control="aspectnavigationelement"
-                    data-name="carDoors">  
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Doors
-                        </span>
-
-
-                        <div class="expand-link" (click)="ExpandSearch('Doors')">xx</div>   
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Doors</h5>
-
-                        <div class="aspect-navigation-element" data-aspect-name="Doors">
-
-                            <div class="aspect" data-aspect-name="doors">
-
-                                <div class="autocomplete-dropdown">
-                                    <input matInput placeholder="Doors" aria-label="Doors" [matAutocomplete]="Doorsauto"
-                                     [formControl]="DoorsControl">
-                                     <mat-autocomplete #Doorsauto="matAutocomplete">                                        
-                                        <mat-option *ngFor="let option of DoorsfilteredOptions | async" 
-                                           [value]="option.name">
-                                           {{option.name}} ({{option.childCount}})
-                                           </mat-option>                                              
-                                     </mat-autocomplete>
-                                </div>
-
-
-                            </div>
-                            <div class="range-actions">
-                                <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
-                                    data-upper-placeholder="<!upper>"
-                                    data-expression-url="/cars/?q=Seats.range(%3C!lower%3E..%3C!upper%3E)."
-                                    data-clear-link="" (click)="getCarModelListDoors()" >Go</button>
-                            </div>
-
-
-
-                         </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="lifestyles">
-                    <div id="expand-LifeStyles" class="nav-element  {{IsExpandLifeStyles}}" data-control="aspectnavigationelement"
-                    data-name="carLifeStyles"> 
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Lifestyles
-                        </span>
-
-
-                        <div class="expand-link" (click)="ExpandSearch('LifeStyles')">xx</div>    
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Lifestyles</h5>
-
-                        <div class="aspect-navigation-element" data-aspect-name="Lifestyles">
-
-                            <div class="aspect" data-aspect-name="lifestyles">
-
-
-                                <div class="autocomplete-dropdown">
-                                    <input matInput placeholder="LifeStyles" aria-label="LifeStyles" [matAutocomplete]="LifeStylesauto"
-                                     [formControl]="LifeStylesControl">
-                                     <mat-autocomplete #LifeStylesauto="matAutocomplete">                                        
-                                        <mat-option *ngFor="let option of LifeStylesfilteredOptions | async" 
-                                           [value]="option.name">
-                                           {{option.name}} ({{option.childCount}})
-                                           </mat-option>                                              
-                                     </mat-autocomplete>
-                                </div>
-
-
-                            </div>
-                            <div class="range-actions">
-                                <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
-                                    data-upper-placeholder="<!upper>"
-                                    data-expression-url="/cars/?q=Seats.range(%3C!lower%3E..%3C!upper%3E)."
-                                    data-clear-link="" (click)="getCarModelListLifeStyles()" >Go</button>
-                            </div>
-
-
-
-
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-        <div class="nav-element-category category-other" data-category-name="other">
-            <div class="heading-summary">
-                <span class="heading">Other</span>
-                <div class="expand-link"></div>
+            <div class="element-summary">
             </div>
             <div class="element-selection">
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="sellertype">
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Seller Type
-                        </span>
-
-
-                        <div class="expand-link"></div>
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Seller Type</h5>
-
-                        <div class="aspect-navigation-element" data-aspect-name="SellerType">
-
-                            <div class="aspect" data-aspect-name="sellertype">
-
-
-
-
-                                <ul class="default-facets">
-                                    <li class="facet-visible">
-                                        <a href="/cars/dealer/" data-opm-event="click-listings-refinement">Dealer</a>
-
-                                        <span>(95,502)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/private/" data-opm-event="click-listings-refinement">Private</a>
-
-                                        <span>(48,078)</span>
-                                    </li>
-                                </ul>
-
-                            </div>
-
-
-
-
-
-                        </div>
-                    </div>
+              <h5 class="element-selection-title">Location</h5>
+              <div class="aspect-navigation-element" data-aspect-name="State">
+                <div class="aspect" data-aspect-name="state">
+                  <ul class="default-facets">
+                    <li class="facet-visible"
+                      *ngFor="let state of  loogedInUsersStates.slice(locationstartPage,locationpaginationLimit)">
+                      <label id="{{state}}">{{state}}</label>
+                    </li>
+                  </ul>
+                  <a class="view-link all" *ngIf="locationpaginationLimit < loogedInUsersStates?.length"
+                    (click)="showMoreLocation()">Show
+                    More
+                  </a>
+                  <a class="view-link all" *ngIf="locationpaginationLimit > 3" (click)="showLessLocation()">Show
+                    Less</a>
                 </div>
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="pplateapprovedstate">
-                    <div class="heading-summary">
-                        <span class="heading">
-                            P-Plate Approved State
-                        </span>
-
-
-                        <div class="expand-link"></div>
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">P-Plate Approved State</h5>
-
-                        <div class="aspect-navigation-element" data-aspect-name="PPlateApprovedState">
-
-                            <div class="aspect" data-aspect-name="pplateapprovedstate">
-
-
-
-
-                                <ul class="default-facets">
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=PPlateApprovedState.Australian+Capital+Territory."
-                                            data-opm-event="click-listings-refinement">Australian Capital Territory</a>
-
-                                        <span>(143,446)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=PPlateApprovedState.New+South+Wales."
-                                            data-opm-event="click-listings-refinement">New South Wales</a>
-
-                                        <span>(123,386)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=PPlateApprovedState.Northern+Territory."
-                                            data-opm-event="click-listings-refinement">Northern Territory</a>
-
-                                        <span>(143,446)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=PPlateApprovedState.Queensland."
-                                            data-opm-event="click-listings-refinement">Queensland</a>
-
-                                        <span>(121,964)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=PPlateApprovedState.South+Australia."
-                                            data-opm-event="click-listings-refinement">South Australia</a>
-
-                                        <span>(125,194)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=PPlateApprovedState.Tasmania."
-                                            data-opm-event="click-listings-refinement">Tasmania</a>
-
-                                        <span>(143,446)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=PPlateApprovedState.Victoria."
-                                            data-opm-event="click-listings-refinement">Victoria</a>
-
-                                        <span>(127,446)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=PPlateApprovedState.Western+Australia."
-                                            data-opm-event="click-listings-refinement">Western Australia</a>
-
-                                        <span>(143,446)</span>
-                                    </li>
-                                </ul>
-
-                            </div>
-
-
-
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="adswith">
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Only Show Cars With
-                        </span>
-
-
-                        <div class="expand-link"></div>
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Only Show Cars With</h5>
-
-                        <div class="aspect-navigation-element" data-aspect-name="AdsWith">
-
-                            <div class="aspect" data-aspect-name="adswith">
-
-
-
-
-                                <ul class="default-facets">
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=AdsWith.CarFacts+Reports."
-                                            data-opm-event="click-listings-refinement">CarFacts Reports</a>
-
-                                        <span>(1,218)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=AdsWith.Manufacturer+Certifications."
-                                            data-opm-event="click-listings-refinement">Manufacturer Certifications</a>
-
-                                        <span>(1,075)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=AdsWith.Photos."
-                                            data-opm-event="click-listings-refinement">Photos</a>
-
-                                        <span>(137,172)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=AdsWith.Prices."
-                                            data-opm-event="click-listings-refinement">Prices</a>
-
-                                        <span>(142,342)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=AdsWith.RedBook+Inspections."
-                                            data-opm-event="click-listings-refinement">RedBook Inspections</a>
-
-                                        <span>(304)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=AdsWith.Roadworthy+Certificates."
-                                            data-opm-event="click-listings-refinement">Roadworthy Certificates</a>
-
-                                        <span>(54,073)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=AdsWith.Special+Offers."
-                                            data-opm-event="click-listings-refinement">Special Offers</a>
-
-                                        <span>(10,616)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=AdsWith.Videos."
-                                            data-opm-event="click-listings-refinement">Videos</a>
-
-                                        <span>(1,915)</span>
-                                    </li>
-                                </ul>
-
-                            </div>
-
-
-
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="ancaprating">
-                    <div class="heading-summary">
-                        <span class="heading">
-                            ANCAP Safety Rating
-                        </span>
-
-
-                        <div class="expand-link"></div>
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">ANCAP Safety Rating</h5>
-
-                        <div class="aspect-navigation-element" data-aspect-name="ANCAPRating">
-
-                            <div class="aspect" data-aspect-name="ancaprating">
-
-
-
-
-                                <ul class="default-facets">
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=ANCAPRating.3+stars+or+more."
-                                            data-opm-event="click-listings-refinement">3 stars or more</a>
-
-                                        <span>(102,456)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=ANCAPRating.4+stars+or+more."
-                                            data-opm-event="click-listings-refinement">4 stars or more</a>
-
-                                        <span>(99,836)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=ANCAPRating.5+stars+only."
-                                            data-opm-event="click-listings-refinement">5 stars only</a>
-
-                                        <span>(88,637)</span>
-                                    </li>
-                                    <li class="facet-visible">
-                                        <a href="/cars/?q=ANCAPRating.less+than+3+stars."
-                                            data-opm-event="click-listings-refinement">less than 3 stars</a>
-
-                                        <span>(343)</span>
-                                    </li>
-                                </ul>
-
-                            </div>
-
-
-
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="nav-element " data-control="aspectnavigationelement" data-name="sales">
-                    <div class="heading-summary">
-                        <span class="heading">
-                            Special Offers
-                        </span>
-
-
-                        <div class="expand-link"></div>
-                    </div>
-                    <div class="element-summary">
-                    </div>
-                    <div class="element-selection">
-                        <h5 class="element-selection-title">Special Offers</h5>
-
-                        <div class="aspect-navigation-element" data-aspect-name="Sales">
-
-                            <div class="aspect" data-aspect-name="sales">
-
-
-
-
-                            </div>
-
-
-
-
-
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
+          </div>
         </div>
+        <div class="nav-element " data-control="poinavigationelement" data-name="postcode">
+          <div class="heading-summary">
+            <span class="heading">
+              Postcode
+            </span>
+            <div class="expand-link"></div>
+          </div>
+          <div class="element-summary">
+          </div>
+          <div class="element-selection">
+            <h5 class="element-selection-title">Postcode</h5>
+            <div class="poi-element">
+              <div class="poi-selection">
+                <input type="text" maxlength="4">
+                <select id="DistanceInKms" name="DistanceInKms">
+                  <option value="10">10 km</option>
+                  <option selected="selected" value="25">25 km</option>
+                  <option value="50">50 km</option>
+                  <option value="100">100 km</option>
+                  <option value="250">250 km</option>
+                  <option value="500">500 km</option>
+                </select>
+              </div>
+              <div class="poi-actions">
+                <button class="btn-primary btn go" data-location-placeholder="<!loc>"
+                  data-distinkms-placeholder="<!distInKms>"
+                  data-expression-url="/cars/?q=Postcode.poi(%3C!loc%3Ex%3C!distInKms%3Ekm).">Go</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-element " data-control="rangenavigationelement" data-name="year">
+          <div id="expand-year" class="nav-element  {{IsExpandYear}}" data-control="aspectnavigationelement"
+            data-name="Year">
+            <div class="heading-summary">
+              <span class="heading">Year</span>
+              <div class="expand-link" (click)="ExpandYear()">xx</div>
+            </div>
+            <div class="element-summary"> </div>
+            <div class="element-selection">
+              <h5 class="element-selection-title">Year</h5>
+              <div class="range-element">
+                <div class="range-selection">
+                  <div>
+                    <label>From:</label>
+                    <div class="autocomplete-dropdown">
+                      <input matInput placeholder="Select Year" aria-label="Year" [matAutocomplete]="fromYearauto"
+                        [formControl]="FromYrControl">
+                      <mat-autocomplete #fromYearauto="matAutocomplete">
+                        <mat-option *ngFor="let option of fromYearfilteredOptions | async" [value]="option.name">
+                          {{option.name}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </div>
+                  </div>
+                  <div>
+                    <label>To:</label>
+                    <div class="autocomplete-dropdown">
+                      <input matInput placeholder="Select Year" aria-label="Year" [matAutocomplete]="toYearauto"
+                        [formControl]="ToYrControl">
+                      <mat-autocomplete #toYearauto="matAutocomplete">
+                        <mat-option *ngFor="let option of toYearfilteredOptions | async" [value]="option.name">
+                          {{option.name}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </div>
+                  </div>
+                </div>
+                <div class="range-actions">
+                  <button class="btn-primary btn go" data-lower-placeholder="<!lower>" data-upper-placeholder="<!upper>"
+                    data-expression-url="/cars/?q=Year.range(%3C!lower%3E..%3C!upper%3E)." data-clear-link=""
+                    (click)="getCarModelLisYearRange()">Go</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-element " data-control="aspectnavigationelement" data-name="price">
+          <div id="expand-price" class="nav-element  {{IsExpandPrice}}" data-control="aspectnavigationelement"
+            data-name="price">
+            <div class="heading-summary">
+              <span class="heading">
+                Price
+              </span>
+              <div class="expand-link" (click)="ExpandPrice()">xx</div>
+            </div>
+            <div class="element-summary">
+            </div>
+            <div class="element-selection">
+              <h5 class="element-selection-title">Price</h5>
+              <div class="aspect-navigation-element" data-aspect-name="Price">
+                <div class="aspect" data-aspect-name="price">
+                  <label>From:</label>
+                  <div class="autocomplete-dropdown">
+                    <input matInput placeholder="AU $" aria-label="Price" [matAutocomplete]="fromPriceauto"
+                      [formControl]="FromPriceControl">
+                    <mat-autocomplete #fromPriceauto="matAutocomplete">
+                      <mat-option *ngFor="let option of fromPricefilteredOptions | async" [value]="option.name">
+                        {{option.name}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </div>
+                  <label>To:</label>
+                  <div class="autocomplete-dropdown">
+                    <input matInput placeholder="AU $" aria-label="Price" [matAutocomplete]="ToPriceauto"
+                      [formControl]="ToPriceControl">
+                    <mat-autocomplete #ToPriceauto="matAutocomplete">
+                      <mat-option *ngFor="let option of toPricefilteredOptions | async" [value]="option.name">
+                        {{option.name}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </div>
+                  <span></span>
+                  <a (click)="getCarModelListFromToPrice()">
+                    <img src="../../assets/images/right.png" /> </a>
+                </div>
+
+                <div class="aspect custom-slider" data-aspect-name="price">
+                  <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="priceoptions"
+                    (userChangeEnd)="onSliderPriceChange($event)"></ng5-slider>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-element " data-control="aspectnavigationelement" data-name="purchaseoptions">
+          <div class="heading-summary">
+            <span class="heading">
+              Purchase Options
+            </span>
+
+
+            <div class="expand-link"></div>
+          </div>
+          <div class="element-summary">
+          </div>
+          <div class="element-selection">
+            <h5 class="element-selection-title">Purchase Options</h5>
+            <div class="aspect-navigation-element" data-aspect-name="PurchaseOptions">
+              <div class="aspect" data-aspect-name="purchaseoptions">
+                <ul class="default-facets">
+                  <li class="facet-visible">
+                    <a href="/cars/?q=PurchaseOptions.Available+to+be+financed."
+                      data-opm-event="click-listings-refinement">Available to be financed</a>
+                    <span>(9,773)</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-element " data-control="rangenavigationelement" data-name="odometer">
+          <div id="expand-Odometer" class="nav-element  {{IsExpandOdometer}}" data-control="aspectnavigationelement"
+            data-name="odometer">
+            <div class="heading-summary">
+              <span class="heading">
+                Odometer
+              </span>
+              <div class="expand-link" (click)="ExpandOdometer()">xx</div>
+            </div>
+            <div class="element-summary">
+
+            </div>
+            <div class="element-selection">
+              <h5 class="element-selection-title">Odometer</h5>
+
+              <div class="range-element">
+                <div class="range-selection">
+                  <div class="range range-min">
+                    <label>From:</label>
+
+                    <div class="autocomplete-dropdown">
+                      <div>
+                        <input type="text" placeholder="Min" [(ngModel)]="fromOdometer" data-value="">Km<i></i>
+                      </div>
+                      <ul style="display: none;">
+                        <li data-value="" data-text="Min">Min</li>
+                        <li data-value="10000" data-text="10,000 km">10,000 km</li>
+                        <li data-value="20000" data-text="20,000 km">20,000 km</li>
+                        <li data-value="40000" data-text="40,000 km">40,000 km</li>
+                        <li data-value="60000" data-text="60,000 km">60,000 km</li>
+                        <li data-value="80000" data-text="80,000 km">80,000 km</li>
+                        <li data-value="100000" data-text="100,000 km">100,000 km</li>
+                        <li data-value="150000" data-text="150,000 km">150,000 km</li>
+                        <li data-value="200000" data-text="200,000 km">200,000 km</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="range range-max">
+                    <label>To:</label>
+
+                    <div class="autocomplete-dropdown">
+                      <div>
+                        <input type="text" placeholder="Max" [(ngModel)]="toOdometer" data-value="">Km<i></i>
+                      </div>
+                      <ul style="display: none;">
+                        <li data-value="" data-text="Max">Max</li>
+                        <li data-value="10000" data-text="10,000 km">10,000 km</li>
+                        <li data-value="20000" data-text="20,000 km">20,000 km</li>
+                        <li data-value="40000" data-text="40,000 km">40,000 km</li>
+                        <li data-value="60000" data-text="60,000 km">60,000 km</li>
+                        <li data-value="80000" data-text="80,000 km">80,000 km</li>
+                        <li data-value="100000" data-text="100,000 km">100,000 km</li>
+                        <li data-value="150000" data-text="150,000 km">150,000 km</li>
+                        <li data-value="200000" data-text="200,000 km">200,000 km</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="range-actions">
+                  <button class="btn-primary btn go" data-lower-placeholder="<!lower>" data-upper-placeholder="<!upper>"
+                    data-expression-url="/cars/?q=Odometer.range(%3C!lower%3E..%3C!upper%3E)." data-clear-link=""
+                    (click)="getCarModelLisOdometerRange()">Go</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-element " data-control="aspectnavigationelement" data-name="genericgeartype">
+          <div id="expand-Transmission" class="nav-element  {{IsExpandTransmission}}"
+            data-control="aspectnavigationelement" data-name="Transmission">
+            <div class="heading-summary">
+              <span class="heading">
+                Transmission
+              </span>
+              <div class="expand-link" (click)="ExpandTransmission()">xx</div>
+            </div>
+            <div class="element-summary">
+            </div>
+            <div class="element-selection">
+              <h5 class="element-selection-title">Transmission</h5>
+
+              <div class="aspect-navigation-element" data-aspect-name="GenericGearType">
+
+                <div class="aspect" data-aspect-name="genericgeartype">
+
+
+
+
+                  <ul class="default-facets">
+                    <li class="facet-visible" *ngFor="let carTransmission of  arrTransmission">
+
+                      <input type="checkbox" class="chekboxmake" id="Transmission_{{carTransmission.id}}"
+                        value="{{carTransmission.id}}" [(ngModel)]="carTransmission.Selected"
+                        (change)="BindVehicleListBySideSearchTransmissionId($event)" />
+                      {{carTransmission.name}}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-element " data-control="aspectnavigationelement" data-name="certifiedinspected">
+          <div id="expand-certifiedinspected" class="nav-element  {{IsExpandcertifiedinspected}}"
+            data-control="aspectnavigationelement" data-name="certifiedinspected">
+            <div class="heading-summary">
+              <span class="heading">
+                Certified / Inspected
+              </span>
+              <div class="expand-link" (click)="ExpandCertifiedinspected()">xx</div>
+            </div>
+            <div class="element-summary">
+            </div>
+            <div class="element-selection">
+              <h5 class="element-selection-title">Certified / Inspected</h5>
+
+              <div class="aspect-navigation-element" data-aspect-name="CertifiedInspected">
+
+                <div class="aspect" data-aspect-name="certifiedinspected">
+
+                  <ul class="default-facets">
+                    <li class="facet-visible" *ngFor="let carCertified of  arrCertified">
+
+                      <input type="checkbox" class="chekboxmake" id="carCertified_{{carCertified.id}}"
+                        value="{{carCertified.id}}" [(ngModel)]="carCertified.Selected"
+                        (change)="BindVehicleListBySideSearchcarCertifiedInspectedId($event)" />
+                      {{carCertified.name}} ({{carCertified.childCount}})
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-element " data-control="aspectnavigationelement" data-name="VehicleType">
+          <div id="expand-VehicleType" class="nav-element  {{IsExpandVehicleType}}"
+            data-control="aspectnavigationelement" data-name="VehicleType">
+            <div class="heading-summary">
+              <span class="heading">
+                New / Used
+              </span>
+              <div class="expand-link" (click)="ExpandVehicleType()">xx</div>
+            </div>
+            <div class="element-summary">
+            </div>
+            <div class="element-selection">
+              <h5 class="element-selection-title">New / Used</h5>
+              <div class="aspect-navigation-element" data-aspect-name="Condition">
+                <div class="aspect" data-aspect-name="condition">
+                  <ul class="default-facets">
+                    <li class="facet-visible" *ngFor="let vehicleType of  arrVehicleType">
+                      <input type="checkbox" class="chekboxmake" id="vehicleType_{{vehicleType.id}}"
+                        value="{{vehicleType.id}}" [(ngModel)]="vehicleType.Selected"
+                        (change)="BindVehicleListBySideSearchcarVehicleTypeId($event)" />
+                      {{vehicleType.name}} ({{vehicleType.childCount}})
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-element " data-control="keywordnavigationelement" data-name="carall">
+          <div id="expand-Keywords" class="nav-element  {{IsExpandKeywords}}" data-control="aspectnavigationelement"
+            data-name="carall">
+            <div class="heading-summary">
+              <span class="heading">
+                Keywords
+              </span>
+              <div class="expand-link" (click)="ExpandKeywords()">xx</div>
+            </div>
+            <div class="element-summary">
+            </div>
+            <div class="element-selection">
+              <h5 class="element-selection-title">Keywords</h5>
+              <div class="keyword-element">
+                <div class="keyword-selection">
+                  <input type="text" placeholder="Search..." maxlength="100" data-msg-required="Please enter keyword.">
+                  <button class="go btn btn-primary" data-placeholder="<!>"
+                    data-expression-url="/cars/?q=CarAll.keyword(%3C!%3E).">Go</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  
+    <div class="nav-element-category category-engine" data-category-name="engine">
+      <div class="heading-summary">
+        <span class="heading">Engine</span>
+        <div class="expand-link" (click)="ExpandSearch('Engine')">xx</div>
+      </div>
+      <div id="expand-Engine" class="nav-element  {{IsExpandEngine}}" data-control="aspectnavigationelement"
+        data-name="carengine">
+        <div class="element-selection">
+          <div class="nav-element " data-control="aspectnavigationelement" data-name="fueltype">
+            <div id="expand-FuelType" class="nav-element  {{IsExpandFuelType}}" data-control="aspectnavigationelement"
+              data-name="carFuelType">
+              <div class="heading-summary">
+                <span class="heading">
+                  Fuel Type
+                </span>
+                <div class="expand-link" (click)="ExpandSearch('FuelType')">xx</div>
+              </div>
+              <div class="element-summary">
+              </div>
+              <div class="element-selection">
+                <h5 class="element-selection-title">Fuel Type</h5>
+
+                <div class="aspect-navigation-element" data-aspect-name="FuelType">
+
+                  <div class="aspect" data-aspect-name="fueltype">
+                    <ul class="default-facets">
+                      <li class="facet-visible" *ngFor="let fueltype of  arrFuelType">
+                        <input type="checkbox" class="chekboxmake" id="fueltype_{{fueltype.id}}" value="{{fueltype.id}}"
+                          [(ngModel)]="fueltype.Selected" (change)="BindVehicleListBySideSearchFuelType($event)" />
+                        {{fueltype.name}}
+                        <span>({{fueltype.childCount}})</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-element " data-control="aspectnavigationelement" data-name="drive">
+            <div id="expand-DriveType" class="nav-element  {{IsExpandDriveType}}" data-control="aspectnavigationelement"
+              data-name="carExpandDriveType">
+              <div class="heading-summary">
+                <span class="heading">
+                  Drive Type
+                </span>
+                <div class="expand-link" (click)="ExpandSearch('DriveType')">xx</div>
+              </div>
+              <div class="element-summary">
+              </div>
+              <div class="element-selection">
+                <h5 class="element-selection-title">Drive Type</h5>
+                <div class="aspect-navigation-element" data-aspect-name="Drive">
+                  <div class="aspect" data-aspect-name="drive">
+
+
+
+                    <div class="autocomplete-dropdown">
+                      <input matInput placeholder="DriveType" aria-label="DriveType" [matAutocomplete]="DriveTypeauto"
+                        [formControl]="DriveTypeControl">
+                      <mat-autocomplete #DriveTypeauto="matAutocomplete">
+                        <mat-option *ngFor="let option of DriveTypefilteredOptions | async" [value]="option.name">
+                          {{option.name}} ({{option.childCount}})
+                        </mat-option>
+                      </mat-autocomplete>
+                    </div>
+                    <div class="range-actions">
+                      <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
+                        data-upper-placeholder="<!upper>"
+                        data-expression-url="/cars/?q=Year.range(%3C!lower%3E..%3C!upper%3E)." data-clear-link=""
+                        (click)="getCarModelListDriveType()">Go</button>
+                    </div>
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-element " data-control="aspectnavigationelement" data-name="cylinders">
+            <div id="expand-Cylinders" class="nav-element  {{IsExpandCylinders}}" data-control="aspectnavigationelement"
+              data-name="carCylinders">
+              <div class="heading-summary">
+                <span class="heading">
+                  Cylinders
+                </span>
+                <div class="expand-link" (click)="ExpandSearch('Cylinders')">xx</div>
+              </div>
+              <div class="element-summary">
+              </div>
+              <div class="element-selection">
+                <h5 class="element-selection-title">Cylinders</h5>
+                <div class="aspect-navigation-element" data-aspect-name="Cylinders">
+                  <div class="aspect" data-aspect-name="cylinders">
+                    <ul class="default-facets">
+                      <li class="facet-visible" *ngFor="let cylinder of  arrCylinders">
+                        <input type="checkbox" class="chekboxmake" id="cylinder_{{cylinder.id}}" value="{{cylinder.id}}"
+                          [(ngModel)]="cylinder.Selected" (change)="BindVehicleListBySideSearchCylinder($event)" />
+                        {{cylinder.name}}
+                        <span>({{cylinder.childCount}})</span>
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-element " data-control="rangenavigationelement" data-name="enginesize">
+            <div id="expand-EngineSize" class="nav-element  {{IsExpandEngineSize}}"
+              data-control="aspectnavigationelement" data-name="carEngineSize">
+              <div class="heading-summary">
+                <span class="heading">
+                  Engine Size
+                </span>
+                <div class="expand-link" (click)="ExpandSearch('EngineSize')">xx</div>
+              </div>
+              <div class="element-summary">
+
+              </div>
+              <div class="element-selection">
+                <h5 class="element-selection-title">Engine Size</h5>
+                <div class="range-element">
+                  <div class="range-selection">
+                    <div>
+                      <label>From:</label>
+                      <div class="autocomplete-dropdown">
+                        <input matInput placeholder="Select Engine Size" aria-label="EngineSize"
+                          [matAutocomplete]="fromEngineSizeauto" [formControl]="fromEngineSizeControl">
+                        <mat-autocomplete #fromEngineSizeauto="matAutocomplete">
+                          <mat-option *ngFor="let option of fromEngineSizefilteredOptions | async"
+                            [value]="option.name">
+                            {{option.name}} ({{option.childCount}})
+                          </mat-option>
+                        </mat-autocomplete>
+                      </div>
+                    </div>
+                    <div>
+                      <label>To:</label>
+                      <div class="autocomplete-dropdown">
+                        <input matInput placeholder="Select Engine Size" aria-label="EngineSize"
+                          [matAutocomplete]="toEngineSizeauto" [formControl]="toEngineSizeControl">
+                        <mat-autocomplete #toEngineSizeauto="matAutocomplete">
+                          <mat-option *ngFor="let option of toEngineSizefilteredOptions | async" [value]="option.name">
+                            {{option.name}} ({{option.childCount}})
+                          </mat-option>
+                        </mat-autocomplete>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="range-actions">
+                    <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
+                      data-upper-placeholder="<!upper>"
+                      data-expression-url="/cars/?q=Year.range(%3C!lower%3E..%3C!upper%3E)." data-clear-link=""
+                      (click)="getCarModelListEngineSizeRange()">Go</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="nav-element " data-control="aspectnavigationelement" data-name="enginedescription">
+            <div id="expand-EngineDescription" class="nav-element  {{IsExpandEngineDescription}}"
+              data-control="aspectnavigationelement" data-name="carEngineDescription">
+              <div class="heading-summary">
+                <span class="heading">
+                  Engine Description
+                </span>
+                <div class="expand-link" (click)="ExpandSearch('EngineDescription')">xx</div>
+              </div>
+              <div class="element-summary">
+              </div>
+              <div class="element-selection">
+                <h5 class="element-selection-title">Engine Description</h5>
+                <div class="aspect-navigation-element" data-aspect-name="EngineDescription">
+                  <div class="aspect" data-aspect-name="enginedescription">
+                    <div class="autocomplete-dropdown">
+                      <input matInput placeholder="Engine Description" aria-label="EngineDescription"
+                        [matAutocomplete]="engineDescriptionauto" [formControl]="EngineDescriptionControl">
+                      <mat-autocomplete #engineDescriptionauto="matAutocomplete">
+                        <mat-option *ngFor="let option of EngineDescriptionfilteredOptions | async"
+                          [value]="option.name">
+                          {{option.name}} ({{option.childCount}})
+                        </mat-option>
+                      </mat-autocomplete>
+                    </div>
+                    <div class="range-actions">
+                      <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
+                        data-upper-placeholder="<!upper>"
+                        data-expression-url="/cars/?q=Year.range(%3C!lower%3E..%3C!upper%3E)." data-clear-link=""
+                        (click)="getCarModelListEngineDescription()">Go</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-element " data-control="aspectnavigationelement" data-name="fueleconomy">
+            <div id="expand-FuelEconomy" class="nav-element  {{IsExpandFuelEconomy}}"
+              data-control="aspectnavigationelement" data-name="carFuelEconomy">
+              <div class="heading-summary">
+                <span class="heading">
+                  Fuel Economy
+                </span>
+                <div class="expand-link" (click)="ExpandSearch('FuelEconomy')">xx</div>
+              </div>
+              <div class="element-summary">
+              </div>
+              <div class="element-selection">
+                <h5 class="element-selection-title">Fuel Economy</h5>
+
+                <div class="aspect-navigation-element" data-aspect-name="FuelEconomy">
+                  <div class="aspect" data-aspect-name="fueleconomy">
+                    <div class="autocomplete-dropdown">
+                      <input matInput placeholder="Fuel Economy" aria-label="FuelEconomy"
+                        [matAutocomplete]="FuelEconomyauto" [formControl]="FuelEconomyControl">
+                      <mat-autocomplete #FuelEconomyauto="matAutocomplete">
+                        <mat-option *ngFor="let option of FuelEconomyfilteredOptions | async" [value]="option.name">
+                          {{option.name}} ({{option.childCount}})
+                        </mat-option>
+                      </mat-autocomplete>
+                    </div>
+                    <div class="range-actions">
+                      <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
+                        data-upper-placeholder="<!upper>"
+                        data-expression-url="/cars/?q=Year.range(%3C!lower%3E..%3C!upper%3E)." data-clear-link=""
+                        (click)="getCarModelListFuelEconomy()">Go</button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-element " data-control="aspectnavigationelement" data-name="induction">
+            <div id="expand-InductionTurbo" class="nav-element  {{IsExpandInductionTurbo}}"
+              data-control="aspectnavigationelement" data-name="carInductionTurbo">
+              <div class="heading-summary">
+                <span class="heading">
+                  Induction / Turbo
+                </span>
+
+
+                <div class="expand-link" (click)="ExpandSearch('InductionTurbo')">xx</div>
+              </div>
+              <div class="element-summary">
+              </div>
+              <div class="element-selection">
+                <h5 class="element-selection-title">Induction / Turbo</h5>
+
+                <div class="aspect-navigation-element" data-aspect-name="Induction">
+
+                  <div class="aspect" data-aspect-name="induction">
+
+                    <div class="autocomplete-dropdown">
+                      <input matInput placeholder="Induction Turbo" aria-label="InductionTurbo"
+                        [matAutocomplete]="InductionTurboauto" [formControl]="InductionTurboControl">
+                      <mat-autocomplete #InductionTurboauto="matAutocomplete">
+                        <mat-option *ngFor="let option of InductionTurbofilteredOptions | async" [value]="option.name">
+                          {{option.name}} ({{option.childCount}})
+                        </mat-option>
+                      </mat-autocomplete>
+                    </div>
+                    <div class="range-actions">
+                      <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
+                        data-upper-placeholder="<!upper>"
+                        data-expression-url="/cars/?q=Year.range(%3C!lower%3E..%3C!upper%3E)." data-clear-link=""
+                        (click)="getCarModelListInductionTurbo()">Go</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-element " data-control="rangenavigationelement" data-name="power">
+            <div id="expand-Power" class="nav-element  {{IsExpandPower}}" data-control="aspectnavigationelement"
+              data-name="carPower">
+              <div class="heading-summary">
+                <span class="heading">
+                  Power
+                </span>
+                <div class="expand-link" (click)="ExpandSearch('Power')">xx</div>
+              </div>
+              <div class="element-summary">
+              </div>
+              <div class="element-selection">
+                <h5 class="element-selection-title">Power</h5>
+                <div class="range-element">
+                  <div class="range-selection">
+                    <div class="range range-min">
+                      <label>From:</label>
+                      <div class="autocomplete-dropdown">
+                        <input matInput placeholder="Select Power" aria-label="PowerToWeight"
+                          [matAutocomplete]="fromPowerauto" [formControl]="fromPowerControl">
+                        <mat-autocomplete #fromPowerauto="matAutocomplete">
+                          <mat-option *ngFor="let option of fromPowerfilteredOptions | async" [value]="option.name">
+                            {{option.name}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </div>
+                    </div>
+                    <div class="range range-max">
+                      <label>To:</label>
+                      <div class="autocomplete-dropdown">
+                        <input matInput placeholder="Select Power" aria-label="PowerToWeight"
+                          [matAutocomplete]="ToPowerauto" [formControl]="toPowerControl">
+                        <mat-autocomplete #ToPowerauto="matAutocomplete">
+                          <mat-option *ngFor="let option of toPowerfilteredOptions | async" [value]="option.name">
+                            {{option.name}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="range-actions">
+                    <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
+                      data-upper-placeholder="<!upper>"
+                      data-expression-url="/cars/?q=Power.range(%3C!lower%3E..%3C!upper%3E)." data-clear-link=""
+                      (click)="getCarModelListByPowerRange()">Go</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-element " data-control="rangenavigationelement" data-name="calcpowerweightratio">
+            <div id="expand-PowerToWeight" class="nav-element  {{IsExpandPowerToWeight}}"
+              data-control="aspectnavigationelement" data-name="carPowerToWeight">
+              <div class="heading-summary">
+                <span class="heading">
+                  Power to Weight
+                </span>
+                <div class="expand-link" (click)="ExpandSearch('PowerToWeight')">xx</div>
+              </div>
+              <div class="element-summary">
+
+              </div>
+              <div class="element-selection">
+                <h5 class="element-selection-title">Power to Weight</h5>
+
+                <div class="range-element">
+                  <div class="range-selection">
+                    <div class="range range-min">
+                      <label>From:</label>
+                      <div class="autocomplete-dropdown">
+                        <input matInput placeholder="Select PowerToWeight" aria-label="PowerToWeight"
+                          [matAutocomplete]="fromPowerToWeightauto" [formControl]="fromPowerToWeightControl">
+                        <mat-autocomplete #fromPowerToWeightauto="matAutocomplete">
+                          <mat-option *ngFor="let option of fromPowerToWeightfilteredOptions | async"
+                            [value]="option.name">
+                            {{option.name}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </div>
+
+                    </div>
+                    <div class="range range-max">
+                      <label>To:</label>
+                      <div class="autocomplete-dropdown">
+                        <input matInput placeholder="Select PowerToWeight" aria-label="PowerToWeight"
+                          [matAutocomplete]="toPowerToWeightauto" [formControl]="toPowerToWeightControl">
+                        <mat-autocomplete #toPowerToWeightauto="matAutocomplete">
+                          <mat-option *ngFor="let option of toPowerToWeightfilteredOptions | async"
+                            [value]="option.name">
+                            {{option.name}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="range-actions">
+                    <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
+                      data-upper-placeholder="<!upper>"
+                      data-expression-url="/cars/?q=CalcPowerWeightRatio.range(%3C!lower%3E..%3C!upper%3E)."
+                      data-clear-link="" (click)="getCarModelListByPowerToWeightRange()">Go</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-element " data-control="rangenavigationelement" data-name="towingbrakes">
+            <div id="expand-Tow" class="nav-element  {{IsExpandTow}}" data-control="aspectnavigationelement"
+              data-name="carTow">
+              <div class="heading-summary">
+                <span class="heading">
+                  Tow (Braked)
+                </span>
+
+
+                <div class="expand-link" (click)="ExpandSearch('Tow')">xx</div>
+              </div>
+              <div class="element-summary">
+
+              </div>
+              <div class="element-selection">
+                <h5 class="element-selection-title">Tow (Braked)</h5>
+
+                <div class="range-element">
+                  <div class="range-selection">
+                    <div class="range range-min">
+                      <label>From:</label>
+                      <div class="autocomplete-dropdown">
+                        <input matInput placeholder="Select Tow" aria-label="Tow" [matAutocomplete]="fromTowauto"
+                          [formControl]="fromTowControl">
+                        <mat-autocomplete #fromTowauto="matAutocomplete">
+                          <mat-option *ngFor="let option of fromTowfilteredOptions | async" [value]="option.name">
+                            {{option.name}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </div>
+                    </div>
+                    <div class="range range-max">
+                      <label>To:</label>
+                      <div class="autocomplete-dropdown">
+                        <input matInput placeholder="Select Tow" aria-label="Tow" [matAutocomplete]="toTowauto"
+                          [formControl]="toTowControl">
+                        <mat-autocomplete #toTowauto="matAutocomplete">
+                          <mat-option *ngFor="let option of toTowfilteredOptions | async" [value]="option.name">
+                            {{option.name}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="range-actions">
+                    <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
+                      data-upper-placeholder="<!upper>"
+                      data-expression-url="/cars/?q=TowingBrakes.range(%3C!lower%3E..%3C!upper%3E)." data-clear-link=""
+                      (click)="getCarModelListByTowRange()">Go</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-element-category category-style" data-category-name="style">
+      <div class="heading-summary">
+        <span class="heading">Style</span>
+        <div class="expand-link" (click)="ExpandSearch('Style')">xx</div>
+      </div>
+      <div id="expand-Style" class="nav-element  {{IsExpandStyle}}" data-control="aspectnavigationelement"
+        data-name="carStyle">
+        <div class="element-selection">
+          <div class="nav-element " data-control="aspectnavigationelement" data-name="bodystyle">
+            <div id="expand-BodyType" class="nav-element  {{IsExpandBodyType}}" data-control="aspectnavigationelement"
+              data-name="carBodyType">
+              <div class="heading-summary">
+                <span class="heading">
+                  Body Type
+                </span>
+                <div class="expand-link" (click)="ExpandSearch('BodyType')">xx</div>
+              </div>
+              <div class="element-summary">
+              </div>
+              <div class="element-selection">
+                <h5 class="element-selection-title">Body Type</h5>
+
+                <div class="aspect-navigation-element" data-aspect-name="BodyStyle">
+
+                  <div class="aspect" data-aspect-name="bodystyle">
+
+
+                    <ul class="default-facets">
+                      <li class="facet-visible" *ngFor="let carBodyType of  arrBodyType">
+
+                        <input type="checkbox" class="chekboxmake" id="BodyType_{{carBodyType.id}}"
+                          value="{{carBodyType.id}}" [(ngModel)]="carBodyType.Selected"
+                          (change)="BindVehicleListBySideSearchBodyTypeId($event)" />
+                        {{carBodyType.name}} ({{carBodyType.childCount}})
+                      </li>
+                    </ul>
+
+                    <!--a class="view-link all">view all...</a-->
+                    <!--a class="view-link less">view less</a-->
+                  </div>
+
+
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-element " data-control="aspectnavigationelement" data-name="colour">
+            <div id="expand-Colour" class="nav-element  {{IsExpandColour}}" data-control="aspectnavigationelement"
+              data-name="carColour">
+              <div class="heading-summary">
+                <span class="heading">
+                  Colour
+                </span>
+
+
+                <div class="expand-link" (click)="ExpandSearch('Colour')">xx</div>
+              </div>
+              <div class="element-summary">
+              </div>
+              <div class="element-selection">
+                <h5 class="element-selection-title">Colour</h5>
+
+                <div class="aspect-navigation-element" data-aspect-name="Colour">
+
+                  <div class="aspect" data-aspect-name="colour">
+
+
+                    <ul class="default-facets">
+                      <li class="facet-visible"
+                        *ngFor="let carColour of  arrColour.slice(colourstartPage,colourpaginationLimit)">
+
+                        <input type="checkbox" class="chekboxmake" id="Colour_{{carColour.id}}" value="{{carColour.id}}"
+                          [(ngModel)]="carColour.Selected" (change)="BindVehicleListBySideSearchColourId($event)" />
+                        {{carColour.name}} ({{carColour.childCount}})
+                      </li>
+                    </ul>
+
+                    <a class="view-link all" *ngIf="colourpaginationLimit < arrColour?.length"
+                      (click)="showMoreColourItems()">Show
+                      More
+                    </a>
+                    <a class="view-link all" *ngIf="colourpaginationLimit > 3" (click)="showLessColourItems()">Show
+                      Less</a>
+                  </div>
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-element " data-control="rangenavigationelement" data-name="seats">
+            <div id="expand-Seats" class="nav-element  {{IsExpandSeats}}" data-control="aspectnavigationelement"
+              data-name="carSeats">
+              <div class="heading-summary">
+                <span class="heading">
+                  Seats
+                </span>
+
+
+                <div class="expand-link" (click)="ExpandSearch('Seats')">xx</div>
+              </div>
+              <div class="element-summary">
+
+              </div>
+              <div class="element-selection">
+                <h5 class="element-selection-title">Seats</h5>
+
+                <div class="range-element">
+                  <div class="range-selection">
+                    <div class="range range-min">
+                      <label>From:</label>
+
+                      <div class="autocomplete-dropdown">
+                        <input matInput placeholder="Select Seat" aria-label="Seat" [matAutocomplete]="fromSeatauto"
+                          [formControl]="FromSeatControl">
+                        <mat-autocomplete #fromSeatauto="matAutocomplete">
+                          <mat-option *ngFor="let option of fromSeatfilteredOptions | async" [value]="option.name">
+                            {{option.name}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </div>
+                    </div>
+                    <div class="range range-max">
+                      <label>To:</label>
+
+                      <div class="aucomplete-dropdown">
+                        <input matInput placeholder="Select Seat" aria-label="Seat" [matAutocomplete]="toSeatAuto"
+                          [formControl]="ToSeatControl">
+                        <mat-autocomplete #toSeatAuto="matAutocomplete">
+                          <mat-option *ngFor="let option of toSeatfilteredOptions | async" [value]="option.name">
+                            {{option.name}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="range-actions">
+                    <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
+                      data-upper-placeholder="<!upper>"
+                      data-expression-url="/cars/?q=Seats.range(%3C!lower%3E..%3C!upper%3E)." data-clear-link=""
+                      (click)="getCarModelLisSeatsRange()">Go</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-element " data-control="aspectnavigationelement" data-name="doors">
+            <div id="expand-Doors" class="nav-element  {{IsExpandDoors}}" data-control="aspectnavigationelement"
+              data-name="carDoors">
+              <div class="heading-summary">
+                <span class="heading">
+                  Doors
+                </span>
+
+
+                <div class="expand-link" (click)="ExpandSearch('Doors')">xx</div>
+              </div>
+              <div class="element-summary">
+              </div>
+              <div class="element-selection">
+                <h5 class="element-selection-title">Doors</h5>
+
+                <div class="aspect-navigation-element" data-aspect-name="Doors">
+
+                  <div class="aspect" data-aspect-name="doors">
+
+                    <div class="autocomplete-dropdown">
+                      <input matInput placeholder="Doors" aria-label="Doors" [matAutocomplete]="Doorsauto"
+                        [formControl]="DoorsControl">
+                      <mat-autocomplete #Doorsauto="matAutocomplete">
+                        <mat-option *ngFor="let option of DoorsfilteredOptions | async" [value]="option.name">
+                          {{option.name}} ({{option.childCount}})
+                        </mat-option>
+                      </mat-autocomplete>
+                    </div>
+
+
+                  </div>
+                  <div class="range-actions">
+                    <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
+                      data-upper-placeholder="<!upper>"
+                      data-expression-url="/cars/?q=Seats.range(%3C!lower%3E..%3C!upper%3E)." data-clear-link=""
+                      (click)="getCarModelListDoors()">Go</button>
+                  </div>
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-element " data-control="aspectnavigationelement" data-name="lifestyles">
+            <div id="expand-LifeStyles" class="nav-element  {{IsExpandLifeStyles}}"
+              data-control="aspectnavigationelement" data-name="carLifeStyles">
+              <div class="heading-summary">
+                <span class="heading">
+                  Lifestyles
+                </span>
+
+
+                <div class="expand-link" (click)="ExpandSearch('LifeStyles')">xx</div>
+              </div>
+              <div class="element-summary">
+              </div>
+              <div class="element-selection">
+                <h5 class="element-selection-title">Lifestyles</h5>
+
+                <div class="aspect-navigation-element" data-aspect-name="Lifestyles">
+
+                  <div class="aspect" data-aspect-name="lifestyles">
+
+
+                    <div class="autocomplete-dropdown">
+                      <input matInput placeholder="LifeStyles" aria-label="LifeStyles"
+                        [matAutocomplete]="LifeStylesauto" [formControl]="LifeStylesControl">
+                      <mat-autocomplete #LifeStylesauto="matAutocomplete">
+                        <mat-option *ngFor="let option of LifeStylesfilteredOptions | async" [value]="option.name">
+                          {{option.name}} ({{option.childCount}})
+                        </mat-option>
+                      </mat-autocomplete>
+                    </div>
+
+
+                  </div>
+                  <div class="range-actions">
+                    <button class="btn-primary btn go" data-lower-placeholder="<!lower>"
+                      data-upper-placeholder="<!upper>"
+                      data-expression-url="/cars/?q=Seats.range(%3C!lower%3E..%3C!upper%3E)." data-clear-link=""
+                      (click)="getCarModelListLifeStyles()">Go</button>
+                  </div>
+
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-element-category category-other" data-category-name="other">
+      <div class="heading-summary">
+        <span class="heading">Other</span>
+        <div class="expand-link"></div>
+      </div>
+      <div class="element-selection">
+        <div class="nav-element " data-control="aspectnavigationelement" data-name="sellertype">
+          <div class="heading-summary">
+            <span class="heading">
+              Seller Type
+            </span>
+
+
+            <div class="expand-link"></div>
+          </div>
+          <div class="element-summary">
+          </div>
+          <div class="element-selection">
+            <h5 class="element-selection-title">Seller Type</h5>
+
+            <div class="aspect-navigation-element" data-aspect-name="SellerType">
+
+              <div class="aspect" data-aspect-name="sellertype">
+
+
+
+
+                <ul class="default-facets">
+                  <li class="facet-visible">
+                    <a href="/cars/dealer/" data-opm-event="click-listings-refinement">Dealer</a>
+
+                    <span>(95,502)</span>
+                  </li>
+                  <li class="facet-visible">
+                    <a href="/cars/private/" data-opm-event="click-listings-refinement">Private</a>
+
+                    <span>(48,078)</span>
+                  </li>
+                </ul>
+
+              </div>
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+        <div class="nav-element " data-control="aspectnavigationelement" data-name="pplateapprovedstate">
+          <div class="heading-summary">
+            <span class="heading">
+              P-Plate Approved State
+            </span>
+
+
+            <div class="expand-link"></div>
+          </div>
+          <div class="element-summary">
+          </div>
+          <div class="element-selection">
+            <h5 class="element-selection-title">P-Plate Approved State</h5>
+
+            <div class="aspect-navigation-element" data-aspect-name="PPlateApprovedState">
+
+              <div class="aspect" data-aspect-name="pplateapprovedstate">
+
+
+
+
+                <ul class="default-facets">
+                  <li class="facet-visible">
+                    <a href="/cars/?q=PPlateApprovedState.Australian+Capital+Territory."
+                      data-opm-event="click-listings-refinement">Australian Capital Territory</a>
+
+                    <span>(143,446)</span>
+                  </li>
+                  <li class="facet-visible">
+                    <a href="/cars/?q=PPlateApprovedState.New+South+Wales."
+                      data-opm-event="click-listings-refinement">New South Wales</a>
+
+                    <span>(123,386)</span>
+                  </li>
+                  <li class="facet-visible">
+                    <a href="/cars/?q=PPlateApprovedState.Northern+Territory."
+                      data-opm-event="click-listings-refinement">Northern Territory</a>
+
+                    <span>(143,446)</span>
+                  </li>
+                  <li class="facet-visible">
+                    <a href="/cars/?q=PPlateApprovedState.Queensland."
+                      data-opm-event="click-listings-refinement">Queensland</a>
+
+                    <span>(121,964)</span>
+                  </li>
+                  <li class="facet-visible">
+                    <a href="/cars/?q=PPlateApprovedState.South+Australia."
+                      data-opm-event="click-listings-refinement">South Australia</a>
+
+                    <span>(125,194)</span>
+                  </li>
+                  <li class="facet-visible">
+                    <a href="/cars/?q=PPlateApprovedState.Tasmania."
+                      data-opm-event="click-listings-refinement">Tasmania</a>
+
+                    <span>(143,446)</span>
+                  </li>
+                  <li class="facet-visible">
+                    <a href="/cars/?q=PPlateApprovedState.Victoria."
+                      data-opm-event="click-listings-refinement">Victoria</a>
+
+                    <span>(127,446)</span>
+                  </li>
+                  <li class="facet-visible">
+                    <a href="/cars/?q=PPlateApprovedState.Western+Australia."
+                      data-opm-event="click-listings-refinement">Western Australia</a>
+
+                    <span>(143,446)</span>
+                  </li>
+                </ul>
+
+              </div>
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+        <div class="nav-element " data-control="aspectnavigationelement" data-name="adswith">
+          <div class="heading-summary">
+            <span class="heading">
+              Only Show Cars With
+            </span>
+
+
+            <div class="expand-link"></div>
+          </div>
+          <div class="element-summary">
+          </div>
+          <div class="element-selection">
+            <h5 class="element-selection-title">Only Show Cars With</h5>
+
+            <div class="aspect-navigation-element" data-aspect-name="AdsWith">
+
+              <div class="aspect" data-aspect-name="adswith">
+
+
+
+
+                <ul class="default-facets">
+                  <li class="facet-visible">
+                    <a href="/cars/?q=AdsWith.CarFacts+Reports." data-opm-event="click-listings-refinement">CarFacts
+                      Reports</a>
+
+                    <span>(1,218)</span>
+                  </li>
+                  <li class="facet-visible">
+                    <a href="/cars/?q=AdsWith.Manufacturer+Certifications."
+                      data-opm-event="click-listings-refinement">Manufacturer Certifications</a>
+
+                    <span>(1,075)</span>
+                  </li>
+                  <li class="facet-visible">
+                    <a href="/cars/?q=AdsWith.Photos." data-opm-event="click-listings-refinement">Photos</a>
+
+                    <span>(137,172)</span>
+                  </li>
+                  <li class="facet-visible">
+                    <a href="/cars/?q=AdsWith.Prices." data-opm-event="click-listings-refinement">Prices</a>
+
+                    <span>(142,342)</span>
+                  </li>
+                  <li class="facet-visible">
+                    <a href="/cars/?q=AdsWith.RedBook+Inspections." data-opm-event="click-listings-refinement">RedBook
+                      Inspections</a>
+
+                    <span>(304)</span>
+                  </li>
+                  <li class="facet-visible">
+                    <a href="/cars/?q=AdsWith.Roadworthy+Certificates."
+                      data-opm-event="click-listings-refinement">Roadworthy Certificates</a>
+
+                    <span>(54,073)</span>
+                  </li>
+                  <li class="facet-visible">
+                    <a href="/cars/?q=AdsWith.Special+Offers." data-opm-event="click-listings-refinement">Special
+                      Offers</a>
+
+                    <span>(10,616)</span>
+                  </li>
+                  <li class="facet-visible">
+                    <a href="/cars/?q=AdsWith.Videos." data-opm-event="click-listings-refinement">Videos</a>
+
+                    <span>(1,915)</span>
+                  </li>
+                </ul>
+
+              </div>
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+        <div class="nav-element " data-control="aspectnavigationelement" data-name="ancaprating">
+          <div class="heading-summary">
+            <span class="heading">
+              ANCAP Safety Rating
+            </span>
+
+
+            <div class="expand-link"></div>
+          </div>
+          <div class="element-summary">
+          </div>
+          <div class="element-selection">
+            <h5 class="element-selection-title">ANCAP Safety Rating</h5>
+
+            <div class="aspect-navigation-element" data-aspect-name="ANCAPRating">
+
+              <div class="aspect" data-aspect-name="ancaprating">
+
+
+
+
+                <ul class="default-facets">
+                  <li class="facet-visible">
+                    <a href="/cars/?q=ANCAPRating.3+stars+or+more." data-opm-event="click-listings-refinement">3 stars
+                      or more</a>
+
+                    <span>(102,456)</span>
+                  </li>
+                  <li class="facet-visible">
+                    <a href="/cars/?q=ANCAPRating.4+stars+or+more." data-opm-event="click-listings-refinement">4 stars
+                      or more</a>
+
+                    <span>(99,836)</span>
+                  </li>
+                  <li class="facet-visible">
+                    <a href="/cars/?q=ANCAPRating.5+stars+only." data-opm-event="click-listings-refinement">5 stars
+                      only</a>
+
+                    <span>(88,637)</span>
+                  </li>
+                  <li class="facet-visible">
+                    <a href="/cars/?q=ANCAPRating.less+than+3+stars." data-opm-event="click-listings-refinement">less
+                      than 3 stars</a>
+
+                    <span>(343)</span>
+                  </li>
+                </ul>
+
+              </div>
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+        <div class="nav-element " data-control="aspectnavigationelement" data-name="sales">
+          <div class="heading-summary">
+            <span class="heading">
+              Special Offers
+            </span>
+
+
+            <div class="expand-link"></div>
+          </div>
+          <div class="element-summary">
+          </div>
+          <div class="element-selection">
+            <h5 class="element-selection-title">Special Offers</h5>
+
+            <div class="aspect-navigation-element" data-aspect-name="Sales">
+
+              <div class="aspect" data-aspect-name="sales">
+
+
+
+
+              </div>
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </section>
