@@ -1,5 +1,6 @@
 
-<form [formGroup]="myForm" (ngSubmit)="submit()">
+<!-- <form [formGroup]="myForm" (ngSubmit)="submit()">
+
 <div class="contact-2 content-area-5">
    
     <div class="container">
@@ -73,7 +74,7 @@
    
 
            
-            <!-- <div class="d-block"><span class="popular-model-div">Popular Models</span></div> -->
+         
             <div class="col-md-12 p-0 innerRow">
                 <div class="innerRow">
                     <div class="row ml-0">
@@ -125,15 +126,7 @@
 </div>
 
 <div class="col-md-7 p-0" style="margin-top: 50px;">
-    <!-- <select *ngIf="pricedrop" formControlName="price" (change)='ChangePrice()' class="form-control drp-add-new-car" 
-    #selectPrice>
-        <option selected  disabled value="">Select Price*</option>
-        <option  value="Other">Other</option>
-        <option *ngFor="let sort of AddNewCarListModel.Price" 
-        [value]="sort.price">
-        {{sort.price}}
-    </option>
-    </select> -->
+   
     <input type="number"  name="price" 
     formControlName="price" 
     class="form-control" (change)="moveNextStep4()" placeholder="Price*" #price>
@@ -155,17 +148,7 @@
             </span>
         </div>
         <div class="col-md-7 p-0" >
-            <!-- <select formControlName="kilometer"  (change)='getVarientList(selectModal.value)'  class="form-control drp-add-new-car" 
-            #selectKilometer>
-                <option selected  disabled value="">Select Kilometer driven*</option>
-               
-                <option value="1000">> 1000</option>
-                <option value="2500">> 2500</option>
-                <option value="5000">> 5000</option>
-                <option value="10000">> 10000</option>
-                <option value="Other">Other</option>
-            </select> -->
-
+           
             <input type="text"  name="kilometer"
             formControlName="kilometer"
          class="form-control"  placeholder="Kilometer driven*" #kilometer>
@@ -411,27 +394,27 @@
 </div>
 
 
-<!-- The Modal -->
+
 <div class="modal fade" id="myModal">
     <div class="modal-dialog">
       <div class="modal-content">
   
-        <!-- Modal Header -->
+       
         <div class="modal-header">
           <h4 class="modal-title">Validation Summary</h4>
           <button type="button" class="close" (click)="hideModal()">&times;</button>
         </div>
   
-        <!-- Modal body -->
+       
         <div class="modal-body" id='modalValidation' [innerHTML]="BindValidationSummary">
           
         </div>
-        <!-- Modal footer -->
+      
         <div class="modal-footer">
          
           <button type="button" class="btn btn-danger" (click)="hideModal()">Close</button>
   
-          <!-- this button is hidden, used to close from typescript -->
+         
           <button type="button" id="close-modal" data-dismiss="modal" style="display: none">Close</button>
         </div>
       </div>
@@ -442,4 +425,162 @@
 
 
     </div>
-</div></form>
+</div></form> -->
+
+<div class="contact-2 content-area-5">
+    <div class="container">
+<h3 >Add Vehicle</h3>
+<div>
+    <button [disabled]="activeIndex==0" (click)="MovePrevious(activeIndex)" class="btn btn-primary nextBtn pull-left" type="button"
+    >
+    Previous
+    </button>
+    <button  class="btn btn-primary nextBtn pull-right"
+    type="button" (click)="MoveNext(activeIndex)">
+    {{activeIndex === 4 ? 'Submit' : 'Next'}}
+    </button>
+    </div>
+<div class="step-wizard">
+<p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false"></p-steps>
+</div>
+<div class="row">
+<div id="step-1" class="panel panel-primary setup-content" *ngIf="activeIndex==0">
+    <!--!-->
+    <div class="panel-heading"><h3 class="panel-title" style="font-weight: bold;">Select Your Car Make</h3></div>
+    <div class="panel-body">
+        <ul class="row C7tbs">
+            <li class="_3kV4n">
+                <div class="text-center _1X3Cw _2GMt3"><img data-title="Maruti Suzuki" src="img/carimages/maruti-suzuki.png" alt="Maruti Suzuki" class="img-fluid _1jMfy" /></div>
+            </li>
+            <li class="_3kV4n">
+                <div class="text-center _1X3Cw"><img data-title="Hyundai" src="img/carimages/hyundai.png" alt="Maruti Suzuki" class="img-fluid _1jMfy" /></div>
+            </li>
+            <li class="_3kV4n">
+                <div class="text-center _1X3Cw"><img data-title="Honda" src="img/carimages/Honda.png" alt="Maruti Suzuki" class="img-fluid _1jMfy" /></div>
+            </li>
+            <li class="_3kV4n">
+                <div class="text-center _1X3Cw"><img data-title="tata" src="img/carimages/tata.png" alt="Maruti Suzuki" class="img-fluid _1jMfy" /></div>
+            </li>
+            <li class="_3kV4n">
+                <div class="text-center _1X3Cw"><img data-title="toyota" src="img/carimages/toyota.png" alt="Maruti Suzuki" class="img-fluid _1jMfy" /></div>
+            </li>
+            <li class="_3kV4n">
+                <div class="text-center _1X3Cw"><img data-title="chevrolet" src="img/carimages/chevrolet.png" alt="Maruti Suzuki" class="img-fluid _1jMfy" /></div>
+            </li>
+            <li class="_3kV4n">
+                <div class="text-center _1X3Cw"><img data-title="ford" src="img/carimages/ford.png" alt="Maruti Suzuki" class="img-fluid _1jMfy" /></div>
+            </li>
+            <li class="_3kV4n">
+                <div class="text-center _1X3Cw"><img data-title="mahindra" src="img/carimages/mahindra.png" alt="Maruti Suzuki" class="img-fluid _1jMfy" /></div>
+            </li>
+            <li class="_3kV4n">
+                <div class="text-center _1X3Cw"><img data-title="skoda" src="img/carimages/skoda.png" alt="Maruti Suzuki" class="img-fluid _1jMfy" /></div>
+            </li>
+            <li class="_3kV4n">
+                <div class="text-center _1X3Cw"><img data-title="volkswagen" src="img/carimages/volkswagen.png" alt="Maruti Suzuki" class="img-fluid _1jMfy" /></div>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+
+<div id="step-2" class="panel panel-primary setup-content" *ngIf="activeIndex==1">
+
+
+    <!--!-->
+    <div class="panel-heading"><h3 class="panel-title" style="font-weight: bold;">Select Model, Varient, Color</h3></div>
+    <div class="panel-body">
+        <div class="form-group">
+            <h4>Select Model</h4>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" placeholder="Select a Model" optionLabel="name"
+                [showClear]="true"></p-dropdown>
+        </div>
+        <div class="form-group">
+            <h4>Select Varient</h4>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" placeholder="Select a Varient" optionLabel="name"
+                [showClear]="true"></p-dropdown>
+        </div>
+        <div class="form-group">
+            <h4>Select Color</h4>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" optionLabel="name" [filter]="true" filterBy="name"
+            [showClear]="true" placeholder="Select a Color">
+            <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value" *ngIf="selectedCity1">
+                    <div>{{selectedCity1.name}}</div>
+                </div>
+            </ng-template>
+            <ng-template let-country pTemplate="itemsS">
+                <div class="country-item">
+                  
+                    <div>  <span style="background-color: blue; color: blue;">test</span> {{country.name}}</div>
+                </div>
+            </ng-template>
+        </p-dropdown>
+        </div>
+    </div>
+</div>
+
+<div id="step-3" class="panel panel-primary setup-content" *ngIf="activeIndex==2">
+
+    <!--!-->
+    <div class="panel-heading"><h3 class="panel-title" style="font-weight: bold;">Select Price, Year, KM Driven</h3></div>
+    <div class="panel-body">
+        <div class="form-group">
+            <h4>Select Price</h4>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" placeholder="Select a Price" optionLabel="name"
+                [showClear]="true"></p-dropdown>
+        </div>
+        <div class="form-group">
+            <h4>Select Year</h4>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" placeholder="Select a Year" optionLabel="name"
+                [showClear]="true"></p-dropdown>
+        </div>
+        <div class="form-group">
+            <h4>Select Km Driven</h4>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" placeholder="Select a Km Driven" optionLabel="name"
+            [showClear]="true"></p-dropdown>
+        </div>
+    </div>
+</div>
+
+<div id="step-4" class="panel panel-primary setup-content" *ngIf="activeIndex==3">
+
+    <!--!-->
+    <div class="panel-heading"><h3 class="panel-title" style="font-weight: bold;">Select Ownership, Saller Name, Contact Detail</h3></div>
+    <div class="panel-body">
+        <div class="form-group">
+            <h4>Select Ownership</h4>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" placeholder="Select a Ownership" optionLabel="name"
+                [showClear]="true"></p-dropdown>
+        </div>
+        <div class="form-group">
+            <h4>Saller Name</h4>
+            <input type="text" pInputText class="p-inputtext-lg" placeholder="Saller Name">
+        </div>
+        <div class="form-group">
+            <h4>Select Km Driven</h4>
+            <input type="text" pInputText class="p-inputtext-lg" placeholder="Select Km Driven">
+        </div>
+    </div>
+</div>
+
+
+<div id="step-4" class="panel panel-primary setup-content" *ngIf="activeIndex==4">
+
+    <!--!-->
+    <div class="panel-heading"><h3 class="panel-title" style="font-weight: bold;">Upload Images, Add Description</h3></div>
+    <div class="panel-body">
+        <div class="form-group">
+            <h4>Select Car Image</h4>
+            <p-fileUpload name="myfile[]" url="./upload.php" multiple="true"></p-fileUpload>
+        </div>
+        <div class="form-group">
+            <h4>Description</h4>
+            <textarea id="float-input" name="txtdescription" rows="3" cols="200" pInputTextarea placeholder="Description"></textarea>
+                
+        </div>
+        
+    </div>
+</div>
+</div>
+</div>

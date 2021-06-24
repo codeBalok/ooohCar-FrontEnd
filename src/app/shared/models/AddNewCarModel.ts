@@ -19,6 +19,10 @@ export class AddNewCarListModel {
     Kilometer:string;
     enginesize:CommonModel;
 }
+export class City {
+    name: string;
+    code: string;
+  }
 
 export class addvehicleForm {
     Id: string = "0";

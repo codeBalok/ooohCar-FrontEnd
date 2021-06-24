@@ -11,9 +11,6 @@ import { CommonService } from '../Common/CommonService';
     providedIn: 'root'
   })
 
-
-
-
   export class sellusedcarService {
     baseUrl = environment.apiUrl;
 
@@ -61,10 +58,7 @@ import { CommonService } from '../Common/CommonService';
       GetEngineSizeList() {
         return this.http.get<any>(this.baseUrl + 'AddVehicle/GetEngineSizeList');
       }
-
       AddUpdateNewVehicle(VehicleVM: addvehicleForm) {
-        console.log(VehicleVM);
-        debugger;
         const formData = new FormData();
         formData.append('MakeId', VehicleVM.MakeId);
         formData.append('YearId', VehicleVM.YearId);
@@ -82,7 +76,6 @@ import { CommonService } from '../Common/CommonService';
         formData.append('AuctionGrade', VehicleVM.AuctionGrade);
         formData.append('LocationId', VehicleVM.LocationId);
         formData.append('ColourId', VehicleVM.ColourId);
-        // formData.append('VehicleImage', VehicleVM.VehicleImage);
         VehicleVM.VehicleImage.forEach((f) => formData.append('VehicleImage', f));
         formData.append('file', VehicleVM.VehicleImage);
         formData.append('Latitude', VehicleVM.lat);

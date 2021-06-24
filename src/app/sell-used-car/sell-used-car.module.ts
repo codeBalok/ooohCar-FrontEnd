@@ -10,7 +10,10 @@ import { BlogModule } from '../blog/blog.module';
 import { HeaderModule } from '../header/header.module';
 import { FooterModule } from '../footer/footer.module';
 import { SharedModule } from '../shared/shared.module';
-
+import { StepsModule } from 'primeng/steps';
+import {DropdownModule} from 'primeng/dropdown';
+import {InputTextModule} from 'primeng/inputtext';
+import {FileUploadModule} from 'primeng/fileupload';
 @NgModule({
   declarations: [SellUsedCarComponent],
   imports: [
@@ -23,7 +26,11 @@ import { SharedModule } from '../shared/shared.module';
     FooterModule,
     CommonModule,
     HeaderModule,
-    SharedModule
+    SharedModule,
+    StepsModule,
+    DropdownModule,
+    InputTextModule,
+    FileUploadModule
   ],
   exports: [SellUsedCarComponent]
 })
